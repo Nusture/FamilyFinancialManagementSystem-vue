@@ -1,196 +1,287 @@
 <template>
-    <div>
-        <div class="crumbs">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item>
-                    <i class="el-icon-lx-cascades"></i> 基础表格
-                </el-breadcrumb-item>
-            </el-breadcrumb>
-        </div>
-        <div class="container">
-            <div class="handle-box">
-                <el-select v-model="query.address" placeholder="地址" class="handle-select mr10">
-                    <el-option key="1" label="广东省" value="广东省"></el-option>
-                    <el-option key="2" label="湖南省" value="湖南省"></el-option>
-                </el-select>
-                <el-input v-model="query.name" placeholder="用户名" class="handle-input mr10"></el-input>
-                <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
-            </div>
-            <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
-                <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-                <el-table-column prop="name" label="用户名"></el-table-column>
-                <el-table-column label="账户余额">
-                    <template #default="scope">￥{{ scope.row.money }}</template>
-                </el-table-column>
-                <el-table-column label="头像(查看大图)" align="center">
-                    <template #default="scope">
-                        <el-image class="table-td-thumb" :src="scope.row.thumb" :preview-src-list="[scope.row.thumb]">
-                        </el-image>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="address" label="地址"></el-table-column>
-                <el-table-column label="状态" align="center">
-                    <template #default="scope">
-                        <el-tag :type="
-                                scope.row.state === '成功'
-                                    ? 'success'
-                                    : scope.row.state === '失败'
-                                    ? 'danger'
-                                    : ''
-                            ">{{ scope.row.state }}</el-tag>
-                    </template>
-                </el-table-column>
-
-                <el-table-column prop="date" label="注册时间"></el-table-column>
-                <el-table-column label="操作" width="180" align="center">
-                    <template #default="scope">
-                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑
-                        </el-button>
-                        <el-button type="text" icon="el-icon-delete" class="red"
-                            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
-            <div class="pagination">
-                <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex"
-                    :page-size="query.pageSize" :total="pageTotal" @current-change="handlePageChange"></el-pagination>
-            </div>
-        </div>
-
-        <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" v-model="editVisible" width="30%">
-            <el-form label-width="70px">
-                <el-form-item label="用户名">
-                    <el-input v-model="form.name"></el-input>
-                </el-form-item>
-                <el-form-item label="地址">
-                    <el-input v-model="form.address"></el-input>
-                </el-form-item>
-            </el-form>
-            <template #footer>
-                <span class="dialog-footer">
-                    <el-button @click="editVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="saveEdit">确 定</el-button>
-                </span>
-            </template>
-        </el-dialog>
+  <div class="BaseTable">
+    <div class="title">
+      <span class="title_txt">用户管理模块</span>
+      <span class="btn">
+        <el-button type="primary" icon="el-icon-plus" size="small" @click="editVisible = true">新增</el-button>
+      </span>
     </div>
+    <div class="table">
+      <el-table
+        v-loading="loading"
+        element-loading-text="数据加载中"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(248, 248, 255, 1)"
+        border
+        :data="datalist"
+        size="mini"
+        max-height="400"
+        highlight-current-row
+        fit
+      >
+        <el-table-column type="selection" width="55" align="center" />
+        <template v-for="(item, index) in tableHead">
+          <el-table-column :label="item.column_comment" :prop="item.column_name" align="center"></el-table-column>
+        </template>
+        <el-table-column fixed="right" label="操作" align="center">
+          <template #default="scope">
+            <el-button size="mini" type="text" icon="el-icon-edit" @click="edit(scope.row)">修改</el-button>
+            <el-button size="mini" type="text" icon="el-icon-delete" @click="remove(scope.row,scope.$index)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pag">
+        <Pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" />
+      </div>
+    </div>
+
+    <!-- 编辑弹出框 -->
+    <el-dialog title="编辑" v-model="editVisible" width="70%">
+      <el-form label-width="80px" ref="formref" :model="form" :rules="rules">
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="年龄" prop="age">
+              <el-input v-model="form.age"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="收入" prop="income">
+              <el-input v-model="form.income"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="支出" prop="outlay">
+              <el-input v-model="form.outlay"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="在职状态" prop="status">
+              <el-input v-model="form.status"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="婚配">
+              <el-input v-model="form.marry"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="毕业院校">
+              <el-input v-model="form.school"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="毕业时间">
+              <el-input v-model="form.graduate"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="editVisible = false">取 消</el-button>
+          <el-button type="primary" @click="saveEdit()">确 定</el-button>
+        </span>
+      </template>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
-import { ref, reactive } from "vue";
-import { ElMessage, ElMessageBox } from "element-plus";
-import { fetchData } from "../api/index";
+import { ref, reactive, toRefs } from 'vue';
+import { ElMessage, ElMessageBox } from 'element-plus';
+import { fetchData } from '../api/index';
+import Pagination from '../components/Pagination/index.vue';
+// import { Plus, Apple } from './element-plus/icons';
 
 export default {
-    name: "basetable",
-    setup() {
-        const query = reactive({
-            address: "",
-            name: "",
-            pageIndex: 1,
-            pageSize: 10,
-        });
-        const tableData = ref([]);
-        const pageTotal = ref(0);
-        // 获取表格数据
-        const getData = () => {
-            fetchData(query).then((res) => {
-                tableData.value = res.list;
-                pageTotal.value = res.pageTotal || 50;
-            });
-        };
-        getData();
-
-        // 查询操作
-        const handleSearch = () => {
-            query.pageIndex = 1;
-            getData();
-        };
-        // 分页导航
-        const handlePageChange = (val) => {
-            query.pageIndex = val;
-            getData();
-        };
-
-        // 删除操作
-        const handleDelete = (index) => {
-            // 二次确认删除
-            ElMessageBox.confirm("确定要删除吗？", "提示", {
-                type: "warning",
-            })
-                .then(() => {
-                    ElMessage.success("删除成功");
-                    tableData.value.splice(index, 1);
-                })
-                .catch(() => {});
-        };
-
-        // 表格编辑时弹窗和保存
-        const editVisible = ref(false);
-        let form = reactive({
-            name: "",
-            address: "",
-        });
-        let idx = -1;
-        const handleEdit = (index, row) => {
-            idx = index;
-            Object.keys(form).forEach((item) => {
-                form[item] = row[item];
-            });
-            editVisible.value = true;
-        };
-        const saveEdit = () => {
-            editVisible.value = false;
-            ElMessage.success(`修改第 ${idx + 1} 行成功`);
-            Object.keys(form).forEach((item) => {
-                tableData.value[idx][item] = form[item];
-            });
-        };
-
-        return {
-            query,
-            tableData,
-            pageTotal,
-            editVisible,
-            form,
-            handleSearch,
-            handlePageChange,
-            handleDelete,
-            handleEdit,
-            saveEdit,
-        };
-    },
+  name: 'basetable',
+  components: {
+    Pagination
+  },
+  setup() {
+    const state = reactive({
+      loading: false,
+      total: 10,
+      editVisible: false,
+      listQuery: {
+        page: 1,
+        limit: 10
+      },
+      datalist: [
+        {
+          id: 1,
+          name: '我',
+          age: '18',
+          income: '1000',
+          outlay: '2000',
+          status: '在职',
+          marry: '未婚',
+          school: '九江学院',
+          graduate: '2020'
+        },
+        {
+          id: 2,
+          name: '爸爸',
+          age: '38',
+          income: '1000',
+          outlay: '2000',
+          status: '在职',
+          marry: '已婚',
+          school: '南昌大学',
+          graduate: '2020'
+        },
+        {
+          id: 3,
+          name: '妈妈',
+          age: '36',
+          income: '1000',
+          outlay: '2000',
+          status: '在职',
+          marry: '已婚',
+          school: '江西财经大学',
+          graduate: '2020'
+        },
+        {
+          id: 4,
+          name: '姐姐',
+          age: '20',
+          income: '1000',
+          outlay: '2000',
+          status: '在职',
+          marry: '未婚',
+          school: '复旦大学',
+          graduate: '2020'
+        }
+      ],
+      tableHead: [
+        { column_name: 'name', column_comment: '姓名' },
+        { column_name: 'age', column_comment: '年龄' },
+        { column_name: 'income', column_comment: '收入' },
+        { column_name: 'outlay', column_comment: '支出' },
+        { column_name: 'status', column_comment: '在职状态' },
+        { column_name: 'marry', column_comment: '婚配' },
+        { column_name: 'school', column_comment: '毕业院校' },
+        { column_name: 'graduate', column_comment: '毕业时间' }
+      ],
+      form: {
+        name: '',
+        age: '',
+        income: '',
+        outlay: '',
+        status: '',
+        marry: '',
+        school: '',
+        graduate: ''
+      },
+      rules: {
+        name: [
+          {
+            required: true,
+            message: '请输入姓名',
+            trigger: 'blur'
+          }
+        ],
+        age: [
+          {
+            required: true,
+            message: '请输入年龄',
+            trigger: 'blur'
+          }
+        ],
+        income: [
+          {
+            required: true,
+            message: '请输入收入',
+            trigger: 'blur'
+          }
+        ],
+        outlay: [
+          {
+            required: true,
+            message: '请输入支出',
+            trigger: 'blur'
+          }
+        ],
+        status: [
+          {
+            required: true,
+            message: '请输入在职状态',
+            trigger: 'blur'
+          }
+        ]
+      }
+    });
+    const edit = scope => {
+      console.log(scope, 'item');
+    };
+    // 提交验证
+    const formref = ref(null);
+    const saveEdit = () => {
+      formref.value.validate(valid => {
+        if (valid) {
+          const param = {
+            name: state.form.name,
+            age: state.form.age,
+            income: state.form.income,
+            outlay: state.form.outlay,
+            status: state.form.status,
+            marry: state.form.marry,
+            school: state.form.school,
+            graduate: state.form.graduate
+          };
+          state.datalist.push(param);
+          state.editVisible = false;
+        } else {
+          console.log('error submit');
+          return false;
+        }
+      });
+    };
+    const remove = (row, index) => {
+      console.log(index, 'index');
+      state.datalist.splice(row.id, 1);
+    };
+    return {
+      ...toRefs(state),
+      edit,
+      saveEdit,
+      formref,
+      remove
+    };
+  }
 };
 </script>
 
 <style scoped>
-.handle-box {
-    margin-bottom: 20px;
-}
-
-.handle-select {
-    width: 120px;
-}
-
-.handle-input {
-    width: 300px;
-    display: inline-block;
+.BaseTable {
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid red; */
 }
 .table {
-    width: 100%;
-    font-size: 14px;
+  /* border: 1px solid red; */
 }
-.red {
-    color: #ff0000;
+.pag {
+  text-align: center;
 }
-.mr10 {
-    margin-right: 10px;
+.title {
+  display: flex;
+  height: 40px;
+  line-height: 40px;
 }
-.table-td-thumb {
-    display: block;
-    margin: auto;
-    width: 40px;
-    height: 40px;
+
+.title_txt {
+  font-size: 16px;
+  font-weight: bold;
+  flex: 1;
+}
+.btn {
+  text-align: right;
+  flex: 1;
 }
 </style>

@@ -8,6 +8,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@antv/g2plot": "^2.3.40",
     "axios": "^0.21.1",
     "element-plus": "1.0.2-beta.52",
     "path": "^0.12.7",
@@ -21,6 +22,8 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.2.3",
     "@vue/compiler-sfc": "^3.1.2",
+    "node-sass": "^6.0.1",
+    "sass-loader": "^7.3.1",
     "vite": "2.3.7"
   },
   "browserslist": [
