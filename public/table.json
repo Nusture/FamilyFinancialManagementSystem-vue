@@ -1,39 +1,58 @@
 {
-    "list": [{
+    "list": [
+        {
             "id": 1,
-            "name": "张三",
-            "money": 123,
-            "address": "广东省东莞市长安镇",
+            "name": "方青华",
+            "money": 6618,
+            "address": "江西省上饶市鄱阳县",
             "state": "成功",
-            "date": "2019-11-1",
-            "thumb": "https://lin-xin.gitee.io/images/post/wms.png"
+            "date": "2021-11-25",
+            "thumb": "./src/assets/img/admin.jpg"
         },
         {
             "id": 2,
-            "name": "李四",
-            "money": 456,
-            "address": "广东省广州市白云区",
+            "name": "徐游滨",
+            "money": 6618,
+            "address": "江西省上饶市鄱阳县",
             "state": "成功",
-            "date": "2019-10-11",
-            "thumb": "https://lin-xin.gitee.io/images/post/node3.png"
+            "date": "2021-11-25",
+            "thumb": "./src/assets/img/admin.jpg"
         },
         {
             "id": 3,
-            "name": "王五",
-            "money": 789,
-            "address": "湖南省长沙市",
-            "state": "失败",
-            "date": "2019-11-11",
-            "thumb": "https://lin-xin.gitee.io/images/post/parcel.png"
+            "name": "徐旺忠",
+            "money": 6618,
+            "address": "江西省上饶市鄱阳县",
+            "state": "成功",
+            "date": "2021-11-25",
+            "thumb": "./src/assets/img/admin.jpg"
         },
         {
             "id": 4,
-            "name": "赵六",
-            "money": 1011,
-            "address": "福建省厦门市鼓浪屿",
+            "name": "许博飞",
+            "money": 6618,
+            "address": "江西省抚州市",
             "state": "成功",
-            "date": "2019-10-20",
-            "thumb": "https://lin-xin.gitee.io/images/post/notice.png"
+            "date": "2021-11-25",
+            "thumb": "./src/assets/img/admin.jpg"
+        },
+        {
+            "id": 5,
+            "name": "江子鑫",
+            "money": 6618,
+            "address": "江西省九江市都昌县",
+            "state": "成功",
+            "date": "2021-11-25",
+            "thumb": "./src/assets/img/admin.jpg"
+        },
+        {
+            "id": 6,
+            "name": "黄帅",
+            "money": 6618,
+            "address": "江西省萍乡市",
+            "state": "成功",
+            "date": "2021-11-25",
+            "thumb": "./src/assets/img/admin.jpg"
         }
     ],
     "pageTotal": 4

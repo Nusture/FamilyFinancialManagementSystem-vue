@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="crumbs">
+        <!-- <div class="crumbs">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
                     <i class="el-icon-lx-redpacket_fill"></i> 支持作者
@@ -12,7 +12,7 @@
             <div>
                 <img src="https://lin-xin.gitee.io/images/weixin.jpg" />
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 

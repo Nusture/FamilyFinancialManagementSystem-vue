@@ -21,50 +21,57 @@ const routes = [
                 path: "/table",
                 name: "basetable",
                 meta: {
-                    title: '表格'
+                    title: '用户管理'
                 },
                 component: () => import ( /* webpackChunkName: "table" */ "../views/BaseTable.vue")
-            }, {
-                path: "/charts",
-                name: "basecharts",
-                meta: {
-                    title: '图表'
-                },
-                component: () => import ( /* webpackChunkName: "charts" */ "../views/BaseCharts.vue")
-            }, {
-                path: "/form",
-                name: "baseform",
-                meta: {
-                    title: '表单'
-                },
-                component: () => import ( /* webpackChunkName: "form" */ "../views/BaseForm.vue")
-            }, {
+            }, 
+            
+            // {
+            //     path: "/form",
+            //     name: "baseform",
+            //     meta: {
+            //         title: '表单'
+            //     },
+            //     component: () => import ( /* webpackChunkName: "form" */ "../views/BaseForm.vue")
+            // },
+             {
                 path: "/tabs",
                 name: "tabs",
                 meta: {
-                    title: 'tab标签'
+                    title: '资产明细'
                 },
                 component: () => import ( /* webpackChunkName: "tabs" */ "../views/Tabs.vue")
-            }, {
+            }, 
+            {
                 path: "/donate",
                 name: "donate",
                 meta: {
-                    title: '鼓励作者'
+                    title: '支出、收入数据展示'
                 },
                 component: () => import ( /* webpackChunkName: "donate" */ "../views/Donate.vue")
-            }, {
-                path: "/permission",
-                name: "permission",
+            },
+            {
+                path: "/charts",
+                name: "basecharts",
                 meta: {
-                    title: '权限管理',
-                    permission: true
+                    title: '搜索'
                 },
-                component: () => import ( /* webpackChunkName: "permission" */ "../views/Permission.vue")
-            }, {
+                component: () => import ( /* webpackChunkName: "charts" */ "../views/BaseCharts.vue")
+            }, 
+            //  {
+            //     path: "/permission",
+            //     name: "permission",
+            //     meta: {
+            //         title: '权限管理',
+            //         permission: true
+            //     },
+            //     component: () => import ( /* webpackChunkName: "permission" */ "../views/Permission.vue")
+            // },
+             {
                 path: "/i18n",
                 name: "i18n",
                 meta: {
-                    title: '国际化语言'
+                    title: '月、年收入模块'
                 },
                 component: () => import ( /* webpackChunkName: "i18n" */ "../views/I18n.vue")
             }, {
@@ -78,11 +85,11 @@ const routes = [
                 path: "/icon",
                 name: "icon",
                 meta: {
-                    title: '自定义图标'
+                    title: '日、月、年支出'
                 },
                 component: () => import ( /* webpackChunkName: "icon" */ "../views/Icon.vue")
             }, {
-                path: '/404',
+                path: '/:pathMatch(.*)',
                 name: '404',
                 meta: {
                     title: '找不到页面'
@@ -127,7 +134,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    document.title = `${to.meta.title} | vue-manage-system`;
+    // document.title = `${to.meta.title} | vue-manage-system`;
     const role = localStorage.getItem('ms_username');
     if (!role && to.path !== '/login') {
         next('/login');

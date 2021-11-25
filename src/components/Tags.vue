@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { onBeforeRouteUpdate, useRoute, useRouter } from "vue-router";
 export default {
@@ -97,6 +97,9 @@ export default {
         //     $router: router,
         //     $route: route
         // });
+        onMounted(() =>{
+            console.log(tagsList,110)
+        })
 
         return {
             isActive,

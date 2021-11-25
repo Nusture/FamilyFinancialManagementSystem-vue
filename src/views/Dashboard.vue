@@ -4,7 +4,7 @@
             <el-col :span="8">
                 <el-card shadow="hover" class="mgb20" style="height:252px;">
                     <div class="user-info">
-                        <img src="../assets/img/img.jpg" class="user-avator" alt />
+                        <img src="../assets/img/admin.jpg" class="user-avator" alt />
                         <div class="user-info-cont">
                             <div class="user-info-name">{{ name }}</div>
                             <div>{{ role }}</div>
@@ -25,10 +25,10 @@
                             <span>语言详情</span>
                         </div>
                     </template>
-                    Vue
-                    <el-progress :percentage="71.3" color="#42b983"></el-progress>JavaScript
-                    <el-progress :percentage="24.1" color="#f1e05a"></el-progress>CSS
-                    <el-progress :percentage="13.7"></el-progress>HTML
+                    璀璨钻石
+                    <el-progress :percentage="71.3" color="#42b983"></el-progress>流光翡翠
+                    <el-progress :percentage="24.1" color="#f1e05a"></el-progress>华贵铂金
+                    <el-progress :percentage="13.7"></el-progress>荣耀黄金
                     <el-progress :percentage="5.9" color="#f56c6c"></el-progress>
                 </el-card>
             </el-col>
@@ -102,12 +102,12 @@
         <el-row :gutter="20">
             <el-col :span="12">
                 <el-card shadow="hover">
-                    <schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>
+                    <!-- <schart ref="bar" class="schart" canvasId="bar" :options="options"></schart> -->
                 </el-card>
             </el-col>
             <el-col :span="12">
                 <el-card shadow="hover">
-                    <schart ref="line" class="schart" canvasId="line" :options="options2"></schart>
+                    <!-- <schart ref="line" class="schart" canvasId="line" :options="options2"></schart> -->
                 </el-card>
             </el-col>
         </el-row>
@@ -115,11 +115,11 @@
 </template>
 
 <script>
-import Schart from "vue-schart";
+// import Schart from "vue-schart";
 import { reactive } from "vue";
 export default {
     name: "dashboard",
-    components: { Schart },
+    // components: { Schart },
     setup() {
         const name = localStorage.getItem("ms_username");
         const role = name === "admin" ? "超级管理员" : "普通用户";
@@ -199,7 +199,7 @@ export default {
         };
         const todoList = reactive([
             {
-                title: "今天要修复100个bug",
+                title: "今天上钻石",
                 status: false,
             },
             {
