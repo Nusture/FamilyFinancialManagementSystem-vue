@@ -100,21 +100,6 @@ export default {
         index: '/i18n',
         title: '月、年收入模块'
       },
-      // {
-      //     icon: "el-icon-lx-warn",
-      //     index: "7",
-      //     title: "错误处理",
-      //     subs: [
-      //         {
-      //             index: "/permission",
-      //             title: "权限测试",
-      //         },
-      //         {
-      //             index: "/404",
-      //             title: "404页面",
-      //         },
-      //     ],
-      // },
       {
         icon: 'el-icon-lx-redpacket_fill',
         index: '/donate',
@@ -124,6 +109,21 @@ export default {
         icon: 'el-icon-pie-chart',
         index: '/charts',
         title: '搜索'
+      },
+      {
+        icon: 'el-icon-s-tools',
+        index: '7',
+        title: '系统管理',
+        subs: [
+          {
+            index: '/permission',
+            title: '权限测试'
+          },
+          {
+            index: '/404',
+            title: '404页面'
+          }
+        ]
       }
     ];
 
@@ -149,7 +149,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 .sidebar {
   display: block;
   position: absolute;
@@ -181,7 +181,16 @@ export default {
   color: var(--color) !important;
   /* color: var(--color) !important; */
 }
-.el-menu-item i {
+.el-menu-item i,
+.el-submenu__title i {
+  color: var(--color) !important;
+}
+.el-submenu,
+.is-opened,
+.menubtn,
+.el-submenu__title,
+.el-menu-item {
+  background-color: var(--bg) !important;
   color: var(--color) !important;
 }
 </style>

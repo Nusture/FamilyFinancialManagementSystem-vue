@@ -58,15 +58,15 @@ const routes = [
                 },
                 component: () => import ( /* webpackChunkName: "charts" */ "../views/BaseCharts.vue")
             }, 
-            //  {
-            //     path: "/permission",
-            //     name: "permission",
-            //     meta: {
-            //         title: '权限管理',
-            //         permission: true
-            //     },
-            //     component: () => import ( /* webpackChunkName: "permission" */ "../views/Permission.vue")
-            // },
+             {
+                path: "/permission",
+                name: "permission",
+                meta: {
+                    title: '权限管理',
+                    permission: true
+                },
+                component: () => import ( /* webpackChunkName: "permission" */ "../views/Permission.vue")
+            },
              {
                 path: "/i18n",
                 name: "i18n",

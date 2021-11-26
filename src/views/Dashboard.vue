@@ -42,12 +42,19 @@ import Line from './components/LineG2.vue';
 import Column from './components/Column.vue';
 import Pie from './components/PieG2.vue';
 import Area from './components/AreaG2.vue';
+import { cardDragger } from 'carddragger';
+import { reactive, toRefs } from '@vue/reactivity';
 // import { reactive } from 'vue';
 export default {
   name: 'dashboard',
-  components: { Line, Column, Pie, Area },
+  components: { Line, Column, Pie, Area, cardDragger },
   setup() {
-    return {};
+    const state = reactive({
+      drag: false
+    });
+    return {
+      ...toRefs(state)
+    };
   }
 };
 </script>

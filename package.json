@@ -10,6 +10,7 @@
   "dependencies": {
     "@antv/g2plot": "^2.3.40",
     "axios": "^0.21.1",
+    "carddragger": "^0.3.6",
     "element-plus": "1.0.2-beta.52",
     "font-awesome": "^4.7.0",
     "path": "^0.12.7",
