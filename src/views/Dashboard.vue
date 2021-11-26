@@ -57,9 +57,11 @@ export default {
   /* height: 30vh; */
   /* border: 1px solid red; */
   /* width: 10%; */
+  margin-bottom: 15px;
 }
 .topright {
   /* width: 50%; */
+  margin-bottom: 15px;
 }
 .title {
   /* border: 1px solid red; */

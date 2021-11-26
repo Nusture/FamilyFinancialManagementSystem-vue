@@ -9,6 +9,9 @@ const { resolve } = require('path')
 export default {
     base: './',
     plugins: [vue()],
+    server: {				// ← ← ← ← ← ←
+      host: '0.0.0.0'	// ← 新增内容 ←
+    },
     resolve: {
       alias: {
           '/@/': resolve(__dirname, 'src'),

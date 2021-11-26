@@ -3,10 +3,13 @@
     <div class="title">
       <span class="title_txt">用户管理模块</span>
       <span class="btn">
-        <el-button type="primary" icon="el-icon-plus" size="small" @click="editVisible = true">新增</el-button>
+        <el-button type="primary" size="small" v-print="'#table'">
+          <i class="fa fa-print"></i> 打印
+        </el-button>
+        <el-button type="primary" icon="el-icon-plus" size="small" @click="addtable">新增</el-button>
       </span>
     </div>
-    <div class="table">
+    <div class="table" id="table">
       <el-table
         v-loading="loading"
         element-loading-text="数据加载中"
@@ -25,14 +28,15 @@
         </template>
         <el-table-column fixed="right" label="操作" align="center">
           <template #default="scope">
-            <el-button size="mini" type="text" icon="el-icon-edit" @click="edit(scope.row)">修改</el-button>
+            <el-button size="mini" type="text" icon="el-icon-edit" @click="edit(scope.row,scope.$index)">修改</el-button>
             <el-button size="mini" type="text" icon="el-icon-delete" @click="remove(scope.row,scope.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
-      <div class="pag">
-        <Pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" />
-      </div>
+    </div>
+
+    <div class="pag">
+      <Pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" />
     </div>
 
     <!-- 编辑弹出框 -->
@@ -92,11 +96,9 @@
 </template>
 
 <script>
-import { ref, reactive, toRefs } from 'vue';
-import { ElMessage, ElMessageBox } from 'element-plus';
-import { fetchData } from '../api/index';
+import { ref, reactive, toRefs, onMounted } from 'vue';
+// import { ElMessage, ElMessageBox } from 'element-plus';
 import Pagination from '../components/Pagination/index.vue';
-// import { Plus, Apple } from './element-plus/icons';
 
 export default {
   name: 'basetable',
@@ -214,44 +216,91 @@ export default {
             trigger: 'blur'
           }
         ]
-      }
+      },
+      editID: '',
+      index: Number
     });
-    const edit = scope => {
-      console.log(scope, 'item');
+    const edit = (scope, index) => {
+      state.index = index;
+      state.editID = scope.id;
+      state.editVisible = true;
+      state.form.age = scope.age;
+      state.form.graduate = scope.graduate;
+      state.form.income = scope.income;
+      state.form.marry = scope.marry;
+      state.form.name = scope.name;
+      state.form.school = scope.school;
+      state.form.status = scope.status;
+      state.form.outlay = scope.outlay;
     };
     // 提交验证
     const formref = ref(null);
     const saveEdit = () => {
-      formref.value.validate(valid => {
-        if (valid) {
-          const param = {
-            name: state.form.name,
-            age: state.form.age,
-            income: state.form.income,
-            outlay: state.form.outlay,
-            status: state.form.status,
-            marry: state.form.marry,
-            school: state.form.school,
-            graduate: state.form.graduate
-          };
-          state.datalist.push(param);
-          state.editVisible = false;
-        } else {
-          console.log('error submit');
-          return false;
-        }
-      });
+      if (state.editID === '') {
+        formref.value.validate(valid => {
+          if (valid) {
+            const param = {
+              name: state.form.name,
+              age: state.form.age,
+              income: state.form.income,
+              outlay: state.form.outlay,
+              status: state.form.status,
+              marry: state.form.marry,
+              school: state.form.school,
+              graduate: state.form.graduate
+            };
+            state.datalist.push(param);
+            state.editVisible = false;
+          } else {
+            return false;
+          }
+        });
+      } else {
+        const param = {
+          name: state.form.name,
+          age: state.form.age,
+          income: state.form.income,
+          outlay: state.form.outlay,
+          status: state.form.status,
+          marry: state.form.marry,
+          school: state.form.school,
+          graduate: state.form.graduate
+        };
+        state.datalist[state.index] = param;
+        state.editVisible = false;
+      }
     };
     const remove = (row, index) => {
       console.log(index, 'index');
-      state.datalist.splice(row.id, 1);
+      var index = state.datalist.findIndex(item => {
+        if (item.id == row.id) {
+          return true;
+        }
+      });
+      state.datalist.splice(index, 1);
     };
+    const addtable = () => {
+      state.editVisible = true;
+      state.form.age = '';
+      state.form.graduate = '';
+      state.form.income = '';
+      state.form.marry = '';
+      state.form.name = '';
+      state.form.school = '';
+      state.form.status = '';
+      state.form.outlay = '';
+      // state.form.id = '';
+      state.editID = '';
+    };
+    onMounted(() => {});
     return {
       ...toRefs(state),
       edit,
       saveEdit,
       formref,
-      remove
+      remove,
+      print,
+      addtable
     };
   }
 };
@@ -264,7 +313,8 @@ export default {
   /* border: 1px solid red; */
 }
 .table {
-  /* border: 1px solid red; */
+  border: 1px solid #f5f7fa;
+  /* padding: 10px 0; */
 }
 .pag {
   text-align: center;

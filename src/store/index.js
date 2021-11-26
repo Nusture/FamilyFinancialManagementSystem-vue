@@ -1,6 +1,10 @@
 import {createStore} from 'vuex'
+import common from './modules/common';
 
 export default createStore({
+    modules:{
+        common
+    },
     state: {
         tagsList: [],
         collapse: false
@@ -52,5 +56,5 @@ export default createStore({
         }
     },
     actions: {},
-    modules: {}
+    strict: process.env.NODE_ENV !== 'production'
 })
