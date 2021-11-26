@@ -1,12 +1,13 @@
 <template>
   <div class="BaseTable">
     <div class="title">
-      <span class="title_txt">用户管理模块</span>
+      <span class="title_txt">{{$t('userManage.userManagemodules')}}</span>
       <span class="btn">
         <el-button type="primary" size="small" v-print="'#table'">
-          <i class="fa fa-print"></i> 打印
+          <i class="fa fa-print"></i>
+          {{$t('userManage.print')}}
         </el-button>
-        <el-button type="primary" icon="el-icon-plus" size="small" @click="addtable">新增</el-button>
+        <el-button type="primary" icon="el-icon-plus" size="small" @click="addtable">{{$t('userManage.add')}}</el-button>
       </span>
     </div>
     <div class="table" id="table">
@@ -26,10 +27,10 @@
         <template v-for="(item, index) in tableHead">
           <el-table-column :label="item.column_comment" :prop="item.column_name" align="center"></el-table-column>
         </template>
-        <el-table-column fixed="right" label="操作" align="center">
+        <el-table-column fixed="right" :label="$t('userManage.operate')" align="center">
           <template #default="scope">
-            <el-button size="mini" type="text" icon="el-icon-edit" @click="edit(scope.row,scope.$index)">修改</el-button>
-            <el-button size="mini" type="text" icon="el-icon-delete" @click="remove(scope.row,scope.$index)">删除</el-button>
+            <el-button size="mini" type="text" icon="el-icon-edit" @click="edit(scope.row,scope.$index)">{{$t('userManage.edit')}}</el-button>
+            <el-button size="mini" type="text" icon="el-icon-delete" @click="remove(scope.row,scope.$index)">{{$t('userManage.delete')}}</el-button>
           </template>
         </el-table-column>
       </el-table>

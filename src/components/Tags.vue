@@ -35,6 +35,7 @@
 import { computed, inject, onMounted, reactive, toRefs } from 'vue';
 import { useStore } from 'vuex';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
+import stores from '../store/index';
 export default {
   setup() {
     const route = useRoute();
@@ -106,6 +107,7 @@ export default {
     const onRefresh = inject('reload');
     const openMenu = () => {
       onRefresh();
+      stores.commit('common/getSidebarbg', '#56B185');
     };
     onMounted(() => {});
 

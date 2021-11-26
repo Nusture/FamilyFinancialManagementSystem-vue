@@ -5,11 +5,19 @@
       <i v-if="!collapse" class="el-icon-s-fold"></i>
       <i v-else class="el-icon-s-unfold"></i>
     </div>
-    <div class="logo">理财管理系统</div>
+    <div class="logo">{{$t('i18n.moneySystem')}}</div>
     <div class="header-right">
       <div class="header-user-con">
         <div class="taggle">
-          <el-switch v-model="value" active-text="亮色" inactive-text="暗色" @change="change"></el-switch>
+          <el-switch
+            v-model="value2"
+            :active-text="$t('i18n.chinese')"
+            :inactive-text="$t('i18n.english')"
+            @change="$i18n.locale = $i18n.locale === 'zh-cn'?'en':'zh-cn';"
+          ></el-switch>
+        </div>
+        <div class="taggle">
+          <el-switch v-model="value" :active-text="$t('i18n.light')" :inactive-text="$t('i18n.dark')" @change="change"></el-switch>
         </div>
         <!-- 全屏 -->
         <div class="screen">
@@ -40,8 +48,8 @@
               <!-- <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
                                 <el-dropdown-item>项目仓库</el-dropdown-item>
               </a>-->
-              <el-dropdown-item command="user">个人中心</el-dropdown-item>
-              <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
+              <el-dropdown-item command="user">{{$t('i18n.user')}}</el-dropdown-item>
+              <el-dropdown-item divided command="loginout">{{$t('i18n.letout')}}</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -61,7 +69,8 @@ export default {
       showScreen: Boolean,
       bgcolor: '#56B185',
       color: '#fff',
-      value: true
+      value: true,
+      value2: true
     });
     const username = localStorage.getItem('ms_username');
     // const message = 2;
@@ -86,6 +95,7 @@ export default {
         stores.commit('common/getSidebarbg', state.bgcolor);
       }
     };
+    // const change2 = () => {};
     onMounted(() => {
       if (document.body.clientWidth < 1500) {
         collapseChage();
@@ -195,5 +205,8 @@ export default {
 }
 .screen {
   margin: 0 15px;
+}
+.taggle {
+  margin: 0 10px;
 }
 </style>

@@ -7,7 +7,22 @@ export default {
             title1: '常用用法',
             p1: '要是你把你的秘密告诉了风，那就别怪风把它带给树。',
             p2: '没有什么比信念更能支撑我们度过艰难的时光了。',
-            p3: '只要能把自己的事做好，并让自己快乐，你就领先于大多数人了。'
+            p3: '只要能把自己的事做好，并让自己快乐，你就领先于大多数人了。',
+            moneySystem: '理财系统',
+            chinese: '中文',
+            english: '英语',
+            light: '亮色',
+            dark: '暗色',
+            user: '个人中心',
+            letout: '退出登录'
+        },
+        userManage:{
+            print: '打印',
+            add: '新增',
+            userManagemodules: '用户管理模块',
+            operate: '操作',
+            edit: '修改',
+            delete: '删除'
         }
     },
     'en': {
@@ -18,7 +33,22 @@ export default {
             title1: 'Common usage',
             p1: "If you reveal your secrets to the wind you should not blame the wind for  revealing them to the trees.",
             p2: "Nothing can help us endure dark times better than our faith. ",
-            p3: "If you can do what you do best and be happy, you're further along in life  than most people."
+            p3: "If you can do what you do best and be happy, you're further along in life  than most people.",
+            moneySystem: 'Money System',
+            chinese: 'Chinese',
+            english: 'English',
+            light: 'Light',
+            dark: 'Dark',
+            user: 'User',
+            letout: 'Sign Out'
+        },
+        userManage:{
+            userManagemodules: 'UserManageModules',
+            print: 'Print',
+            add: 'Add',
+            operate: 'Operate',
+            edit: 'Edit',
+            delete: 'Delete'
         }
     }
 }
