@@ -14,7 +14,10 @@ export default {
             light: '亮色',
             dark: '暗色',
             user: '个人中心',
-            letout: '退出登录'
+            letout: '退出登录',
+            tagcheck:'关闭标签',
+            closeOther: '关闭其他',
+            closeAll: '关闭所有'
         },
         userManage:{
             print: '打印',
@@ -40,7 +43,10 @@ export default {
             light: 'Light',
             dark: 'Dark',
             user: 'User',
-            letout: 'Sign Out'
+            letout: 'Sign Out',
+            tagcheck:'Close',
+            closeOther: 'Other',
+            closeAll: 'All'
         },
         userManage:{
             userManagemodules: 'UserManageModules',

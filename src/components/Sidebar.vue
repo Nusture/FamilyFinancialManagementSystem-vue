@@ -16,21 +16,31 @@
           <el-submenu class="menubtn" :index="item.index" :key="item.index">
             <template #title>
               <i :class="item.icon"></i>
-              <span>{{ item.title }}</span>
+              <span v-if="$i18n.locale === 'zh-cn'">{{ item.title }}</span>
+              <span v-else>{{item.title2}}</span>
             </template>
             <template v-for="subItem in item.subs">
               <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
-                <template #title>{{ subItem.title }}</template>
-                <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i" :index="threeItem.index">{{ threeItem.title }}</el-menu-item>
+                <template #title>{{ subItem.title2 }}</template>
+                <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i" :index="threeItem.index">
+                  <span v-if="$i18n.locale === 'zh-cn'">{{ threeItem.title }}</span>
+                  <span v-else>{{ threeItem.title2 }}</span>
+                </el-menu-item>
               </el-submenu>
-              <el-menu-item v-else :index="subItem.index" :key="subItem.index">{{ subItem.title }}</el-menu-item>
+              <el-menu-item v-else :index="subItem.index" :key="subItem.index">
+                <span v-if="$i18n.locale === 'zh-cn'">{{ subItem.title }}</span>
+                <span v-else>{{ subItem.title2 }}</span>
+              </el-menu-item>
             </template>
           </el-submenu>
         </template>
         <template v-else>
           <el-menu-item class="menubtn" :index="item.index" :key="item.index">
             <i :class="item.icon"></i>
-            <template #title>{{ item.title }}</template>
+            <template #title>
+              <span v-if="$i18n.locale === 'zh-cn'">{{ item.title }}</span>
+              <span v-else>{{ item.title2 }}</span>
+            </template>
           </el-menu-item>
         </template>
       </template>
@@ -52,17 +62,20 @@ export default {
       {
         icon: 'el-icon-lx-home',
         index: '/dashboard',
-        title: '系统首页'
+        title: '系统首页',
+        title2: 'Dashboard'
       },
       {
         icon: 'el-icon-lx-cascades',
         index: '/table',
-        title: '用户管理'
+        title: '用户管理',
+        title2: 'User'
       },
       {
         icon: 'el-icon-lx-copy',
         index: '/tabs',
-        title: '资产明细'
+        title: '资产明细',
+        title2: 'PropertyDetail'
       },
       // {
       //     icon: "el-icon-lx-calendar",
@@ -92,36 +105,43 @@ export default {
       {
         icon: 'el-icon-lx-emoji',
         index: '/icon',
-        title: '日、月、年支出'
+        title: '日、月、年支出',
+        title2: 'YearMonthOutlay'
       },
 
       {
         icon: 'el-icon-lx-global',
         index: '/i18n',
-        title: '月、年收入模块'
+        title: '月、年收入模块',
+        title2: 'YearMonthIncome'
       },
       {
         icon: 'el-icon-lx-redpacket_fill',
         index: '/donate',
-        title: '支出、收入数据展示'
+        title: '支出、收入数据展示',
+        title2: 'IncomeOutlay'
       },
       {
         icon: 'el-icon-pie-chart',
         index: '/charts',
-        title: '搜索'
+        title: '搜索',
+        title2: 'Search'
       },
       {
         icon: 'el-icon-s-tools',
         index: '7',
         title: '系统管理',
+        title2: 'SyetemManage',
         subs: [
           {
             index: '/permission',
-            title: '权限测试'
+            title: '权限测试',
+            title2: 'Test'
           },
           {
             index: '/404',
-            title: '404页面'
+            title: '404页面',
+            title2: '404page'
           }
         ]
       }
@@ -177,7 +197,7 @@ export default {
   /* background: var(--bg) !important; */
 }
 .menubtn {
-  background: transparent !important;
+  /* background: var(--bg) !important; */
   color: var(--color) !important;
   /* color: var(--color) !important; */
 }

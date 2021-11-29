@@ -2,7 +2,10 @@
   <div class="tags" v-if="showTags">
     <ul>
       <li class="tags-li" v-for="(item,index) in tagsList" :class="{'active': isActive(item.path)}" :key="index" @dblclick="openMenu">
-        <router-link :to="item.path" class="tags-li-title">{{item.title}}</router-link>
+        <router-link :to="item.path" class="tags-li-title">
+          <span v-if="$i18n.locale === 'zh-cn'">{{item.title.title}}</span>
+          <span v-else>{{item.title.title2}}</span>
+        </router-link>
         <span class="tags-li-icon" @click="closeTags(index)">
           <i class="el-icon-close"></i>
         </span>
@@ -17,13 +20,13 @@
     <div class="tags-close-box">
       <el-dropdown @command="handleTags">
         <el-button size="mini" type="primary" class="tags-close-box_btn">
-          标签选项
+          {{$t('i18n.tagcheck')}}
           <i class="el-icon-arrow-down el-icon--right"></i>
         </el-button>
         <template #dropdown>
           <el-dropdown-menu size="small">
-            <el-dropdown-item command="other">关闭其他</el-dropdown-item>
-            <el-dropdown-item command="all">关闭所有</el-dropdown-item>
+            <el-dropdown-item command="other">{{$t('i18n.closeOther')}}</el-dropdown-item>
+            <el-dropdown-item command="all">{{$t('i18n.closeAll')}}</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -73,7 +76,7 @@ export default {
         }
         store.commit('setTagsItem', {
           name: route.name,
-          title: route.meta.title,
+          title: route.meta,
           path: route.fullPath
         });
       }
