@@ -1,55 +1,24 @@
 // import vue from '@vitejs/plugin-vu
 import vue from '@vitejs/plugin-vue';
-function pathResolve(dir) {
-  return resolve(__dirname, ".", dir);
-}
+import {
+  resolve
+} from 'path'
+import {
+  defineConfig
+} from 'vite'
 
-
-const { resolve } = require('path')
-export default {
-    base: './',
-    plugins: [vue()],
-    server: {				// ← ← ← ← ← ←
-      host: '0.0.0.0'	// ← 新增内容 ←
-    },
-    resolve: {
-      alias: {
-          '/@/': resolve(__dirname, 'src'),
-      },
+const path = require('path')
+export default defineConfig({
+  base: './',
+  plugins: [vue()],
+  server: {
+    cors: true,
+    open: true,
+    host: '0.0.0.0',
   },
-    // optimizeDeps: {
-    //     include: ['schart.js']
-    // }
-}
-
-
-
-// export default defineConfig({
-//     base: "",
-//     plugins:[vue()],
-//     resolve: {
-//         alias: {
-//           "/@": pathResolve("src"),
-//         }
-//     },
-//     optimizeDeps: {
-//         include: ['axios'],
-//     },
-//     build: {
-//       target: 'modules',
-//       outDir: 'dist',
-//       assetsDir: 'assets',
-//       minify: 'terser' // 混淆器
-//     },
-//     server: {
-//         cors: true,
-//         open: true,
-//         proxy: {
-//           '/api': {
-//               target: 'http://192.168.99.223:3000',   //代理接口
-//               changeOrigin: true,
-//               rewrite: (path) => path.replace(/^\/api/, '')
-//           }
-//         }
-//     }
-// });
+  resolve: {
+    alias: {
+      '@': resolve('src'),
+    },
+  }
+})
