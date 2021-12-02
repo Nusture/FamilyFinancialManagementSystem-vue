@@ -8,13 +8,15 @@
     <div class="logo">{{$t('i18n.moneySystem')}}</div>
     <div class="header-right">
       <div class="header-user-con">
-        <div class="taggle">
-          <el-switch
-            v-model="value2"
-            :active-text="$t('i18n.chinese')"
-            :inactive-text="$t('i18n.english')"
-            @change="$i18n.locale = $i18n.locale === 'zh-cn'?'en':'zh-cn';"
-          ></el-switch>
+        <div class="taggle" :title="newupdate">
+          <span style="font-size:14px;">
+            <span v-if="locale === 'zh-cn'" style="border-right:1px solid #fff;padding-right:5px">{{week[weekindex]}}</span>
+            <span v-else style="border-right:1px solid #fff;padding-right:5px">{{weeks[weekindex]}}</span>
+            {{ date }} &nbsp;{{time}}
+          </span>
+        </div>
+        <div class="taggle" :locale="$i18n.locale = locale">
+          <el-switch v-model="value2" :active-text="$t('i18n.chinese')" :inactive-text="$t('i18n.english')" @change="language"></el-switch>
         </div>
         <div class="taggle">
           <el-switch v-model="value" :active-text="$t('i18n.light')" :inactive-text="$t('i18n.dark')" @change="change"></el-switch>
@@ -63,14 +65,23 @@ import { useStore } from 'vuex';
 import stores from '../store/index';
 import { useRouter } from 'vue-router';
 import screenfull from 'screenfull';
+import i18n from '@/plugins/element';
+import zhCn from 'element-plus/lib/locale/lang/zh-cn';
+import en from 'element-plus/lib/locale/lang/en';
 export default {
   setup() {
     const state = reactive({
       showScreen: Boolean,
       bgcolor: '#56B185',
       color: '#fff',
+      locale: 'zh-cn',
       value: true,
-      value2: true
+      value2: true,
+      date: '',
+      time: '',
+      week: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+      weeks: ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'],
+      weekindex: Number
     });
     const username = localStorage.getItem('ms_username');
     // const message = 2;
@@ -96,6 +107,43 @@ export default {
       }
     };
     // const change2 = () => {};
+    const newupdate = computed(() => {
+      setInterval(() => {
+        updatetime();
+      }, 1000);
+    });
+    const updatetime = () => {
+      var cd = new Date();
+      state.weekindex = cd.getDay();
+      state.time = zeroPadding(cd.getHours(), 2) + ':' + zeroPadding(cd.getMinutes(), 2) + ':' + zeroPadding(cd.getSeconds(), 2);
+
+      // if (state.locale === zhCn.name) {
+      //   state.week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+      // } else {
+      //   state.week = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'];
+      // }
+      state.date =
+        // state.week[cd.getDay()] +
+        // '   ' +
+        zeroPadding(cd.getFullYear(), 4) + '-' + zeroPadding(cd.getMonth() + 1, 2) + '-' + zeroPadding(cd.getDate(), 2);
+      // return state.date;
+    };
+    const zeroPadding = (num, digit) => {
+      var zero = '';
+      for (var i = 0; i < digit; i++) {
+        zero += '0';
+      }
+      return (zero + num).slice(-digit);
+    };
+    const language = () => {
+      if (state.locale === en.name) {
+        state.locale = zhCn.name;
+        console.log(state.locale, '语言');
+      } else {
+        state.locale = en.name;
+        console.log(state.locale, '语言');
+      }
+    };
     onMounted(() => {
       if (document.body.clientWidth < 1500) {
         collapseChage();
@@ -121,7 +169,11 @@ export default {
       collapseChage,
       handleCommand,
       screen,
-      change
+      change,
+      zeroPadding,
+      updatetime,
+      newupdate,
+      language
     };
   }
 };

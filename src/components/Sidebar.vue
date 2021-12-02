@@ -66,16 +66,16 @@ export default {
         title2: 'Dashboard'
       },
       {
-        icon: 'el-icon-lx-cascades',
-        index: '/table',
+        icon: 'el-icon-user',
+        index: '/userManage',
         title: '用户管理',
         title2: 'User'
       },
       {
         icon: 'el-icon-lx-copy',
-        index: '/tabs',
+        index: '/moneyDetail',
         title: '资产明细',
-        title2: 'PropertyDetail'
+        title2: 'MoneyDetail'
       },
       // {
       //     icon: "el-icon-lx-calendar",
@@ -103,45 +103,55 @@ export default {
       //     ],
       // },
       {
-        icon: 'el-icon-lx-emoji',
-        index: '/icon',
+        icon: 'el-icon-d-caret',
+        index: '/outlay',
         title: '日、月、年支出',
         title2: 'YearMonthOutlay'
       },
 
       {
-        icon: 'el-icon-lx-global',
-        index: '/i18n',
+        icon: 'el-icon-d-caret',
+        index: '/income',
         title: '月、年收入模块',
         title2: 'YearMonthIncome'
       },
       {
-        icon: 'el-icon-lx-redpacket_fill',
-        index: '/donate',
+        icon: 'el-icon-c-scale-to-original',
+        index: '/outlayIncome',
         title: '支出、收入数据展示',
         title2: 'IncomeOutlay'
       },
       {
-        icon: 'el-icon-pie-chart',
-        index: '/charts',
+        icon: 'el-icon-search',
+        index: '/search',
         title: '搜索',
         title2: 'Search'
       },
       {
-        icon: 'el-icon-s-tools',
+        icon: 'el-icon-setting',
         index: '7',
         title: '系统管理',
         title2: 'SyetemManage',
         subs: [
           {
-            index: '/permission',
-            title: '权限测试',
-            title2: 'Test'
+            index: '/rolemanage',
+            title: '角色管理',
+            title2: 'RoleManage'
           },
           {
             index: '/404',
             title: '404页面',
             title2: '404page'
+          },
+          {
+            index: '/editor',
+            title: '文本管理',
+            title2: 'TextEdit'
+          },
+          {
+            index: '/icon',
+            title: '图标管理',
+            title2: 'Icon'
           }
         ]
       }
@@ -212,5 +222,8 @@ export default {
 .el-menu-item {
   background-color: var(--bg) !important;
   color: var(--color) !important;
+}
+.sidebar .is-active {
+  background: #6bd19f !important;
 }
 </style>

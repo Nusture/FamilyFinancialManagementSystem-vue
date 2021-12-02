@@ -1,8 +1,10 @@
-import {createStore} from 'vuex'
+import {
+    createStore
+} from 'vuex'
 import common from './modules/common';
 
 export default createStore({
-    modules:{
+    modules: {
         common
     },
     state: {
@@ -19,14 +21,13 @@ export default createStore({
             state
                 .tagsList
                 .push(data)
-                console.log(state.tagsList,'list')
         },
         clearTags(state) {
             state.tagsList = []
         },
         closeTagsOther(state, data) {
             state.tagsList = data;
-            console.log(state.tagsList,'list')
+            console.log(state.tagsList, 'list')
         },
         closeCurrentTag(state, data) {
             for (let i = 0, len = state.tagsList.length; i < len; i++) {

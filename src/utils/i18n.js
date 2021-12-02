@@ -15,18 +15,20 @@ export default {
             dark: '暗色',
             user: '个人中心',
             letout: '退出登录',
-            tagcheck:'关闭标签',
+            tagcheck: '关闭标签',
             closeOther: '关闭其他',
             closeAll: '关闭所有'
         },
-        userManage:{
+        userManage: {
             print: '打印',
             add: '新增',
             userManagemodules: '用户管理模块',
             operate: '操作',
             edit: '修改',
-            delete: '删除'
-        }
+            delete: '删除',
+            user: '角色管理',
+            adduser: '新增角色'
+        },
     },
     'en': {
         i18n: {
@@ -44,17 +46,19 @@ export default {
             dark: 'Dark',
             user: 'User',
             letout: 'Sign Out',
-            tagcheck:'Close',
+            tagcheck: 'Close',
             closeOther: 'Other',
             closeAll: 'All'
         },
-        userManage:{
+        userManage: {
             userManagemodules: 'UserManageModules',
             print: 'Print',
             add: 'Add',
             operate: 'Operate',
             edit: 'Edit',
-            delete: 'Delete'
+            delete: 'Delete',
+            user: 'UserManage',
+            adduser: 'AddUser'
         }
     }
 }
