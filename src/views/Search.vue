@@ -1,113 +1,72 @@
 <template>
-  <div>这是搜索模块</div>
+  <div>
+    <div>模拟登录</div>
+    <div class="Login">
+      <el-form label-width="0px" class="ms-content">
+        <el-form-item>
+          <el-input v-model="username" placeholder="username">
+            <template #prepend>
+              <el-button icon="el-icon-user"></el-button>
+            </template>
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input type="password" placeholder="password" v-model="password" @keyup.enter="submitForm()">
+            <template #prepend>
+              <el-button icon="el-icon-lock"></el-button>
+            </template>
+          </el-input>
+        </el-form-item>
+        <div class="login-btn">
+          <el-button type="primary" @click="submitForm()">登录</el-button>
+        </div>
+        <!-- <p class="login-tips">Tips : 用户名和密码随便填。</p> -->
+      </el-form>
+    </div>
+  </div>
 </template>
 
 <script>
+import { reactive, toRefs } from '@vue/reactivity';
+import { Login } from '@/api/index'; // 引入封装好的axios 方法
 // import Schart from "vue-schart";
 export default {
   name: 'basecharts',
   components: {
     // Schart,
+  },
+  setup() {
+    const state = reactive({
+      username: '',
+      password: ''
+    });
+    const submitForm = () => {
+      //  设置接口需要的参数对应的变量数据
+      const params = {
+        username: state.username,
+        password: state.password
+      };
+      console.log(params, '输入的账号和密码');
+      // 调用后端接口
+      Login(params).then(res => {
+        //  res 返回的是调用接口的返回数据
+        //  res.code 的值代表成功与否
+        console.log(res); // 因为没有后端接口 所以这里打印会报错
+      });
+    };
+    return {
+      ...toRefs(state),
+      submitForm
+    };
   }
-  // setup() {
-  //     const options1 = {
-  //         type: "bar",
-  //         title: {
-  //             text: "最近一周各品类销售图",
-  //         },
-  //         bgColor: "#fbfbfb",
-  //         labels: ["周一", "周二", "周三", "周四", "周五"],
-  //         datasets: [
-  //             {
-  //                 label: "家电",
-  //                 fillColor: "rgba(241, 49, 74, 0.5)",
-  //                 data: [234, 278, 270, 190, 230],
-  //             },
-  //             {
-  //                 label: "百货",
-  //                 data: [164, 178, 190, 135, 160],
-  //             },
-  //             {
-  //                 label: "食品",
-  //                 data: [144, 198, 150, 235, 120],
-  //             },
-  //         ],
-  //     };
-  //     const options2 = {
-  //         type: "line",
-  //         title: {
-  //             text: "最近几个月各品类销售趋势图",
-  //         },
-  //         bgColor: "#fbfbfb",
-  //         labels: ["6月", "7月", "8月", "9月", "10月"],
-  //         datasets: [
-  //             {
-  //                 label: "家电",
-  //                 data: [234, 278, 270, 190, 230],
-  //             },
-  //             {
-  //                 label: "百货",
-  //                 data: [164, 178, 150, 135, 160],
-  //             },
-  //             {
-  //                 label: "食品",
-  //                 data: [114, 138, 200, 235, 190],
-  //             },
-  //         ],
-  //     };
-  //     const options3 = {
-  //         type: "pie",
-  //         title: {
-  //             text: "服装品类销售饼状图",
-  //         },
-  //         legend: {
-  //             position: "left",
-  //         },
-  //         bgColor: "#fbfbfb",
-  //         labels: [
-  //             "T恤",
-  //             "牛仔裤",
-  //             "连衣裙",
-  //             "毛衣",
-  //             "七分裤",
-  //             "短裙",
-  //             "羽绒服",
-  //         ],
-  //         datasets: [
-  //             {
-  //                 data: [334, 278, 190, 235, 260, 200, 141],
-  //             },
-  //         ],
-  //     };
-  //     const options4 = {
-  //         type: "ring",
-  //         title: {
-  //             text: "环形三等分",
-  //         },
-  //         showValue: false,
-  //         legend: {
-  //             position: "bottom",
-  //             bottom: 40,
-  //         },
-  //         bgColor: "#fbfbfb",
-  //         labels: ["vue", "react", "angular"],
-  //         datasets: [
-  //             {
-  //                 data: [500, 500, 500],
-  //             },
-  //         ],
-  //     };
-  //     return {
-  //         options1,
-  //         options2,
-  //         options3,
-  //         options4,
-  //     };
-  // },
 };
 </script>
 
 <style scoped>
+.Login {
+  width: 50vw;
+  margin: 0 auto;
+}
 /* .schart-box {
     display: inline-block;
     margin: 20px;

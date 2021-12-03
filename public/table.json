@@ -1,59 +1,8 @@
 {
-    "list": [
-        {
-            "id": 1,
-            "name": "方青华",
-            "money": 6618,
-            "address": "江西省上饶市鄱阳县",
-            "state": "成功",
-            "date": "2021-11-25",
-            "thumb": "./src/assets/img/admin.jpg"
-        },
-        {
-            "id": 2,
-            "name": "徐游滨",
-            "money": 6618,
-            "address": "江西省上饶市鄱阳县",
-            "state": "成功",
-            "date": "2021-11-25",
-            "thumb": "./src/assets/img/admin.jpg"
-        },
-        {
-            "id": 3,
-            "name": "徐旺忠",
-            "money": 6618,
-            "address": "江西省上饶市鄱阳县",
-            "state": "成功",
-            "date": "2021-11-25",
-            "thumb": "./src/assets/img/admin.jpg"
-        },
-        {
-            "id": 4,
-            "name": "许博飞",
-            "money": 6618,
-            "address": "江西省抚州市",
-            "state": "成功",
-            "date": "2021-11-25",
-            "thumb": "./src/assets/img/admin.jpg"
-        },
-        {
-            "id": 5,
-            "name": "江子鑫",
-            "money": 6618,
-            "address": "江西省九江市都昌县",
-            "state": "成功",
-            "date": "2021-11-25",
-            "thumb": "./src/assets/img/admin.jpg"
-        },
-        {
-            "id": 6,
-            "name": "黄帅",
-            "money": 6618,
-            "address": "江西省萍乡市",
-            "state": "成功",
-            "date": "2021-11-25",
-            "thumb": "./src/assets/img/admin.jpg"
-        }
-    ],
-    "pageTotal": 4
+    "code": 0,
+    "data":{
+        "username": "qinghua",
+        "password": "1016"
+    },
+    "msg": "success"
 }
