@@ -1,7 +1,7 @@
 <template>
   <div class="login-wrap">
     <div class="ms-login">
-      <div class="ms-title">理财管理系统</div>
+      <div class="ms-title">EasyAdmin后台系统</div>
       <el-form :rules="rules" ref="login" label-width="0px" class="ms-content">
         <el-form-item prop="username">
           <el-input v-model="username" placeholder="username">
@@ -17,6 +17,16 @@
             </template>
           </el-input>
         </el-form-item>
+        <el-form-item prop="verify">
+          <el-input v-model="verify" placeholder="verify">
+            <template #prepend>
+              <el-button icon="el-icon-s-opportunity"></el-button>
+            </template>
+          </el-input>
+        </el-form-item>
+        <span class="verify">
+          <verify />
+        </span>
         <div class="login-btn">
           <el-button type="primary" @click="submitForm()">登录</el-button>
         </div>
@@ -32,13 +42,15 @@ import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import stores from '../store/index';
-
+import verify from './components/verify.vue'
 export default {
+  components: {verify},
   setup() {
     const router = useRouter();
     const param = reactive({
       username: 'qinghua',
-      password: '1016'
+      password: '1016',
+      verify: ''
     });
 
     const rules = {
@@ -49,7 +61,8 @@ export default {
           trigger: 'blur'
         }
       ],
-      password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
+      password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+      verify: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
     };
     const submitForm = () => {
       if (param.username === 'qinghua' && param.password === '1016') {
@@ -88,34 +101,45 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
 .login-wrap {
   position: relative;
   width: 100%;
   height: 100%;
-  background-image: url(../assets/img/bg2.png);
+  background-image: url('@/assets/img/bg3.png');
   background-size: 100% 100%;
-}
-.ms-title {
-  width: 100%;
-  line-height: 50px;
-  text-align: center;
-  font-size: 20px;
-  color: #fff;
-  border-bottom: 1px solid #ddd;
 }
 .ms-login {
   position: absolute;
   left: 50%;
   top: 50%;
   width: 350px;
-  margin: -190px 0 0 -175px;
+  height: 400px;
+  margin: -250px 0 0 -175px;
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.3);
   overflow: hidden;
-}
-.ms-content {
-  padding: 30px 30px;
+    .ms-title {
+      width: 100%;
+      height: 80px;
+      line-height: 80px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      font-size: 20px;
+      color: #fff;
+      background: #148BE4;
+    }
+    .ms-content {
+      padding: 30px 30px;
+      height: 320px;
+      background: #fff;
+      .verify{
+        display:block;
+        border: 1px solid red;
+        text-align: right;
+      }
+    }
 }
 .login-btn {
   text-align: center;

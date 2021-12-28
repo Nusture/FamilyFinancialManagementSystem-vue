@@ -31,7 +31,7 @@ export default {
 </style>
 <style>
 .el-button--primary {
-  background: #56b185 !important;
+  background: #2D97E7 !important;
   border: none !important;
 }
 </style>
