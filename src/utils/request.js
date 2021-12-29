@@ -37,7 +37,7 @@ service.interceptors.request.use(
 // 响应
 service.interceptors.response.use(response => {
     const data = response.data;
-    if (data.code !== 0) {
+    if (data.code !== 200) {
         if (data.code === 40001) {
             // ElMessageBox.use;
             ElMessage({
@@ -53,7 +53,7 @@ service.interceptors.response.use(response => {
             ElMessage({
                 message: data.msg || 'Error',
                 type: 'waring',
-                duration: 5 * 1000
+                duration: 3 * 1000
             })
         }
     }
