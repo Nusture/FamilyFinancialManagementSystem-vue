@@ -9,7 +9,13 @@ import {
     ElMessageBox,
     ElMessage
 } from 'element-plus'
-export const baseURL = url;
+let urls = ''
+if (window.location.hostname === 'localhost') {
+    urls = 'http://47.107.103.82:8081'
+} else {
+    urls = '/api'
+}
+export const baseURL = urls;
 const service = axios.create({
     baseURL,
     timeout: 5000,

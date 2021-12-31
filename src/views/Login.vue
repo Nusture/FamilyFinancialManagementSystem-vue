@@ -25,7 +25,7 @@
           </el-input>
         </el-form-item>
         <el-form-item v-if="param.show === true">
-          <el-input placeholder="家庭码" v-model="param.familyCode" @keyup.enter>
+          <el-input placeholder="家庭码(选填)" v-model="param.familyCode" @keyup.enter>
             <template #prepend>
               <el-button icon="el-icon-help"></el-button>
             </template>
@@ -96,6 +96,7 @@ export default {
     };
     const login = ref(null);
     const submitForm = () => {
+      console.log(window.location.hostname,1120)
       login.value.validate(valid => {
         if (valid) {
           if (param.code.toUpperCase() === param.verify.toUpperCase()) {
