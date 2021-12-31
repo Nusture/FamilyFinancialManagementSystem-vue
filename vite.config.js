@@ -14,8 +14,21 @@ export default defineConfig({
   server: {
     cors: true,
     open: true,
+    port: 8081,
     host: '0.0.0.0',
   },
+  // devServer: {
+  //   port: 8081,
+  //   proxy: {
+  //     '/api': {
+  //       target: 'http://47.107.103.82:8081',
+  //       changeOrigin: true,
+  //       pathRewrite: {
+  //         '/api': ''
+  //       }
+  //     }
+  //   }
+  // },
   resolve: {
     alias: {
       '@': resolve('src'),

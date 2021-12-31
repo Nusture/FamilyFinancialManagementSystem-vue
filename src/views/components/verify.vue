@@ -46,7 +46,7 @@ export default {
       // 3.填充背景颜色，背景颜色要浅一点
       const ctx = verify.value.getContext('2d');
       // 填充颜色
-      ctx.fillStyle = randomColor(180, 230);
+      ctx.fillStyle = randomColor(180, 200);
       // 填充的位置
       ctx.fillRect(0, 0, state.width, state.height);
       // 定义paramText
@@ -57,9 +57,9 @@ export default {
         const text = state.pool[randomNum(0, state.pool.length)];
         imgCode += text;
         // 随机的字体大小
-        const fontSize = randomNum(18, 40);
+        const fontSize = randomNum(18, 30);
         // 字体随机的旋转角度
-        const deg = randomNum(-30, 30);
+        const deg = randomNum(-30, 20);
         /*
          * 绘制文字并让四个文字在不同的位置显示的思路 :
          * 1、定义字体
@@ -119,3 +119,7 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.img-verify{
+}
+</style>

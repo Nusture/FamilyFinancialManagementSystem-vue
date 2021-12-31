@@ -8,3 +8,10 @@ export const Login = query => {
         params: query // 请求接口需要传递的参数 params  data 
     });
 };
+export const Register = query => {
+    return request({
+        url: '/doRegister',
+        method: 'post',
+        params: query
+    });
+};
