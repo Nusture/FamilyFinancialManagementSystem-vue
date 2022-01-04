@@ -68,65 +68,58 @@ export default {
       {
         icon: 'el-icon-user',
         index: '/userManage',
-        title: '用户管理',
+        title: '个人信息',
         title2: 'User'
       },
       {
-        icon: 'el-icon-lx-copy',
-        index: '/moneyDetail',
-        title: '资产明细',
-        title2: 'MoneyDetail'
+        icon: 'el-icon-house',
+        index: '1',
+        title: '我的家庭',
+        title2: 'MyFamily',
+        subs: [
+          {
+            index: '/FamilyInformation',
+            title: '家庭信息',
+            title2: 'FamilyInformation'
+          },
+          {
+                  index: "/FamilyMember",
+                  title: "家庭成员",
+                  title2: 'FamilyMember'
+              },
+        ]
       },
-      // {
-      //     icon: "el-icon-lx-calendar",
-      //     index: "3",
-      //     title: "表单相关",
-      //     subs: [
-      //         {
-      //             index: "/form",
-      //             title: "基本表单",
-      //         },
-      //         {
-      //             index: "/upload",
-      //             title: "文件上传",
-      //         },
-      //         {
-      //             index: "4",
-      //             title: "三级菜单",
-      //             subs: [
-      //                 {
-      //                     index: "/editor",
-      //                     title: "富文本编辑器",
-      //                 },
-      //             ],
-      //         },
-      //     ],
-      // },
+      {
+        icon: 'el-icon-lx-copy',
+        index: '/OutlayManage',
+        title: '支出管理',
+        title2: 'OutlayManage'
+      },
       {
         icon: 'el-icon-d-caret',
-        index: '/outlay',
-        title: '日、月、年支出',
-        title2: 'YearMonthOutlay'
+        index: '/IncomeManage',
+        title: '收入管理',
+        title2: 'IncomeManage'
       },
 
-      {
-        icon: 'el-icon-d-caret',
-        index: '/income',
-        title: '月、年收入模块',
-        title2: 'YearMonthIncome'
-      },
-      {
-        icon: 'el-icon-c-scale-to-original',
-        index: '/outlayIncome',
-        title: '支出、收入数据展示',
-        title2: 'IncomeOutlay'
-      },
-      {
-        icon: 'el-icon-search',
-        index: '/search',
-        title: '搜索',
-        title2: 'Search'
-      },
+      // {
+      //   icon: 'el-icon-d-caret',
+      //   index: '/income',
+      //   title: '月、年收入模块',
+      //   title2: 'YearMonthIncome'
+      // },
+      // {
+      //   icon: 'el-icon-c-scale-to-original',
+      //   index: '/outlayIncome',
+      //   title: '支出、收入数据展示',
+      //   title2: 'IncomeOutlay'
+      // },
+      // {
+      //   icon: 'el-icon-search',
+      //   index: '/search',
+      //   title: '搜索',
+      //   title2: 'Search'
+      // },
       {
         icon: 'el-icon-setting',
         index: '7',

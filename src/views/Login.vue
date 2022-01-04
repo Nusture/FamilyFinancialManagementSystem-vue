@@ -4,7 +4,7 @@
       <div class="ms-title">家庭理财管理系统</div>
       <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
         <el-form-item prop="username">
-          <el-input v-model="param.username" placeholder="用户名">
+          <el-input v-model="param.username" placeholder="用户名" @blur="userchange">
             <template #prepend>
               <el-button icon="el-icon-user"></el-button>
             </template>
@@ -65,7 +65,8 @@ import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import Verifycode from './components/verify.vue';
-import { Login, Register } from '@/api/index';
+import { Login, Register,getUsername } from '@/api/index';
+import { setToken, removeToken } from '@/utils/auth';
 export default {
   components: { Verifycode },
   setup() {
@@ -103,6 +104,7 @@ export default {
             console.log(param.code, param.verify, 'code');
             Login({ username: param.username, password: param.password }).then(res => {
               if (res.code === 200) {
+                setToken(res.data.tokenValue);
                 localStorage.setItem('ms_username', param.username);
                 router.push('/');
               } else {
@@ -155,6 +157,17 @@ export default {
         }
       });
     };
+    // 注册验证用户名是否存在
+    const userchange = () =>{
+      if(param.show === true){
+      getUsername({username: param.username}).then(res =>{
+        if(res.code === 200) {
+          ElMessage.success(res.msg)
+        }
+      })
+
+      }
+    };
 
     const store = useStore();
     store.commit('clearTags');
@@ -171,7 +184,8 @@ export default {
       login,
       submitForm,
       imgCode,
-      register
+      register,
+      userchange
     };
   }
 };

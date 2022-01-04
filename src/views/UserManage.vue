@@ -100,7 +100,8 @@
 import { ref, reactive, toRefs, onMounted } from 'vue';
 // import { ElMessage, ElMessageBox } from 'element-plus';
 import Pagination from '../components/Pagination/index.vue';
-
+import { getUserInfo } from '@/api/index'
+import { getToken } from '@/utils/auth';
 export default {
   name: 'basetable',
   components: {
@@ -293,7 +294,12 @@ export default {
       // state.form.id = '';
       state.editID = '';
     };
-    onMounted(() => {});
+    onMounted(() => {
+      getUserInfo({
+        token: getToken(),
+        username: 'admin'
+      })
+    });
     return {
       ...toRefs(state),
       edit,

@@ -3,6 +3,9 @@ import {
     createWebHashHistory
 } from "vue-router";
 import Home from "../views/Home.vue";
+import {
+    removeToken
+} from '@/utils/auth';
 
 const routes = [{
     path: '/',
@@ -30,11 +33,11 @@ const routes = [{
         },
 
         {
-            path: "/outlay",
-            name: "Outlay",
+            path: "/OutlayManage",
+            name: "OutlayManage",
             meta: {
-                title: '日、月、年支出',
-                title2: 'YearOutlay'
+                title: '支出管理',
+                title2: 'OutlayManage'
             },
             component: () => import( /* webpackChunkName: "form" */ "../views/Outlay.vue")
         },
@@ -48,20 +51,20 @@ const routes = [{
             component: () => import( /* webpackChunkName: "tabs" */ "../views/MoneyDetail.vue")
         },
         {
-            path: "/outlayIncome",
-            name: "OutlayIncome",
+            path: "/IncomeManage",
+            name: "IncomeManage",
             meta: {
-                title: '支出、收入数据展示',
-                title2: 'OutlayIncome'
+                title: '收入管理',
+                title2: 'IncomeManage'
             },
             component: () => import( /* webpackChunkName: "donate" */ "../views/OutlayIncome.vue")
         },
         {
-            path: "/search",
-            name: "Search",
+            path: "/FamilyMember",
+            name: "FamilyMember",
             meta: {
-                title: '搜索',
-                title2: 'Search'
+                title: '家庭成员',
+                title2: 'FamilyMember'
             },
             component: () => import( /* webpackChunkName: "charts" */ "../views/Search.vue")
         },
@@ -108,11 +111,11 @@ const routes = [{
             },
             component: () => import( /* webpackChunkName: "404" */ '../views/404.vue')
         }, {
-            path: '/rolemanage',
-            name: 'RoleManage',
+            path: '/FamilyInformation',
+            name: 'FamilyInformation',
             meta: {
                 title: '角色管理',
-                title2: 'RoleManage'
+                title2: 'FamilyInformation'
             },
             component: () => import( /* webpackChunkName: "403" */ '../views/RoleManage.vue')
         }, {
@@ -150,6 +153,10 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     // document.title = `${to.meta.title} | vue-manage-system`;
     const role = localStorage.getItem('ms_username');
+    if (to.fullPath === '/login') {
+
+        removeToken()
+    }
     if (!role && to.path !== '/login') {
         next('/login');
     } else if (to.meta.permission) {

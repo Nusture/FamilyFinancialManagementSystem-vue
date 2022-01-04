@@ -50,17 +50,41 @@
               <!-- <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
                                 <el-dropdown-item>项目仓库</el-dropdown-item>
               </a>-->
-              <el-dropdown-item command="user">{{$t('i18n.user')}}</el-dropdown-item>
+              <el-dropdown-item command="userManage">{{$t('i18n.user')}}</el-dropdown-item>
+              <el-dropdown-item>
+                <span @click="dialogVisible = true">{{$t('i18n.edituser')}}</span>
+              </el-dropdown-item>
               <el-dropdown-item divided command="loginout">{{$t('i18n.letout')}}</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
       </div>
     </div>
+    <el-dialog title="修改密码" v-model="dialogVisible" width="30%" center>
+      <div>
+        <el-form class="demo-form-inline" ref="login" :model="formInline" :rules="rules" label-width="100px">
+          <el-form-item label="原密码" prop="oldPassword">
+            <el-input type="password" v-model="formInline.oldPassword" placeholder="请输入"></el-input>
+          </el-form-item>
+          <el-form-item label="新密码" prop="newPassword">
+            <el-input type="password" v-model="formInline.newPassword" placeholder="请输入"></el-input>
+          </el-form-item>
+          <el-form-item label="确认新密码" prop="configPassword">
+            <el-input type="password" v-model="formInline.configPassword" placeholder="请输入"></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="submitchange">确定</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 <script>
-import { computed, onMounted, reactive, toRefs } from 'vue';
+import { computed, onMounted, reactive, ref, toRefs } from 'vue';
 import { useStore } from 'vuex';
 import stores from '../store/index';
 import { useRouter } from 'vue-router';
@@ -68,21 +92,41 @@ import screenfull from 'screenfull';
 import i18n from '@/plugins/element';
 import zhCn from 'element-plus/lib/locale/lang/zh-cn';
 import en from 'element-plus/lib/locale/lang/en';
+import { changePassword } from '@/api/index';
+import { getToken, removeToken } from '@/utils/auth';
+import { ElMessage } from 'element-plus';
 export default {
   setup() {
     const state = reactive({
       showScreen: Boolean,
-      bgcolor: '#56B185',
+      bgcolor: '#242F42',
       color: '#fff',
       locale: 'zh-cn',
-      value: true,
+      value: false,
       value2: true,
       date: '',
       time: '',
       week: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
       weeks: ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'],
-      weekindex: Number
+      weekindex: Number,
+      dialogVisible: false,
+      formInline: {
+        oldPassword: '',
+        newPassword: '',
+        configPassword: ''
+      }
     });
+    const rules = {
+      oldPassword: [
+        {
+          required: true,
+          message: '请输入',
+          trigger: 'blur'
+        }
+      ],
+      newPassword: [{ required: true, message: '请输入', trigger: 'blur' }],
+      configPassword: [{ required: true, message: '请输入', trigger: 'blur' }]
+    };
     const username = localStorage.getItem('ms_username');
     // const message = 2;
 
@@ -138,11 +182,22 @@ export default {
     const language = () => {
       if (state.locale === en.name) {
         state.locale = zhCn.name;
-        console.log(state.locale, '语言');
       } else {
         state.locale = en.name;
-        console.log(state.locale, '语言');
       }
+    };
+    // 提交修改密码
+    const login = ref(null);
+    const submitchange = () => {
+      login.value.validate(valid => {
+        if (valid) {
+          if (state.formInline.newPassword !== state.formInline.configPassword) {
+            ElMessage.warning('两次新密码不一致');
+          } else {
+            changePassword({ token: getToken() }).then(res => {});
+          }
+        }
+      });
     };
     onMounted(() => {
       if (document.body.clientWidth < 1500) {
@@ -173,12 +228,15 @@ export default {
       zeroPadding,
       updatetime,
       newupdate,
-      language
+      language,
+      rules,
+      login,
+      submitchange
     };
   }
 };
 </script>
-<style scoped>
+<style lang="scss">
 .header {
   position: relative;
   box-sizing: border-box;
@@ -241,6 +299,7 @@ export default {
 }
 .user-avator {
   margin-left: 20px;
+  margin-right: 20px;
 }
 .user-avator img {
   display: block;

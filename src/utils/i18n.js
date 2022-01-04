@@ -17,7 +17,8 @@ export default {
             letout: '退出登录',
             tagcheck: '关闭标签',
             closeOther: '关闭其他',
-            closeAll: '关闭所有'
+            closeAll: '关闭所有',
+            edituser: '修改密码'
         },
         userManage: {
             print: '打印',
@@ -48,7 +49,8 @@ export default {
             letout: 'Sign Out',
             tagcheck: 'Close',
             closeOther: 'Other',
-            closeAll: 'All'
+            closeAll: 'All',
+            edituser: 'ChangePassword'
         },
         userManage: {
             userManagemodules: 'UserManageModules',
