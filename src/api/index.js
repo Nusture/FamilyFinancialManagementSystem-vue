@@ -42,10 +42,24 @@ export const changePassword = query => {
     });
 };
 // 个人信息
-export const getUserInfo = data => {
+export const getUserInfo = (data) => {
     return request({
-        url: '/user/changeUser',
-        method: 'post',
-        params: data
+        url: '/user/getUserById',
+        method: 'get',
+        data,
+        // config: {
+        //     headers: {
+        //         'Request-Type': 'wechat'
+        //     },
+        //     timeout: 10000
+        // }
+    });
+};
+// 个人信息
+export const getUserInfos = params => {
+    return request({
+        url: '/user/getUserById',
+        method: 'get',
+        params
     });
 };

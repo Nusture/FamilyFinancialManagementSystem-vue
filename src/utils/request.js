@@ -21,7 +21,8 @@ const service = axios.create({
     timeout: 5000,
     withCredentials: true,
     headers: {
-        'Content-Type': 'application/json; charset=utf-8'
+        'Content-Type': 'application/json; charset=utf-8',
+        // Host: '47.107.103.82: 8081'
     },
     validateStatus: status => status === 200 || status === 401
 });
@@ -30,7 +31,7 @@ service.interceptors.request.use(
     config => {
         const token = getToken();
         if (token) {
-            config.headers.Authorization = `${token}`;
+            config.headers.token = `${token}`;
         }
         return config;
     },

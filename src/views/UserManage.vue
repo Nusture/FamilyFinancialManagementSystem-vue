@@ -100,7 +100,7 @@
 import { ref, reactive, toRefs, onMounted } from 'vue';
 // import { ElMessage, ElMessageBox } from 'element-plus';
 import Pagination from '../components/Pagination/index.vue';
-import { getUserInfo } from '@/api/index'
+import { getUserInfo,getUserInfos } from '@/api/index'
 import { getToken } from '@/utils/auth';
 export default {
   name: 'basetable',
@@ -297,7 +297,13 @@ export default {
     onMounted(() => {
       getUserInfo({
         token: getToken(),
-        username: 'admin'
+        username: 'admin',
+        phone: "11111111111"
+      })
+      getUserInfos({
+        token: getToken(),
+        username: 'admin',
+        phone: "11111111111"
       })
     });
     return {
