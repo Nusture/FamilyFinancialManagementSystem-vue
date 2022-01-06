@@ -26,7 +26,7 @@ const routes = [{
             path: "/userManage",
             name: "Usermanage",
             meta: {
-                title: '用户管理',
+                title: '个人信息',
                 title2: 'User'
             },
             component: () => import( /* webpackChunkName: "table" */ "../views/UserManage.vue")
@@ -114,7 +114,7 @@ const routes = [{
             path: '/FamilyInformation',
             name: 'FamilyInformation',
             meta: {
-                title: '角色管理',
+                title: '家庭信息',
                 title2: 'FamilyInformation'
             },
             component: () => import( /* webpackChunkName: "403" */ '../views/RoleManage.vue')

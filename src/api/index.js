@@ -17,11 +17,11 @@ export const Register = query => {
     });
 };
 // 查询用户名是否存在
-export const getUsername = query => {
+export const getUsername = params => {
     return request({
         url: '/getUsername',
         method: 'post',
-        param: query
+        params
     });
 };
 // 获取当日收支接口
@@ -42,24 +42,18 @@ export const changePassword = query => {
     });
 };
 // 个人信息
-export const getUserInfo = (data) => {
+export const getUserInfos = data => {
     return request({
         url: '/user/getUserById',
-        method: 'get',
-        data,
-        // config: {
-        //     headers: {
-        //         'Request-Type': 'wechat'
-        //     },
-        //     timeout: 10000
-        // }
+        method: 'post',
+        data
     });
 };
-// 个人信息
-export const getUserInfos = params => {
+// 修改个人信息
+export const changeUserInfos = data => {
     return request({
-        url: '/user/getUserById',
-        method: 'get',
-        params
+        url: '/user/changeUser',
+        method: 'post',
+        data
     });
 };

@@ -56,7 +56,7 @@ service.interceptors.response.use(response => {
             router.push({
                 name: 'Login'
             });
-        } else {
+        } else if (data.code === 500) {} else {
             ElMessage({
                 message: data.msg || 'Error',
                 type: 'waring',

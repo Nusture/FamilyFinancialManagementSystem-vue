@@ -162,7 +162,12 @@ export default {
       if(param.show === true){
       getUsername({username: param.username}).then(res =>{
         if(res.code === 200) {
-          ElMessage.success(res.msg)
+        } else {
+          ElMessage({
+            type: 'warning',
+            duration: 2 * 1000,
+            message: '改用户已存在'
+          })
         }
       })
 
