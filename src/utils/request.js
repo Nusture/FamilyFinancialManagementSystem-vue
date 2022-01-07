@@ -15,7 +15,7 @@ if (window.location.hostname === 'localhost') {
 } else {
     urls = '/api'
 }
-export const baseURL = urls;
+export const baseURL = '/api';
 const service = axios.create({
     baseURL,
     timeout: 5000,

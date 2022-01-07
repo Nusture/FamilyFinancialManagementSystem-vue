@@ -42,11 +42,11 @@ export const changePassword = query => {
     });
 };
 // 个人信息
-export const getUserInfos = params => {
+export const getUserInfos = data => {
     return request({
         url: '/user/getUserById',
         method: 'post',
-        params
+        data
     });
 };
 // 修改个人信息

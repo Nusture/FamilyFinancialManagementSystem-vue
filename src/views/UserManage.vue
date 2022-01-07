@@ -164,6 +164,7 @@ export default {
         state.formLabelAlign.phone = res.data.phone;
         state.formLabelAlign.familycode = res.data.familyCode;
         state.formLabelAlign.signature = res.data.signature
+        state.formLabelAlign.gender = res.data.gender
       });
     });
     return {
