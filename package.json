@@ -15,6 +15,7 @@
     "font-awesome": "^4.7.0",
     "js-cookie": "^3.0.1",
     "path": "^0.12.7",
+    "qs": "^6.10.2",
     "screenfull": "^6.0.0",
     "vue": "^3.1.2",
     "vue-contextmenu": "^1.5.10",

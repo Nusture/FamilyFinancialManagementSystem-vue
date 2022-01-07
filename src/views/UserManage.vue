@@ -26,13 +26,13 @@
                 list-type="picture-card"
                 :on-change="handlePictureCardPreview"
               >
-                <el-button type="info">修改头像</el-button>
+                <el-button type="primary">修改头像</el-button>
               </el-upload>
             </div>
             <div class="BaseTable_left_info">
-              <span>个人简介:</span>
-              <span v-if="formLabelAlign.signature !== ''">{{formLabelAlign.signature}}</span>
-              <span style="font-size: 12px;color: #ccc;display:block;text-align:center">这个人很懒，什么都没留下...</span>
+              <span>个人签名:</span>
+              <span >{{formLabelAlign.signature}}</span>
+              <!-- <span style="font-size: 12px;color: #ccc;display:block;text-align:center">这个人很懒，什么都没留下...</span> -->
             </div>
             <!-- <div class="BaseTable_left_btn">
               <el-button type="info">修改简介</el-button>
@@ -73,7 +73,7 @@
             <div class="btn">
               <el-button v-if="show === true " type="info" @click="show = false">修改</el-button>
               <el-button v-else type="info" @click="show = true">取消</el-button>
-              <el-button type="info" @click="submit">保存</el-button>
+              <el-button type="primary" :disabled="show" @click="submit">保存</el-button>
             </div>
           </div>
         </el-col>
@@ -155,7 +155,6 @@ export default {
     onMounted(() => {
       // aaa()
       // const username = localStorage.getItem('ms_username');
-      console.log(localStorage.getItem('url'),'url')
       state.fileurl =  localStorage.getItem('url') || fileurls
       getUserInfos({
         token: getToken()
@@ -164,6 +163,7 @@ export default {
         state.formLabelAlign.createTime = res.data.createTime;
         state.formLabelAlign.phone = res.data.phone;
         state.formLabelAlign.familycode = res.data.familyCode;
+        state.formLabelAlign.signature = res.data.signature
       });
     });
     return {

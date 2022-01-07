@@ -13,14 +13,11 @@ export default defineConfig({
   plugins: [vue()],
   server: {
     cors: true,
-    open: true,
-    port: 8081,
     host: '0.0.0.0',
   },
   devServer: {
     port: 8081,
     open: true,
-    host: '0.0.0.0',
     proxy: {
       '/api': {
         target: 'http://47.107.103.82:8081',
