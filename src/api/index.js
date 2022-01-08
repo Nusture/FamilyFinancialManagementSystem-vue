@@ -57,3 +57,83 @@ export const changeUserInfos = data => {
         data
     });
 };
+// 家庭信息 获取家庭码和余额
+export const familyInfo = data => {
+    return request({
+        url: '/user/getFCMoney',
+        method: 'post',
+        data
+    });
+};
+// 家庭信息 家庭成员
+export const familyMember = data => {
+    return request({
+        url: '/user/getAllUser',
+        method: 'post',
+        data
+    });
+};
+// 支出管理 查询所以支出条目
+export const getOutlaylist = data => {
+    return request({
+        url: '/cost/getCost',
+        method: 'post',
+        data
+    });
+};
+// 支出管理 条目详情
+export const getOutlaylistDetail = data => {
+    return request({
+        url: '/cost/queryOne',
+        method: 'post',
+        data
+    });
+};
+// 支出管理 条目修改 添加
+export const addOutlayDetail = data => {
+    return request({
+        url: `/cost/${data.id ? 'changeCost' : 'addCost'} `,
+        method: 'post',
+        data
+    });
+};
+// 支出管理 条目删除
+export const delOutlay = data => {
+    return request({
+        url: '/cost/deleteCost',
+        method: 'post',
+        data
+    });
+};
+// 收入管理 所有条目
+export const getIncomeList = data => {
+    return request({
+        url: '/income/getIncome',
+        method: 'post',
+        data
+    });
+};
+// 收入管理 详情
+export const getIncomeDetail = data => {
+    return request({
+        url: '/income/queryOne',
+        method: 'post',
+        data
+    });
+};
+// 收入管理 条目修改 添加
+export const addIncomeDetail = data => {
+    return request({
+        url: `/income/${data.id ? 'changeIncome' : 'addIncome'} `,
+        method: 'post',
+        data
+    });
+};
+// 收入管理 条目删除
+export const delIncomeDetail = data => {
+    return request({
+        url: '/income/deleteIncome',
+        method: 'post',
+        data
+    });
+};

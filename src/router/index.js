@@ -40,7 +40,7 @@ const routes = [{
                 title: '支出管理',
                 title2: 'OutlayManage'
             },
-            component: () => import( /* webpackChunkName: "form" */ "../views/Outlay.vue")
+            component: () => import( /* webpackChunkName: "form" */ "../views/OutlayManage.vue")
         },
         {
             path: "/moneyDetail",
@@ -58,7 +58,7 @@ const routes = [{
                 title: '收入管理',
                 title2: 'IncomeManage'
             },
-            component: () => import( /* webpackChunkName: "donate" */ "../views/OutlayIncome.vue")
+            component: () => import( /* webpackChunkName: "donate" */ "../views/IncomeManage.vue")
         },
         {
             path: "/FamilyMember",
@@ -118,7 +118,7 @@ const routes = [{
                 title: '家庭信息',
                 title2: 'FamilyInformation'
             },
-            component: () => import( /* webpackChunkName: "403" */ '../views/RoleManage.vue')
+            component: () => import( /* webpackChunkName: "403" */ '../views/FamilyInformation.vue')
         }, {
             path: '/userme',
             name: 'userMe',

@@ -9,18 +9,6 @@
               <img :src="fileurl" />
             </div>
             <div class="BaseTable_left_btn BaseTable_left_btnborder">
-              <!-- <el-upload
-                ref="upload"
-                class="upload-demo"
-                action="#"
-                :limit="1"
-                 :on-change="handlePreview"
-                :auto-upload="false"
-              >
-              <div slot="file" slot-scope="{file}">
-                  <el-button @click="handlePictureCardPreview(file)" type="info">修改头像</el-button>
-              </div>
-              </el-upload>-->
               <el-upload
                 action="https://jsonplaceholder.typicode.com/posts/"
                 list-type="picture-card"
@@ -32,21 +20,24 @@
             <div class="BaseTable_left_info">
               <span>个人签名:</span>
               <span >{{formLabelAlign.signature}}</span>
-              <!-- <span style="font-size: 12px;color: #ccc;display:block;text-align:center">这个人很懒，什么都没留下...</span> -->
             </div>
-            <!-- <div class="BaseTable_left_btn">
-              <el-button type="info">修改简介</el-button>
-            </div> -->
           </div>
         </el-col>
         <el-col :span="16">
           <div class="BaseTable_right">
             <el-form label-width="100px" :model="formLabelAlign" :disabled="show">
               <el-form-item label="用户">
-                <el-input v-model="formLabelAlign.name" style="width:50%"></el-input>
+                <el-input v-model="formLabelAlign.name" disabled style="width:50%"></el-input>
               </el-form-item>
               <el-form-item label="出生日期">
-                <el-input v-model="formLabelAlign.birth" style="width:50%"></el-input>
+                <!-- <el-input v-model="formLabelAlign.birth" style="width:50%"></el-input> -->
+                <el-date-picker
+                      v-model="formLabelAlign.birth"
+                      type="date"
+                      format="YYYY-MM-DD"
+                      style="width:50%"
+                      @change="changetime"
+                    />
               </el-form-item>
               <el-form-item label="性别">
                 <el-radio-group v-model="formLabelAlign.gender">
@@ -60,9 +51,6 @@
               <el-form-item label="联系电话">
                 <el-input v-model="formLabelAlign.phone" style="width:50%"></el-input>
               </el-form-item>
-              <!-- <el-form-item label="家庭码">
-                <el-input v-model="formLabelAlign.familycode" style="width:50%"></el-input>
-              </el-form-item>-->
               <el-form-item label="邮箱">
                 <el-input v-model="formLabelAlign.email" style="width:50%"></el-input>
               </el-form-item>
@@ -84,8 +72,6 @@
 
 <script>
 import { ref, reactive, toRefs, onMounted } from 'vue';
-// import { ElMessage, ElMessageBox } from 'element-plus';
-// import Pagination from '../components/Pagination/index.vue';
 import { getUserInfos, changeUserInfos } from '@/api/index';
 import { getToken } from '@/utils/auth';
 import { ElMessage } from 'element-plus';
@@ -117,6 +103,9 @@ export default {
       disabled: false,
       fileurl: fileurls
     });
+    const changetime = (value) =>{
+      console.log(value,'value')
+    }
     const submit = () => {
       const param = {
         token: getToken(),
@@ -130,6 +119,9 @@ export default {
       };
       changeUserInfos(param).then(res => {
         if (res.code === 200) {
+          ElMessage.success('保存成功')
+          state.show = true
+          getdatalist()
         } else {
           ElMessage({
             type: 'error',
@@ -138,25 +130,13 @@ export default {
         }
       });
     };
-    const handlePreview = file => {
-      console.log(file);
-    };
     const handlePictureCardPreview = file => {
       state.fileurl = file.url;
       localStorage.setItem('url',state.fileurl)
-      console.log(file, 'fileurl');
     };
-    // const handleDownload = file => {
-    //   console.log(file);
-    // };
-     const aaa = async ()  =>{
-      await getUserInfos()
-    };
-    onMounted(() => {
-      // aaa()
-      // const username = localStorage.getItem('ms_username');
-      state.fileurl =  localStorage.getItem('url') || fileurls
-      getUserInfos({
+    // 获取用户信息
+    const getdatalist = () =>{
+       getUserInfos({
         token: getToken()
       }).then(res => {
         state.formLabelAlign.name = res.data.username;
@@ -165,15 +145,20 @@ export default {
         state.formLabelAlign.familycode = res.data.familyCode;
         state.formLabelAlign.signature = res.data.signature
         state.formLabelAlign.gender = res.data.gender
+        state.formLabelAlign.email = res.data.email
+        state.formLabelAlign.birth = res.data.birth
+        state.formLabelAlign.address = res.data.address
       });
+    }
+    onMounted(() => {
+      state.fileurl =  localStorage.getItem('url') || fileurls
+     getdatalist()
     });
     return {
       ...toRefs(state),
       submit,
-      handlePreview,
-      // handleRemove,
+      changetime,
       handlePictureCardPreview
-      // handleDownload
     };
   }
 };

@@ -73,21 +73,21 @@ export default {
       },
       {
         icon: 'el-icon-house',
-        index: '1',
-        title: '我的家庭',
-        title2: 'MyFamily',
-        subs: [
-          {
-            index: '/FamilyInformation',
-            title: '家庭信息',
-            title2: 'FamilyInformation'
-          },
-          {
-                  index: "/FamilyMember",
-                  title: "家庭成员",
-                  title2: 'FamilyMember'
-              },
-        ]
+        index: '/FamilyInformation',
+        title: '家庭信息',
+        title2: 'MyFamily'
+        // subs: [
+        //   {
+        //     index: '/FamilyInformation',
+        //     title: '家庭信息',
+        //     title2: 'FamilyInformation'
+        //   },
+        //   {
+        //           index: "/FamilyMember",
+        //           title: "家庭成员",
+        //           title2: 'FamilyMember'
+        //       },
+        // ]
       },
       {
         icon: 'el-icon-lx-copy',
@@ -100,7 +100,7 @@ export default {
         index: '/IncomeManage',
         title: '收入管理',
         title2: 'IncomeManage'
-      },
+      }
 
       // {
       //   icon: 'el-icon-d-caret',
@@ -120,34 +120,34 @@ export default {
       //   title: '搜索',
       //   title2: 'Search'
       // },
-      {
-        icon: 'el-icon-setting',
-        index: '7',
-        title: '系统管理',
-        title2: 'SyetemManage',
-        subs: [
-          {
-            index: '/rolemanage',
-            title: '角色管理',
-            title2: 'RoleManage'
-          },
-          {
-            index: '/404',
-            title: '404页面',
-            title2: '404page'
-          },
-          {
-            index: '/editor',
-            title: '文本管理',
-            title2: 'TextEdit'
-          },
-          {
-            index: '/icon',
-            title: '图标管理',
-            title2: 'Icon'
-          }
-        ]
-      }
+      // {
+      //   icon: 'el-icon-setting',
+      //   index: '7',
+      //   title: '系统管理',
+      //   title2: 'SyetemManage',
+      //   subs: [
+      //     {
+      //       index: '/rolemanage',
+      //       title: '角色管理',
+      //       title2: 'RoleManage'
+      //     },
+      //     {
+      //       index: '/404',
+      //       title: '404页面',
+      //       title2: '404page'
+      //     },
+      //     {
+      //       index: '/editor',
+      //       title: '文本管理',
+      //       title2: 'TextEdit'
+      //     },
+      //     {
+      //       index: '/icon',
+      //       title: '图标管理',
+      //       title2: 'Icon'
+      //     }
+      //   ]
+      // }
     ];
 
     const route = useRoute();

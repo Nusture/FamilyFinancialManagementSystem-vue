@@ -65,7 +65,7 @@ import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import Verifycode from './components/verify.vue';
-import { Login, Register,getUsername } from '@/api/index';
+import { Login, Register, getUsername } from '@/api/index';
 import { setToken, removeToken } from '@/utils/auth';
 export default {
   components: { Verifycode },
@@ -97,7 +97,7 @@ export default {
     };
     const login = ref(null);
     const submitForm = () => {
-      console.log(window.location.hostname,1120)
+      console.log(window.location.hostname, 1120);
       login.value.validate(valid => {
         if (valid) {
           if (param.code.toUpperCase() === param.verify.toUpperCase()) {
@@ -119,17 +119,6 @@ export default {
         }
       });
     };
-    // 生产随机五位数
-    // const numcode = () => {
-    //   param.num = parseInt(Math.random() * 100000); //首先创建一个五位数的随机数（Number）
-    //   //把每一位都单独提出来
-    //   var one = parseInt(param.num / 10000);
-    //   var two = parseInt((param.num / 1000) % 10);
-    //   var thr = parseInt((param.num / 100) % 10);
-    //   var four = parseInt((param.num / 10) % 10);
-    //   var fif = param.num % 10;
-      
-    // };
     // 注册
     const register = () => {
       login.value.validate(valid => {
@@ -158,19 +147,18 @@ export default {
       });
     };
     // 注册验证用户名是否存在
-    const userchange = () =>{
-      if(param.show === true){
-      getUsername({username: param.username}).then(res =>{
-        if(res.code === 200) {
-        } else {
-          ElMessage({
-            type: 'warning',
-            duration: 2 * 1000,
-            message: '改用户已存在'
-          })
-        }
-      })
-
+    const userchange = () => {
+      if (param.show === true) {
+        getUsername({ username: param.username }).then(res => {
+          if (res.code === 200) {
+          } else {
+            ElMessage({
+              type: 'warning',
+              duration: 2 * 1000,
+              message: '改用户已存在'
+            });
+          }
+        });
       }
     };
 

@@ -9,7 +9,7 @@ import {
 
 const path = require('path')
 export default defineConfig({
-  base: './',
+  base: '/',
   plugins: [vue()],
   // server: {
   //   cors: true,
@@ -29,7 +29,7 @@ export default defineConfig({
   //   }
   // },
   server: {
-    port: 9090,
+    port: 3000,
     open: true,
     proxy: {
       '/api': {
