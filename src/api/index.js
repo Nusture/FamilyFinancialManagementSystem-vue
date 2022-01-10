@@ -34,11 +34,11 @@ export const getToday = query => {
 };
 
 // 修改密码
-export const changePassword = query => {
+export const changePassword = data => {
     return request({
-        url: '/user/getPassword',
+        url: '/user/changePassword',
         method: 'post',
-        params: query
+        data
     });
 };
 // 个人信息
@@ -133,6 +133,14 @@ export const addIncomeDetail = data => {
 export const delIncomeDetail = data => {
     return request({
         url: '/income/deleteIncome',
+        method: 'post',
+        data
+    });
+};
+// 获取密码 
+export const getPassword = data => {
+    return request({
+        url: '/user/getPassword',
         method: 'post',
         data
     });

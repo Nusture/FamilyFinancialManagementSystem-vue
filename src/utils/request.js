@@ -1,6 +1,9 @@
 import axios from 'axios';
 import qs from 'qs';
 import {
+    useRouter
+} from 'vue-router';
+import {
     getToken,
     removeToken
 } from '@/utils/auth';
@@ -15,6 +18,7 @@ if (window.location.hostname === 'localhost') {
 } else {
     urls = '/api'
 }
+const router = useRouter();
 export const baseURL = '/api';
 const service = axios.create({
     baseURL,
@@ -45,17 +49,15 @@ service.interceptors.request.use(
 service.interceptors.response.use(response => {
     const data = response.data;
     if (data.code !== 200) {
-        if (data.code === 40001) {
+        if (data.code === 401) {
             // ElMessageBox.use;
             ElMessage({
                 message: data.msg || 'Error',
                 type: 'waring',
-                duration: 5 * 1000
+                duration: 2 * 1000
             })
             removeToken();
-            router.push({
-                name: 'Login'
-            });
+            router.push('/login');
         } else if (data.code === 500) {} else {
             ElMessage({
                 message: data.msg || 'Error',

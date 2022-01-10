@@ -51,8 +51,8 @@
                                 <el-dropdown-item>项目仓库</el-dropdown-item>
               </a>-->
               <el-dropdown-item command="userManage">{{$t('i18n.user')}}</el-dropdown-item>
-              <el-dropdown-item>
-                <span @click="dialogVisible = true">{{$t('i18n.edituser')}}</span>
+              <el-dropdown-item @click="open">
+                <span>{{$t('i18n.edituser')}}</span>
               </el-dropdown-item>
               <el-dropdown-item divided command="loginout">{{$t('i18n.letout')}}</el-dropdown-item>
             </el-dropdown-menu>
@@ -62,9 +62,9 @@
     </div>
     <el-dialog title="修改密码" v-model="dialogVisible" width="30%" center>
       <div>
-        <el-form class="demo-form-inline" ref="login" :model="formInline" :rules="rules" label-width="100px">
+        <el-form class="demo-form-inline" ref="loginForm" :model="formInline" :rules="rules" label-width="100px">
           <el-form-item label="原密码" prop="oldPassword">
-            <el-input type="password" v-model="formInline.oldPassword" placeholder="请输入"></el-input>
+            <el-input type="password" v-model="formInline.oldPassword" placeholder="请输入" @blur="getpassword"></el-input>
           </el-form-item>
           <el-form-item label="新密码" prop="newPassword">
             <el-input type="password" v-model="formInline.newPassword" placeholder="请输入"></el-input>
@@ -92,9 +92,9 @@ import screenfull from 'screenfull';
 import i18n from '@/plugins/element';
 import zhCn from 'element-plus/lib/locale/lang/zh-cn';
 import en from 'element-plus/lib/locale/lang/en';
-import { changePassword } from '@/api/index';
+import { changePassword, getPassword } from '@/api/index';
 import { getToken, removeToken } from '@/utils/auth';
-import { ElMessage } from 'element-plus';
+import { ElMessage, ElMessageBox } from 'element-plus';
 export default {
   setup() {
     const state = reactive({
@@ -150,7 +150,6 @@ export default {
         stores.commit('common/getSidebarbg', state.bgcolor);
       }
     };
-    // const change2 = () => {};
     const newupdate = computed(() => {
       setInterval(() => {
         updatetime();
@@ -186,18 +185,52 @@ export default {
         state.locale = en.name;
       }
     };
-    // 提交修改密码
-    const login = ref(null);
-    const submitchange = () => {
-      login.value.validate(valid => {
-        if (valid) {
-          if (state.formInline.newPassword !== state.formInline.configPassword) {
-            ElMessage.warning('两次新密码不一致');
-          } else {
-            changePassword({ token: getToken() }).then(res => {});
-          }
+    // 获取原密码
+    const getpassword = () => {
+      getPassword().then(res => {
+        if (state.formInline.oldPassword !== res.data.password) {
+          ElMessage.warning('原密码输入错误,请重新输入');
+          state.formInline.oldPassword = '';
         }
       });
+    };
+    const router = useRouter();
+    // 提交修改密码
+    const loginForm = ref(null);
+    const submitchange = () => {
+      ElMessageBox.confirm('确定修改密码?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          loginForm.value.validate(valid => {
+            if (valid) {
+              if (state.formInline.newPassword !== state.formInline.configPassword) {
+                ElMessage.warning('两次新密码不一致');
+              } else {
+                changePassword({ token: getToken() }).then(res => {
+                  if (res.code === 200) {
+                    ElMessage.success('修改成功,请重新登录');
+                    router.push('/login');
+                  } else {
+                    ElMessage.error(res.msg);
+                  }
+                });
+              }
+            }
+          });
+        })
+        .catch(() => {
+          ElMessage({
+            type: 'info',
+            message: '取消修改'
+          });
+        });
+    };
+    const open = () => {
+      state.dialogVisible = true;
+      loginForm.value.resetFields();
     };
     onMounted(() => {
       if (document.body.clientWidth < 1500) {
@@ -206,7 +239,7 @@ export default {
     });
 
     // 用户名下拉菜单选择事件
-    const router = useRouter();
+    // const router = useRouter();
     const handleCommand = command => {
       if (command == 'loginout') {
         localStorage.removeItem('ms_username');
@@ -230,8 +263,10 @@ export default {
       newupdate,
       language,
       rules,
-      login,
-      submitchange
+      loginForm,
+      submitchange,
+      getpassword,
+      open
     };
   }
 };

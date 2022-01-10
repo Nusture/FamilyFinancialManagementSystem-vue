@@ -3,37 +3,42 @@
     <div class="search">
       <el-form label-width="80px" :inline="true" :model="formLabelAlign">
         <el-row>
-          <el-col :span="3">
+          <el-col :span="8">
             <el-form-item label="用户">
-              <el-input v-model="formLabelAlign.username" clearable style="width:100%"></el-input>
+              <el-input v-model="formLabelAlign.username" placeholder="请输入用户名" clearable style="width:100%"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="8">
             <el-form-item label="电话">
-              <el-input v-model="formLabelAlign.phone" clearable style="width:100%"></el-input>
+              <el-input v-model="formLabelAlign.phone" placeholder="请输入电话" clearable style="width:100%"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="6">
             <el-form-item label="性别">
-              <el-radio-group v-model="formLabelAlign.gender">
-                <el-radio :label="0">男</el-radio>
-                <el-radio :label="1">女</el-radio>
-              </el-radio-group>
+              <el-select v-model="formLabelAlign.gender" placeholder="请选择性别" style="width:100%" filterable clearable>
+                <el-option label="男" :value="0" />
+                <el-option label="男女" :value="1" />
+              </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
-            <el-form-item label="地址">
-              <el-input v-model="formLabelAlign.address" clearable style="width:100%"></el-input>
+          <el-col :span="2">
+            <el-form-item>
+              <el-button type="primary" @click="resetForm">重置</el-button>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="8">
             <el-form-item label="邮箱">
-              <el-input v-model="formLabelAlign.email" clearable style="width:100%"></el-input>
+              <el-input v-model="formLabelAlign.email" placeholder="请输入邮箱" clearable style="width:100%"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="8">
+            <el-form-item label="地址">
+              <el-input v-model="formLabelAlign.address" placeholder="请输入地址" clearable style="width:100%"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
             <el-form-item label="出生日期">
-              <el-date-picker v-model="formLabelAlign.birth" clearable type="date" format="YYYY-MM-DD" style="width:100%" />
+              <el-date-picker v-model="formLabelAlign.birth" clearable placeholder="请选择日期" type="date" format="YYYY-MM-DD" style="235排序" />
             </el-form-item>
           </el-col>
           <el-col :span="2">
@@ -142,6 +147,18 @@ export default {
     const TimeValue = value => {
       console.log(value.getFullYear(), 'value');
     };
+    // 重置
+    const resetForm = () => {
+      state.formLabelAlign.username = '';
+      state.formLabelAlign.phone = '';
+      state.formLabelAlign.currentPage = 1;
+      state.formLabelAlign.pageSize = 5;
+      state.formLabelAlign.gender = null;
+      state.formLabelAlign.address = '';
+      state.formLabelAlign.email = '';
+      state.formLabelAlign.birth = '';
+      getdatalist()
+    };
     onMounted(() => {
       nextTick(() => {
         getdatalist();
@@ -151,7 +168,8 @@ export default {
       ...toRefs(state),
       getdatalist,
       getList,
-      TimeValue
+      TimeValue,
+      resetForm
     };
   }
 };
