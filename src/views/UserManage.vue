@@ -40,10 +40,10 @@
                     />
               </el-form-item>
               <el-form-item label="性别">
-                <el-radio-group v-model="formLabelAlign.gender">
-                  <el-radio :label="0">男</el-radio>
-                  <el-radio :label="1">女</el-radio>
-                </el-radio-group>
+                <el-select v-model="formLabelAlign.gender" placeholder="请选择性别" style="width:50%" filterable clearable>
+                <el-option label="男" :value="0" />
+                <el-option label="女" :value="1" />
+              </el-select>
               </el-form-item>
               <el-form-item label="地址">
                 <el-input v-model="formLabelAlign.address" style="width:50%"></el-input>
@@ -171,6 +171,7 @@ export default {
   background: #fff;
   border-radius: 3px;
   border: 1px solid #e7e8f2;
+  height: calc(100vh - 140px);
   .BaseTable_title {
     height: 50px;
     line-height: 50px;
@@ -185,9 +186,10 @@ export default {
   .BaseTable_content {
     width: 100%;
     // height: 600px;
+    height: calc(100vh - 190px);
     .BaseTable_left {
       border: 1px solid #ccc;
-      height: 700px;
+    height: calc(100vh - 192px);
       .BaseTable_left_img {
         width: 150px;
         height: 150px;
@@ -227,7 +229,7 @@ export default {
     }
     .BaseTable_right {
       width: calc(100% - 1px);
-      height: 700px;
+    height: calc(100vh - 192px);
       border: 1px solid #ccc;
       border-left: none;
       .el-form {

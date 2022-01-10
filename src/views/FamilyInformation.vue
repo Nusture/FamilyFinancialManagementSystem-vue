@@ -4,8 +4,10 @@
       <el-form label-width="80px" :inline="true" :model="formLabelAlign">
         <el-row>
           <el-col :span="8">
-            <el-form-item label="用户">
-              <el-input v-model="formLabelAlign.username" placeholder="请输入用户名" clearable style="width:100%"></el-input>
+            <el-form-item label="用户名">
+              <el-input v-model="formLabelAlign.username" placeholder="请输入用户名" clearable style="width:100%">
+                 
+              </el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -17,7 +19,7 @@
             <el-form-item label="性别">
               <el-select v-model="formLabelAlign.gender" placeholder="请选择性别" style="width:100%" filterable clearable>
                 <el-option label="男" :value="0" />
-                <el-option label="男女" :value="1" />
+                <el-option label="女" :value="1" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -38,7 +40,7 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="出生日期">
-              <el-date-picker v-model="formLabelAlign.birth" clearable placeholder="请选择日期" type="date" format="YYYY-MM-DD" style="235排序" />
+              <el-date-picker v-model="formLabelAlign.birth" clearable placeholder="请选择日期" type="date" format="YYYY-MM-DD" value-format="YYYY-MM-DD" style="width: 100%"/>
             </el-form-item>
           </el-col>
           <el-col :span="2">
@@ -60,17 +62,22 @@
     </div>
     <div class="Family_member">
       <el-table :data="tableData" v-loading="loading" style="width: 100%" border stripe fit highlight-current-row>
-        <el-table-column prop="id" label="编号" width="80" align="center" />
+        <!-- <el-table-column prop="id" label="编号" width="80" align="center" /> -->
         <el-table-column prop="username" label="用户" width="150" align="center" />
-        <el-table-column prop="phone" label="电话" width="150" align="center" />
-        <el-table-column prop="familyCode" label="家庭码" width="150" align="center" />
-        <el-table-column label="创建时间" width="150" align="center">
-          <template v-slot="scope">{{scope.row.createTime.substr(0,10)}}</template>
+        <el-table-column prop="gender" label="性别" width="150" align="center">
+          <template v-slot="scope"><span v-if="scope.row.gender === 0"> 男</span><span v-else-if="scope.row.gender === 1">女</span></template>
         </el-table-column>
-        <el-table-column prop="gender" label="性别" width="150" align="center"></el-table-column>
-        <el-table-column prop="address" label="地址" align="center" />
+        <el-table-column prop="phone" label="电话" width="150" align="center" />
         <el-table-column prop="email" label="邮箱" width="150" align="center" />
-        <el-table-column prop="signature" label="简介" align="center" />
+        <el-table-column prop="address" label="地址" align="center" /> 
+        <el-table-column label="出生日期" width="150" align="center">
+          <template v-slot="scope"><span v-if="scope.row.birth">{{scope.row.birth.substr(0,10)}}</span></template>
+        </el-table-column>
+        <!-- <el-table-column prop="familyCode" label="家庭码" width="150" align="center" /> -->
+        <el-table-column label="创建时间" width="150" align="center">
+          <template v-slot="scope"><span v-if="scope.row.createTime">{{scope.row.createTime.substr(0,10)}}</span></template>
+        </el-table-column>
+        <!-- <el-table-column prop="signature" label="简介" align="center" /> -->
         <!-- <el-table-column label="操作" align="center" width="150">
           <template v-slot="scope">
             <el-button type="success" size="mini" @click="edit(scope.row)">编辑</el-button>
@@ -116,6 +123,7 @@ export default {
         state.familyCode = res.data.familyCode;
         state.money = res.data.money;
       });
+      console.log(state.formLabelAlign.birth,111)
       const param = {
         username: state.formLabelAlign.username,
         phone: state.formLabelAlign.phone,
@@ -144,9 +152,6 @@ export default {
       state.formLabelAlign.pageSize = page.limit;
       getdatalist();
     };
-    const TimeValue = value => {
-      console.log(value.getFullYear(), 'value');
-    };
     // 重置
     const resetForm = () => {
       state.formLabelAlign.username = '';
@@ -168,8 +173,7 @@ export default {
       ...toRefs(state),
       getdatalist,
       getList,
-      TimeValue,
-      resetForm
+      resetForm,
     };
   }
 };
@@ -178,7 +182,7 @@ export default {
 
 <style lang="scss">
 .Family {
-  height: calc(100vh - 200px);
+  height: calc(100vh - 140px);
   width: 100%;
   background: #fff;
   border-radius: 5px;
@@ -190,6 +194,21 @@ export default {
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.07);
     border-radius: 3px;
     border: 1px solid #e7e8f2;
+    .el-col{
+      .el-form-item{
+        width: 95%;
+        margin-bottom: 0;
+      }
+      .el-form-item__label{
+        border: 1px solid #DCDFE6;
+        border-right: none;
+        height: 40px;
+        background: #F5F7FA;
+      }
+      .el-input__inner{
+        border-radius: 0px;
+      }
+    }
   }
   .Family_member {
     margin: 15px;

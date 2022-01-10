@@ -5,27 +5,28 @@
         <el-row>
           <el-col :span="5">
             <el-form-item label="支出类型">
-              <el-input v-model="form.costType" clearable style="width:100%"></el-input>
+              <el-input v-model="form.costType" placeholder="请输入支出类型" clearable style="width:100%"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="5">
             <el-form-item label="支出时间">
-              <el-input v-model="form.updateTime" clearable style="width:100%"></el-input>
+              <el-input v-model="form.date" placeholder="请输入支出时间" clearable style="width:100%"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="5">
             <el-form-item label="支出账号">
-              <el-input v-model="form.account" clearable style="width:100%"></el-input>
+              <el-input v-model="form.account" placeholder="请输入支出账号" clearable style="width:100%"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="5">
             <el-form-item label="支出描述">
-              <el-input v-model="form.note" clearable style="width:100%"></el-input>
+              <el-input v-model="form.note" placeholder="请输入支出描述" clearable style="width:100%"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item>
               <el-button type="primary" @click="getdatalist">查询</el-button>
+              <el-button type="primary" @click="resetFrom">重置</el-button>
               <el-button type="primary" @click="addOutlay">新增</el-button>
             </el-form-item>
           </el-col>
@@ -38,8 +39,8 @@
         <el-table-column prop="account" label="支出账户" width="150" align="center" />
         <el-table-column prop="costType" label="支出类型" width="150" align="center" />
         <el-table-column prop="costMoney" label="支出金额" width="150" align="center" />
-        <el-table-column prop="createTime" label="创建时间" width="150" align="center">
-          <template v-slot="scope">{{scope.row.createTime.substr(0,10)}}</template>
+        <el-table-column prop="createTime" label="支出时间" width="150" align="center">
+          <template v-slot="scope"><span v-if="scope.row.createTime">{{scope.row.createTime.substr(0,10)}}</span></template>
         </el-table-column>
         <el-table-column prop="familyCode" label="家庭码" width="150" align="center" />
         <el-table-column prop="note" label="支出描述" align="center" />
@@ -114,7 +115,8 @@ export default {
         currentPage: 1,
         pageSize: 5,
         id: null,
-        money: ''
+        money: '',
+        date: ''
       },
       tableData: [],
       loading: false,
@@ -150,6 +152,14 @@ export default {
       state.form.note = '';
       state.form.account = '';
     };
+    // 重置
+    const resetFrom = () =>{
+      state.form.costType = ''
+      state.form.date = ''
+      state.form.account = ''
+      state.form.note = ''
+      getdatalist()
+    }
     // 删除
     const del = row => {
       ElMessageBox.confirm(` 确定删除${row.note}相关数据?`, '提示', {
@@ -219,7 +229,8 @@ export default {
       del,
       edit,
       submitOutlay,
-      addOutlay
+      addOutlay,
+      resetFrom
     };
   }
 };
@@ -227,7 +238,7 @@ export default {
 
 <style lang="scss">
 .OutlayManage {
-  height: calc(100vh - 200px);
+  height: calc(100vh - 140px);
   width: 100%;
   background: #fff;
   border-radius: 5px;
@@ -239,6 +250,21 @@ export default {
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.07);
     border-radius: 3px;
     border: 1px solid #e7e8f2;
+    .el-col{
+      .el-form-item{
+        width: 95%;
+        margin-bottom: 0;
+      }
+      .el-form-item__label{
+        border: 1px solid #DCDFE6;
+        border-right: none;
+        height: 40px;
+        background: #F5F7FA;
+      }
+      .el-input__inner{
+        border-radius: 0px;
+      }
+    }
   }
   .OutlayManage_table {
     margin: 15px;
