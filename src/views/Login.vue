@@ -49,8 +49,8 @@
         <!-- <Verifycode @code="imgCode" /> -->
         <!-- </span> -->
         <div class="login-btn">
-          <el-button v-if="param.show === false" type="primary" @click="param.show = true">注册</el-button>
           <el-button v-if="param.show === false" type="primary" @click="submitForm">登录</el-button>
+          <el-button v-if="param.show === false" type="primary" @click="param.show = true">注册</el-button>
           <el-button type="primary" v-if="param.show === true" @click="register">确定</el-button>
           <el-button type="primary" v-if="param.show === true" @click="param.show = false">取消</el-button>
         </div>
@@ -97,17 +97,19 @@ export default {
     };
     const login = ref(null);
     const submitForm = () => {
-      console.log(window.location.hostname, 1120);
       login.value.validate(valid => {
         if (valid) {
           if (param.code.toUpperCase() === param.verify.toUpperCase()) {
-            console.log(param.code, param.verify, 'code');
             Login({ username: param.username, password: param.password }).then(res => {
               if (res.code === 200) {
                 setToken(res.data.tokenValue);
                 localStorage.setItem('ms_username', param.username);
                 router.push('/');
               } else {
+                ElMessage.error(res.msg)
+                param.username = ''
+                param.password = ''
+                param.verify = ''
               }
             });
           } else {

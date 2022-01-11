@@ -3,28 +3,43 @@
     <div class="search">
       <el-form label-width="80px" :inline="true" :model="form">
         <el-row>
-          <el-col :span="5">
+          <el-col :span="6">
             <el-form-item label="收入类型">
               <el-input v-model="form.incomeType" placeholder="请输入收入类型" clearable style="width:100%"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="6">
             <el-form-item label="收入时间">
-              <el-input v-model="form.date" placeholder="请输入收入时间" clearable style="width:100%"></el-input>
+              <el-date-picker
+                v-model="form.date"
+                clearable
+                placeholder="请选择日期"
+                type="date"
+                format="YYYY-MM-DD"
+                value-format="YYYY-MM-DD"
+                style="width: 100%"
+              />
+              <!-- <el-input v-model="form.date" placeholder="请输入收入时间" clearable style="width:100%"></el-input> -->
             </el-form-item>
           </el-col>
-          <el-col :span="5">
-            <el-form-item label="收入账号">
-              <el-input v-model="form.account" placeholder="请输入收入账号" clearable style="width:100%"></el-input>
+          <el-col :span="6">
+            <el-form-item label="收入账户">
+              <el-select v-model="form.account" placeholder="请选择支出账户" style="width:100%" filterable clearable>
+                <el-option label="微信" value="微信" />
+                <el-option label="支付宝" value="支付宝" />
+                <el-option label="银行卡" value="银行卡" />
+                <el-option label="现金" value="现金" />
+              </el-select>
+              <!-- <el-input v-model="form.account" placeholder="请输入收入账号" clearable style="width:100%"></el-input> -->
             </el-form-item>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="6">
             <el-form-item label="收入描述">
               <el-input v-model="form.note" placeholder="请输入收入描述" clearable style="width:100%"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
-            <el-form-item>
+          <el-col :span="24">
+            <el-form-item style="text-align:right;width:99%;margin-top:10px">
               <el-button type="primary" @click="getdatalist">查询</el-button>
               <el-button type="primary" @click="resetForm">重置</el-button>
               <el-button type="primary" @click="addOutlay">新增</el-button>
@@ -35,16 +50,16 @@
     </div>
     <div class="IncomeManage_table">
       <el-table :data="tableData" v-loading="loading" style="width: 100%" border stripe fit highlight-current-row>
-        <el-table-column prop="id" label="编号" width="80" align="center" />
-        <el-table-column prop="account" label="收入账户" width="150" align="center" />
-        <el-table-column prop="incomeType" label="收入类型" width="150" align="center" />
+        <!-- <el-table-column prop="id" label="编号" width="80" align="center" /> -->
         <el-table-column prop="incomeMoney" label="收入金额" width="150" align="center" />
+        <el-table-column prop="incomeType" label="收入类型" width="150" align="center" />
+        <el-table-column prop="account" label="收入账户" width="150" align="center" />
+        <el-table-column prop="note" label="详情" align="center" />
         <el-table-column prop="createTime" label="收入时间" width="150" align="center">
-          <template v-slot="scope"><span v-if="scope.row.createTime">{{scope.row.createTime.substr(0,10)}}</span></template>
+          <template v-slot="scope">
+            <span v-if="scope.row.createTime">{{scope.row.createTime.substr(0,10)}}</span>
+          </template>
         </el-table-column>
-        <el-table-column prop="familyCode" label="家庭码" width="150" align="center" />
-        <el-table-column prop="note" label="支出描述" align="center" />
-        <el-table-column prop="userId" label="用户编号" width="150" align="center" />
         <el-table-column label="操作" align="center" width="150">
           <template v-slot="scope">
             <el-button type="success" size="mini" @click="edit(scope.row)">编辑</el-button>
@@ -62,22 +77,28 @@
           <el-form label-width="80px" :model="form">
             <el-row>
               <el-col :span="12">
-                <el-form-item label="支出类型">
+                <el-form-item label="收入类型">
                   <el-input v-model="form.incomeType" clearable style="width:100%"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="支出金额">
+                <el-form-item label="收入金额">
                   <el-input v-model="form.money" clearable style="width:100%"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="支出账户">
-                  <el-input v-model="form.account" clearable style="width:100%"></el-input>
+                <el-form-item label="收入账户">
+                  <!-- <el-input v-model="form.account" clearable style="width:100%"></el-input> -->
+                  <el-select v-model="form.account" placeholder="请选择支出账户" style="width:100%" filterable clearable>
+                    <el-option label="微信" value="微信" />
+                    <el-option label="支付宝" value="支付宝" />
+                    <el-option label="银行卡" value="银行卡" />
+                    <el-option label="现金" value="现金" />
+                  </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="支出描述">
+                <el-form-item label="收入描述">
                   <el-input v-model="form.note" clearable style="width:100%"></el-input>
                 </el-form-item>
               </el-col>
@@ -151,13 +172,13 @@ export default {
       state.form.account = '';
     };
     // 重置
-    const resetForm = () =>{
-      state.form.incomeType = ''
-      state.form.date = ''
-      state.form.account = ''
-      state.form.note = ''
-      getdatalist()
-    }
+    const resetForm = () => {
+      state.form.incomeType = '';
+      state.form.date = '';
+      state.form.account = '';
+      state.form.note = '';
+      getdatalist();
+    };
     // 删除
     const del = row => {
       ElMessageBox.confirm(` 确定删除${row.note}相关数据?`, '提示', {
@@ -200,7 +221,7 @@ export default {
       };
       addIncomeDetail(param).then(res => {
         if (res.code === 200) {
-          ElMessage.success('修改成功');
+          ElMessage.success('保存成功');
           state.dialogVisible = false;
           state.form.incomeType = '';
           state.form.money = '';
@@ -248,18 +269,18 @@ export default {
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.07);
     border-radius: 3px;
     border: 1px solid #e7e8f2;
-     .el-col{
-      .el-form-item{
+    .el-col {
+      .el-form-item {
         width: 95%;
         margin-bottom: 0;
       }
-      .el-form-item__label{
-        border: 1px solid #DCDFE6;
+      .el-form-item__label {
+        border: 1px solid #dcdfe6;
         border-right: none;
         height: 40px;
-        background: #F5F7FA;
+        background: #f5f7fa;
       }
-      .el-input__inner{
+      .el-input__inner {
         border-radius: 0px;
       }
     }

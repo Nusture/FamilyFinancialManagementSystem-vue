@@ -15,17 +15,12 @@
               <el-input v-model="formLabelAlign.phone" placeholder="请输入电话" clearable style="width:100%"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="8">
             <el-form-item label="性别">
               <el-select v-model="formLabelAlign.gender" placeholder="请选择性别" style="width:100%" filterable clearable>
                 <el-option label="男" :value="0" />
                 <el-option label="女" :value="1" />
               </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="2">
-            <el-form-item>
-              <el-button type="primary" @click="resetForm">重置</el-button>
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -38,14 +33,15 @@
               <el-input v-model="formLabelAlign.address" placeholder="请输入地址" clearable style="width:100%"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="8">
             <el-form-item label="出生日期">
               <el-date-picker v-model="formLabelAlign.birth" clearable placeholder="请选择日期" type="date" format="YYYY-MM-DD" value-format="YYYY-MM-DD" style="width: 100%"/>
             </el-form-item>
           </el-col>
-          <el-col :span="2">
-            <el-form-item>
+          <el-col :span="24">
+            <el-form-item style="text-align:right;width:99%;margin-top:10px">
               <el-button type="primary" @click="getdatalist">查询</el-button>
+              <el-button type="primary" @click="resetForm">重置</el-button>
             </el-form-item>
           </el-col>
         </el-row>
