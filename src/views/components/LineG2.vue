@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import { Line } from '@antv/g2plot';
+import { Liquid } from '@antv/g2plot';
 import { nextTick, onMounted } from '@vue/runtime-core';
 export default {
   setup() {
@@ -132,35 +132,17 @@ export default {
       }
     ];
     const lineG2 = () => {
-      const linePlot = new Line('LineG2', {
-        data,
-        xField: 'year',
-        yField: 'gdp',
-        seriesField: 'name',
-        yAxis: {
-          //   label: {
-          //     formatter: v => `${(v / 10e8).toFixed(1)} B`
-          //   }
+      const liquidPlot = new Liquid('LineG2', {
+        percent: 0.25,
+        outline: {
+          border: 4,
+          distance: 8
         },
-        legend: {
-          position: 'top'
-        },
-        smooth: true,
-        // 配置折线趋势填充
-        area: {
-          style: {
-            fillOpacity: 0.15
-          }
-        },
-        animation: {
-          appear: {
-            animation: 'wave-in',
-            duration: 3000
-          }
+        wave: {
+          length: 128
         }
       });
-
-      linePlot.render();
+      liquidPlot.render();
     };
     onMounted(() => {
       nextTick(() => {

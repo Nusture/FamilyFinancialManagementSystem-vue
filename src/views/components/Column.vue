@@ -4,59 +4,97 @@
   </div>
 </template>
 <script>
-import { Column } from '@antv/g2plot';
+import { Rose } from '@antv/g2plot';
 import { nextTick, onMounted } from '@vue/runtime-core';
+import { getRose } from '@/api/index';
 export default {
   setup() {
     const data = [
-      { city: '2014', type: '我', value: 14500 },
-      { city: '2014', type: '爸爸', value: 8500 },
-      { city: '2014', type: '妈妈', value: 10000 },
-      { city: '2014', type: '姐姐', value: 7000 },
-      { city: '2015', type: '我', value: 9000 },
-      { city: '2015', type: '爸爸', value: 8500 },
-      { city: '2015', type: '妈妈', value: 11000 },
-      { city: '2015', type: '姐姐', value: 6000 },
-      { city: '2016', type: '我', value: 16000 },
-      { city: '2016', type: '爸爸', value: 5000 },
-      { city: '2016', type: '妈妈', value: 6000 },
-      { city: '2016', type: '姐姐', value: 10000 },
-      { city: '2017', type: '我', value: 14000 },
-      { city: '2017', type: '爸爸', value: 9000 },
-      { city: '2017', type: '妈妈', value: 10000 },
-      { city: '2017', type: '姐姐', value: 9000 },
-      { city: '2018', type: '我', value: 14000 },
-      { city: '2018', type: '爸爸', value: 9000 },
-      { city: '2018', type: '妈妈', value: 10000 },
-      { city: '2018', type: '姐姐', value: 6000 },
-      { city: '2019', type: '我', value: 9000 },
-      { city: '2019', type: '爸爸', value: 8500 },
-      { city: '2019', type: '妈妈', value: 10000 },
-      { city: '2019', type: '姐姐', value: 6000 },
-      { city: '2020', type: '我', value: 17000 },
-      { city: '2020', type: '爸爸', value: 6000 },
-      { city: '2020', type: '妈妈', value: 7000 },
-      { city: '2020', type: '姐姐', value: 10000 },
-      { city: '2021', type: '我', value: 18000 },
-      { city: '2021', type: '爸爸', value: 11000 },
-      { city: '2021', type: '妈妈', value: 15000 },
-      { city: '2021', type: '姐姐', value: 14000 }
+      {
+        type: '分类一',
+        value: 27,
+        user: '用户一'
+      },
+      {
+        type: '分类二',
+        value: 25,
+        user: '用户一'
+      },
+      {
+        type: '分类三',
+        value: 18,
+        user: '用户一'
+      },
+      {
+        type: '分类四',
+        value: 15,
+        user: '用户一'
+      },
+      {
+        type: '分类五',
+        value: 10,
+        user: '用户一'
+      },
+      {
+        type: '其它',
+        value: 5,
+        user: '用户一'
+      },
+      {
+        type: '分类一',
+        value: 7,
+        user: '用户二'
+      },
+      {
+        type: '分类二',
+        value: 5,
+        user: '用户二'
+      },
+      {
+        type: '分类三',
+        value: 38,
+        user: '用户二'
+      },
+      {
+        type: '分类四',
+        value: 5,
+        user: '用户二'
+      },
+      {
+        type: '分类五',
+        value: 20,
+        user: '用户二'
+      },
+      {
+        type: '其它',
+        value: 15,
+        user: '用户二'
+      }
     ];
     const ColumnG2 = () => {
-      const column = new Column('ColumnG2', {
+      // 堆叠玫瑰图
+      const rosePlot = new Rose('ColumnG2', {
         data,
-        xField: 'city',
+        xField: 'type',
         yField: 'value',
-        seriesField: 'type',
-        isGroup: 'true',
-        columnStyle: {
-          radius: [20, 20, 0, 0]
-        }
+        isStack: true,
+        // 当 isStack 为 true 时，该值为必填
+        seriesField: 'user',
+        radius: 0.9,
+        label: {
+          offset: -15
+        },
+        interactions: [
+          {
+            type: 'element-active'
+          }
+        ]
       });
 
-      column.render();
+      rosePlot.render();
     };
     onMounted(() => {
+      getRose().then(res =>{})
       nextTick(() => {
         ColumnG2();
       });

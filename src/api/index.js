@@ -145,3 +145,19 @@ export const getPassword = data => {
         data
     });
 };
+// 堆叠玫瑰图 
+export const getRose = data => {
+    return request({
+        url: '/user/getAllUserCI',
+        method: 'post',
+        data
+    });
+};
+// 指示卡趋势图 
+export const getFunnel = data => {
+    return request({
+        url: '/user/getAllCI',
+        method: 'post',
+        data
+    });
+};
