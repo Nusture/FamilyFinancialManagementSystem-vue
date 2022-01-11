@@ -5,7 +5,10 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="收入类型">
-              <el-input v-model="form.incomeType" placeholder="请输入收入类型" clearable style="width:100%"></el-input>
+              <el-select v-model="form.incomeType" placeholder="请选择支出账户" style="width:100%" filterable clearable>
+                <el-option v-for="item in incomeTypeList" :label="item" :value="item" />
+              </el-select>
+              <!-- <el-input v-model="form.incomeType" placeholder="请输入收入类型" clearable style="width:100%"></el-input> -->
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -77,11 +80,6 @@
           <el-form label-width="80px" :model="form">
             <el-row>
               <el-col :span="12">
-                <el-form-item label="收入类型">
-                  <el-input v-model="form.incomeType" clearable style="width:100%"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
                 <el-form-item label="收入金额">
                   <el-input v-model="form.money" clearable style="width:100%"></el-input>
                 </el-form-item>
@@ -97,9 +95,17 @@
                   </el-select>
                 </el-form-item>
               </el-col>
-              <el-col :span="12">
+              <el-col :span="24">
+                <el-form-item label="收入类型">
+                  <!-- <el-input v-model="form.incomeType" clearable style="width:100%"></el-input> -->
+                  <el-radio-group v-model="form.incomeType" size="small">
+                    <el-radio v-for="item in incomeTypeList" :label="item" :value="item" border></el-radio>
+                  </el-radio-group>
+                </el-form-item>
+              </el-col>
+              <el-col :span="24">
                 <el-form-item label="收入描述">
-                  <el-input v-model="form.note" clearable style="width:100%"></el-input>
+                  <el-input type="textarea" rows="4" v-model="form.note" clearable style="width:100%"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -107,7 +113,7 @@
         </div>
         <template #footer>
           <span class="dialog-footer">
-            <el-button @click="dialogVisible = false">取消</el-button>
+            <el-button @click="close">取消</el-button>
             <el-button type="primary" @click="submitOutlay">确认</el-button>
           </span>
         </template>
@@ -137,6 +143,21 @@ export default {
         id: null,
         money: ''
       },
+      incomeTypeList: [
+        '工资',
+        '兼职',
+        '投资理财',
+        '人情社交',
+        '奖金补贴',
+        '报销',
+        '生意',
+        '卖二手',
+        '生活费',
+        '中奖',
+        '转账',
+        '保险理赔',
+        '其他'
+      ],
       tableData: [],
       loading: false,
       total: 0,
@@ -211,6 +232,13 @@ export default {
         state.form.account = res.data.account;
       });
     };
+    const close = () => {
+      state.dialogVisible = false
+      state.form.incomeType = '';
+      state.form.money = '';
+      state.form.note = '';
+      state.form.account = '';
+    };
     const submitOutlay = () => {
       const param = {
         id: state.form.id,
@@ -249,7 +277,8 @@ export default {
       edit,
       submitOutlay,
       addOutlay,
-      resetForm
+      resetForm,
+      close
     };
   }
 };
@@ -263,6 +292,24 @@ export default {
   border-radius: 5px;
   padding-top: 15px;
   overflow: auto;
+  .el-radio__input {
+    display: none;
+  }
+  .el-radio-group {
+    .el-radio {
+      padding: 0;
+      margin: 10px;
+      // height: 20px;
+      padding: 10px;
+      text-align: center;
+      .el-radio__label {
+        display: inline-block;
+        width: 50px;
+        text-align: center;
+        padding: 0;
+      }
+    }
+  }
   .search {
     padding: 15px;
     margin: 0 15px;

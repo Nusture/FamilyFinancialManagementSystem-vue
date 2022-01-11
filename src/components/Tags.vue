@@ -110,7 +110,7 @@ export default {
     const onRefresh = inject('reload');
     const openMenu = () => {
       onRefresh();
-      stores.commit('common/getSidebarbg', '#56B185');
+      // stores.commit('common/getSidebarbg', '#56B185');
     };
     onMounted(() => {});
 

@@ -209,7 +209,7 @@ export default {
               if (state.formInline.newPassword !== state.formInline.configPassword) {
                 ElMessage.warning('两次新密码不一致');
               } else {
-                changePassword({ token: getToken() }).then(res => {
+                changePassword({ token: getToken(),password: state.formInline.configPassword }).then(res => {
                   if (res.code === 200) {
                     ElMessage.success('修改成功,请重新登录');
                     router.push('/login');

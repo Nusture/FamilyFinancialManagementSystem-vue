@@ -5,7 +5,10 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="支出类型">
-              <el-input v-model="form.costType" placeholder="请输入支出类型" clearable style="width:100%"></el-input>
+              <el-select v-model="form.costType" placeholder="请选择支出账户" style="width:100%" filterable clearable>
+                <el-option v-for="item in costTypeList" :label="item" :value="item" />
+              </el-select>
+              <!-- <el-input v-model="form.costType" placeholder="请输入支出类型" clearable style="width:100%"></el-input> -->
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -96,14 +99,17 @@
                   </el-select>
                 </el-form-item>
               </el-col>
-              <el-col :span="12">
+              <el-col :span="24">
                 <el-form-item label="支出类型">
-                  <el-input v-model="form.costType" clearable style="width:100%"></el-input>
+                  <!-- <el-input v-model="form.costType" clearable style="width:100%"></el-input> -->
+                  <el-radio-group v-model="form.costType" size="small">
+                    <el-radio v-for="item in costTypeList" :label="item" :value="item" border></el-radio>
+                  </el-radio-group>
                 </el-form-item>
               </el-col>
-              <el-col :span="12">
+              <el-col :span="24">
                 <el-form-item label="支出描述">
-                  <el-input v-model="form.note" clearable style="width:100%"></el-input>
+                  <el-input v-model="form.note" type="textarea" rows="4" clearable style="width:100%"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -111,7 +117,7 @@
         </div>
         <template #footer>
           <span class="dialog-footer">
-            <el-button @click="dialogVisible = false">取消</el-button>
+            <el-button @click="close">取消</el-button>
             <el-button type="primary" @click="submitOutlay">确认</el-button>
           </span>
         </template>
@@ -142,6 +148,32 @@ export default {
         money: '',
         date: ''
       },
+      costTypeList: [
+        '餐饮',
+        '休闲娱乐',
+        '购物',
+        '穿搭美容',
+        '水果零食',
+        '人情社交',
+        '生活日用',
+        '宠物',
+        '养娃',
+        '运动',
+        '生活服务',
+        '住房',
+        '爱车',
+        '学习',
+        '网络虚拟',
+        '烟酒',
+        '医疗保健',
+        '金融保险',
+        '酒店旅行',
+        '转账',
+        '公益',
+        '礼金',
+        '互助保障',
+        '其他'
+      ],
       tableData: [],
       loading: false,
       total: 0,
@@ -183,6 +215,13 @@ export default {
       state.form.account = '';
       state.form.note = '';
       getdatalist();
+    };
+    const close = () => {
+      state.dialogVisible = false
+      state.form.costType = ''
+      state.form.money = ''
+      state.form.note = ''
+      state.form.account = ''
     };
     // 删除
     const del = row => {
@@ -254,7 +293,8 @@ export default {
       edit,
       submitOutlay,
       addOutlay,
-      resetFrom
+      resetFrom,
+      close
     };
   }
 };
@@ -268,12 +308,31 @@ export default {
   border-radius: 5px;
   padding-top: 15px;
   overflow: auto;
+  .el-radio__input {
+    display: none;
+  }
+  .el-radio-group {
+    .el-radio {
+      padding: 0;
+      margin: 10px;
+      // height: 20px;
+      padding: 10px;
+      text-align: center;
+      .el-radio__label {
+        display: inline-block;
+        width: 50px;
+        text-align: center;
+        padding: 0;
+      }
+    }
+  }
   .search {
     padding: 15px;
     margin: 0 15px;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.07);
     border-radius: 3px;
     border: 1px solid #e7e8f2;
+
     .el-col {
       .el-form-item {
         width: 95%;
