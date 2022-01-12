@@ -1,12 +1,12 @@
 <template>
-  <div class="AreaG2">
-    <div id="AreaG2" v-loading="loading" style="height: 200px"></div>
+  <div class="WordCloud">
+    <div id="WordCloud" v-loading="loading" style="height: 200px"></div>
   </div>
 </template>
 <script>
-import { Rose } from '@antv/g2plot';
+import { WordCloud } from '@antv/g2plot';
 import { nextTick, onMounted, reactive, toRefs } from '@vue/runtime-core';
-import { incomeByType } from '@/api/index';
+import { wordCloud } from '@/api/index';
 import { getToken } from '@/utils/auth';
 import { ElMessage } from 'element-plus';
 export default {
@@ -15,30 +15,26 @@ export default {
       loading: false
     });
     const AreaG2 = data => {
-      // 分组玫瑰图
-      const rosePlot = new Rose('AreaG2', {
+      const wordCloud = new WordCloud('WordCloud', {
         data,
-        xField: 'type',
-        yField: 'money',
-        isGroup: true,
-        // 当 isGroup 为 true 时，该值为必填
-        seriesField: 'user',
-        radius: 0.9,
-        label: {
-          offset: -15
+        wordField: 'name',
+        weightField: 'value',
+        colorField: 'name',
+        wordStyle: {
+          fontFamily: 'Verdana',
+          fontSize: [8, 32],
+          rotation: 0
         },
-        interactions: [
-          {
-            type: 'element-active'
-          }
-        ]
+        // 返回值设置成一个 [0, 1) 区间内的值，
+        // 可以让每次渲染的位置相同（前提是每次的宽高一致）。
+        random: () => 0.5
       });
 
-      rosePlot.render();
+      wordCloud.render();
     };
     onMounted(() => {
       state.loading = true;
-      incomeByType({ token: getToken() })
+      wordCloud({ token: getToken() })
         .then(res => {
           if (res.code === 200) {
             state.loading = false;
@@ -60,7 +56,6 @@ export default {
 };
 </script>
 <style scoped>
-#AreaG2 {
-  height: 35vh;
+.WordCloud {
 }
 </style>

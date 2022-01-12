@@ -1,12 +1,12 @@
 <template>
-  <div class="AreaG2">
-    <div id="AreaG2" v-loading="loading" style="height: 200px"></div>
+  <div class="Line">
+    <div id="Liquid" v-loading="loading" style="height:200px"></div>
   </div>
 </template>
 <script>
-import { Rose } from '@antv/g2plot';
+import { Liquid } from '@antv/g2plot';
 import { nextTick, onMounted, reactive, toRefs } from '@vue/runtime-core';
-import { incomeByType } from '@/api/index';
+import { incomeByTypeWater } from '@/api/index';
 import { getToken } from '@/utils/auth';
 import { ElMessage } from 'element-plus';
 export default {
@@ -14,36 +14,27 @@ export default {
     const state = reactive({
       loading: false
     });
-    const AreaG2 = data => {
-      // 分组玫瑰图
-      const rosePlot = new Rose('AreaG2', {
-        data,
-        xField: 'type',
-        yField: 'money',
-        isGroup: true,
-        // 当 isGroup 为 true 时，该值为必填
-        seriesField: 'user',
-        radius: 0.9,
-        label: {
-          offset: -15
+    const lineG2 = data => {
+      const liquidPlot = new Liquid('Liquid', {
+        percent: 0.25,
+        outline: {
+          border: 4,
+          distance: 8
         },
-        interactions: [
-          {
-            type: 'element-active'
-          }
-        ]
+        wave: {
+          length: 128
+        }
       });
-
-      rosePlot.render();
+      liquidPlot.render();
     };
     onMounted(() => {
       state.loading = true;
-      incomeByType({ token: getToken() })
+      incomeByTypeWater({ token: getToken() })
         .then(res => {
           if (res.code === 200) {
             state.loading = false;
             nextTick(() => {
-              AreaG2(res.data);
+              lineG2(res.data);
             });
           } else {
             ElMessage.warning('当前网络延迟较高');
@@ -60,7 +51,12 @@ export default {
 };
 </script>
 <style scoped>
-#AreaG2 {
+.Line {
+  /* border: 1px solid red; */
+}
+#LineG2 {
   height: 35vh;
+  /* border: 1px solid red;
+  width: 50%; */
 }
 </style>

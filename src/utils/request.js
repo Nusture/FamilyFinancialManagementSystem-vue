@@ -22,7 +22,7 @@ const router = useRouter();
 export const baseURL = '/api';
 const service = axios.create({
     baseURL,
-    timeout: 5000,
+    timeout: 60000,
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -57,6 +57,8 @@ service.interceptors.response.use(response => {
                 duration: 2 * 1000
             })
             removeToken();
+            // onRefresh()
+            location.reload()
             router.push('/login');
         } else if (data.code === 500) {} else {
             ElMessage({

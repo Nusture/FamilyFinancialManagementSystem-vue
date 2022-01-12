@@ -161,3 +161,59 @@ export const getFunnel = data => {
         data
     });
 };
+// 分组玫瑰图
+export const getOutlay = data => {
+    return request({
+        url: '/user/costByType',
+        method: 'post',
+        data
+    });
+};
+// 分组玫瑰图
+export const incomeByType = data => {
+    return request({
+        url: '/user/incomeByType',
+        method: 'post',
+        data
+    });
+};
+// 支出类别水波图 
+export const costByTypeWater = data => {
+    return request({
+        url: '/user/costByTypeWater',
+        method: 'post',
+        data
+    });
+};
+// 收入类别水波图
+export const incomeByTypeWater = data => {
+    return request({
+        url: '/user/incomeByTypeWater',
+        method: 'post',
+        data
+    });
+};
+// 词云
+export const wordCloud = data => {
+    return request({
+        url: '/user/wordCloud',
+        method: 'post',
+        data
+    });
+};
+// 总资产变化面积图
+export const moneyChange = data => {
+    return request({
+        url: '/user/moneyChange',
+        method: 'post',
+        data
+    });
+};
+// 收支记录日历
+export const commitRecord = data => {
+    return request({
+        url: '/user/commitRecord',
+        method: 'post',
+        data
+    });
+};

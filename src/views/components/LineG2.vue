@@ -1,137 +1,20 @@
 <template>
   <div class="Line">
-    <div id="LineG2"></div>
+    <div id="LineG2" v-loading="loading" style="height:200px"></div>
   </div>
 </template>
 <script>
 import { Liquid } from '@antv/g2plot';
-import { nextTick, onMounted } from '@vue/runtime-core';
+import { nextTick, onMounted, reactive, toRefs } from '@vue/runtime-core';
+import { costByTypeWater } from '@/api/index';
+import { getToken } from '@/utils/auth';
+import { ElMessage } from 'element-plus';
 export default {
   setup() {
-    const data = [
-      {
-        name: '我',
-        year: '2010',
-        gdp: 3000
-      },
-      {
-        name: '我',
-        year: '2011',
-        gdp: 3500
-      },
-      {
-        name: '我',
-        year: '2012',
-        gdp: 4500
-      },
-      {
-        name: '我',
-        year: '2013',
-        gdp: 4000
-      },
-      {
-        name: '我',
-        year: '2014',
-        gdp: 12000
-      },
-      {
-        name: '我',
-        year: '2015',
-        gdp: 5000
-      },
-      {
-        name: '我',
-        year: '2016',
-        gdp: 5000
-      },
-      {
-        name: '我',
-        year: '2017',
-        gdp: 15000
-      },
-      {
-        name: '我',
-        year: '2018',
-        gdp: 15000
-      },
-      {
-        name: '我',
-        year: '2019',
-        gdp: 15000
-      },
-      {
-        name: '我',
-        year: '2020',
-        gdp: 12000
-      },
-      {
-        name: '我',
-        year: '2021',
-        gdp: 5000
-      },
-
-      {
-        name: '爸爸',
-        year: '2010',
-        gdp: 4000
-      },
-      {
-        name: '爸爸',
-        year: '2011',
-        gdp: 400
-      },
-      {
-        name: '爸爸',
-        year: '2012',
-        gdp: 3000
-      },
-      {
-        name: '爸爸',
-        year: '2013',
-        gdp: 4000
-      },
-      {
-        name: '爸爸',
-        year: '2014',
-        gdp: 3500
-      },
-      {
-        name: '爸爸',
-        year: '2015',
-        gdp: 4000
-      },
-      {
-        name: '爸爸',
-        year: '2016',
-        gdp: 4500
-      },
-      {
-        name: '爸爸',
-        year: '2017',
-        gdp: 5000
-      },
-      {
-        name: '爸爸',
-        year: '2018',
-        gdp: 5000
-      },
-      {
-        name: '爸爸',
-        year: '2019',
-        gdp: 5500
-      },
-      {
-        name: '爸爸',
-        year: '2020',
-        gdp: 3200
-      },
-      {
-        name: '爸爸',
-        year: '2021',
-        gdp: 5000
-      }
-    ];
-    const lineG2 = () => {
+    const state = reactive({
+      loading: false
+    });
+    const lineG2 = data => {
       const liquidPlot = new Liquid('LineG2', {
         percent: 0.25,
         outline: {
@@ -145,10 +28,25 @@ export default {
       liquidPlot.render();
     };
     onMounted(() => {
-      nextTick(() => {
-        lineG2();
-      });
+      state.loading = true;
+      costByTypeWater({ token: getToken() })
+        .then(res => {
+          if (res.code === 200) {
+            state.loading = false;
+            nextTick(() => {
+              lineG2(res.data);
+            });
+          } else {
+            ElMessage.warning('当前网络延迟较高');
+          }
+        })
+        .catch(() => {
+          state.loading = false;
+        });
     });
+    return {
+      ...toRefs(state)
+    };
   }
 };
 </script>
