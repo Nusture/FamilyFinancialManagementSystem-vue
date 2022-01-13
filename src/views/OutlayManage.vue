@@ -4,7 +4,7 @@
       <el-form label-width="80px" :inline="true" :model="form">
         <el-row>
           <el-col :span="6">
-            <el-form-item label="支出类型">
+            <el-form-item :label="$t('支出类型')">
               <el-select v-model="form.costType" placeholder="请选择支出账户" style="width:100%" filterable clearable>
                 <el-option v-for="item in costTypeList" :label="item" :value="item" />
               </el-select>
@@ -12,7 +12,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="支出时间">
+            <el-form-item :label="$t('支出时间')">
               <el-date-picker
                 v-model="form.date"
                 clearable
@@ -27,7 +27,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="支出账户">
+            <el-form-item :label="$t('支出账户')">
               <el-select v-model="form.account" placeholder="请选择支出账户" style="width:100%" filterable clearable>
                 <el-option label="微信" value="微信" />
                 <el-option label="支付宝" value="支付宝" />
@@ -38,15 +38,15 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="支出描述">
+            <el-form-item :label="$t('支出描述')">
               <el-input v-model="form.note" placeholder="请输入支出描述" clearable style="width:100%"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item style="text-align:right;width:99%;margin-top:10px">
-              <el-button type="primary" @click="getdatalist">查询</el-button>
-              <el-button type="primary" @click="resetFrom">重置</el-button>
-              <el-button type="primary" @click="addOutlay">新增</el-button>
+              <el-button type="primary" @click="getdatalist">{{$t('查询')}}</el-button>
+              <el-button type="primary" @click="resetFrom">{{$t('重置')}}</el-button>
+              <el-button type="primary" @click="addOutlay">{{$t('新增')}}</el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -68,9 +68,9 @@
         <el-table-column prop="userId" label="用户编号" width="150" align="center" />-->
         <el-table-column label="操作" align="center" width="150">
           <template v-slot="scope">
-            <el-button type="success" size="mini" @click="edit(scope.row)">编辑</el-button>
+            <el-button type="success" size="mini" @click="edit(scope.row)">{{$t('编辑')}}</el-button>
             <!-- <el-button type="primary" size="mini">授权</el-button> -->
-            <el-button type="danger" size="mini" @click="del(scope.row)">删除</el-button>
+            <el-button type="danger" size="mini" @click="del(scope.row)">{{$t('删除')}}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -84,12 +84,12 @@
           <el-form label-width="80px" :model="form">
             <el-row>
               <el-col :span="12">
-                <el-form-item label="支出金额">
+                <el-form-item :label="$t('支出金额')">
                   <el-input v-model="form.money" clearable style="width:100%"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="支出账户">
+                <el-form-item :label="$t('支出账户')">
                   <!-- <el-input v-model="form.account" clearable style="width:100%"></el-input> -->
                   <el-select v-model="form.account" placeholder="请选择支出账户" style="width:100%" filterable clearable>
                     <el-option label="微信" value="微信" />
@@ -100,7 +100,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="支出类型">
+                <el-form-item :label="$t('支出类型')">
                   <!-- <el-input v-model="form.costType" clearable style="width:100%"></el-input> -->
                   <el-radio-group v-model="form.costType" size="small">
                     <el-radio v-for="item in costTypeList" :label="item" :value="item" border></el-radio>
@@ -108,7 +108,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="支出描述">
+                <el-form-item :label="$t('支出描述')">
                   <el-input v-model="form.note" type="textarea" rows="4" clearable style="width:100%"></el-input>
                 </el-form-item>
               </el-col>
@@ -117,8 +117,8 @@
         </div>
         <template #footer>
           <span class="dialog-footer">
-            <el-button @click="close">取消</el-button>
-            <el-button type="primary" @click="submitOutlay">确认</el-button>
+            <el-button @click="close">{{$t('取消')}}</el-button>
+            <el-button type="primary" @click="submitOutlay">{{$t('确定')}}</el-button>
           </span>
         </template>
       </el-dialog>

@@ -15,9 +15,9 @@ export default {
     const init = data => {
       const linePlot = new Line('Funnel', {
         data,
-        xField: 'date',
-        yField: 'income',
-        seriesField: 'cost',
+        xField: 'year',
+        yField: 'money',
+        seriesField: 'name',
         yAxis: {
           label: {
             formatter: v => `${(v / 10e8).toFixed(1)} B`

@@ -1,6 +1,6 @@
 <template>
   <div class="BaseTable">
-    <div class="BaseTable_title">个人信息</div>
+    <div class="BaseTable_title">{{$t('个人信息')}}</div>
     <div class="BaseTable_content">
       <el-row>
         <el-col :span="8">
@@ -14,11 +14,11 @@
                 list-type="picture-card"
                 :on-change="handlePictureCardPreview"
               >
-                <el-button type="primary">修改头像</el-button>
+                <el-button type="primary">{{$t('修改头像')}}</el-button>
               </el-upload>
             </div>
             <div class="BaseTable_left_info">
-              <span>个人签名:</span>
+              <span>{{$t('个性签名')}}:</span>
               <span >{{formLabelAlign.signature}}</span>
             </div>
           </div>
@@ -26,10 +26,10 @@
         <el-col :span="16">
           <div class="BaseTable_right">
             <el-form label-width="100px" :model="formLabelAlign" :disabled="show">
-              <el-form-item label="用户">
+              <el-form-item :label="$t('用户')">
                 <el-input v-model="formLabelAlign.name" disabled style="width:50%"></el-input>
               </el-form-item>
-              <el-form-item label="出生日期">
+              <el-form-item :label="$t('出生日期')">
                 <!-- <el-input v-model="formLabelAlign.birth" style="width:50%"></el-input> -->
                 <el-date-picker
                       v-model="formLabelAlign.birth"
@@ -39,29 +39,29 @@
                       @change="changetime"
                     />
               </el-form-item>
-              <el-form-item label="性别">
+              <el-form-item :label="$t('性别')">
                 <el-select v-model="formLabelAlign.gender" placeholder="请选择性别" style="width:50%" filterable clearable>
-                <el-option label="男" :value="0" />
-                <el-option label="女" :value="1" />
+                <el-option :label="$t('男')" :value="0" />
+                <el-option :label="$t('女')" :value="1" />
               </el-select>
               </el-form-item>
-              <el-form-item label="地址">
+              <el-form-item :label="$t('地址')">
                 <el-input v-model="formLabelAlign.address" style="width:50%"></el-input>
               </el-form-item>
-              <el-form-item label="联系电话">
+              <el-form-item :label="$t('联系电话')">
                 <el-input v-model="formLabelAlign.phone" style="width:50%"></el-input>
               </el-form-item>
-              <el-form-item label="邮箱">
+              <el-form-item :label="$t('邮箱')">
                 <el-input v-model="formLabelAlign.email" style="width:50%"></el-input>
               </el-form-item>
-              <el-form-item label="个性签名">
+              <el-form-item :label="$t('个性签名')">
                 <el-input v-model="formLabelAlign.signature" style="width:50%"></el-input>
               </el-form-item>
             </el-form>
             <div class="btn">
-              <el-button v-if="show === true " type="info" @click="show = false">修改</el-button>
-              <el-button v-else type="info" @click="show = true">取消</el-button>
-              <el-button type="primary" :disabled="show" @click="submit">保存</el-button>
+              <el-button v-if="show === true " type="info" @click="show = false">{{$t('修改')}}</el-button>
+              <el-button v-else type="info" @click="show = true">{{$t('取消')}}</el-button>
+              <el-button type="primary" :disabled="show" @click="submit">{{$t('保存')}}</el-button>
             </div>
           </div>
         </el-col>

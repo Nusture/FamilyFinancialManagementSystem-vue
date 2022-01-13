@@ -17,8 +17,8 @@ export default {
     const AreaG2 = data => {
       const wordCloud = new WordCloud('WordCloud', {
         data,
-        wordField: 'name',
-        weightField: 'value',
+        wordField: 'value',
+        weightField: 'name',
         colorField: 'name',
         wordStyle: {
           fontFamily: 'Verdana',

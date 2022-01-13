@@ -13,18 +13,42 @@
 </template>
 <script>
 import { Heatmap, G2 } from '@antv/g2plot';
-import { nextTick, onMounted, reactive, toRefs } from '@vue/runtime-core';
+import { nextTick, onMounted, reactive, ref, toRefs, watch } from '@vue/runtime-core';
 import { commitRecord } from '@/api/index';
 import { getToken } from '@/utils/auth';
 import { ElMessage } from 'element-plus';
+import dates from '@/utils/date'
 export default {
   setup() {
     const state = reactive({
       year: '2021',
-      loading: false
+      loading: false,
+      datas: []
     });
-
-    const AreaG2 = data => {
+    const getdata = async () => {
+      state.loading = true;
+      const { data } = await commitRecord({ token: getToken(), year: state.year });
+      if (data) {
+        state.loading = false;
+        state.datas = data;
+        console.log(state.datas, 'datas');
+      }
+      // .then(res => {
+      //   if (res.code === 200) {
+      //     state.datas = res.data;
+      //     datas = res.data
+      //     console.log(state.datas,'datas')
+      //     state.loading = false;
+      //   } else {
+      //     ElMessage.warning('当前网络延迟较高');
+      //   }
+      // })
+      // .catch(() => {
+      //   state.loading = false;
+      // });
+    };
+    const AreaG2 = () => {
+      console.log(state.datas, 'data');
       G2.registerShape('polygon', 'boundary-polygon', {
         draw(cfg, commitRecord) {
           const group = commitRecord.addGroup();
@@ -77,8 +101,9 @@ export default {
           return group;
         }
       });
+      // const datas = []
       const heatmapPlot = new Heatmap(document.getElementById('commitRecord'), {
-        data,
+        data: dates,
         height: 300,
         autoFit: false,
         xField: 'week',
@@ -147,27 +172,13 @@ export default {
           }
         }
       });
-      heatmapPlot.render();
-    };
-    const getdata = () => {
-      state.loading = true;
-      commitRecord({ token: getToken(), year: state.year })
-        .then(res => {
-          if (res.code === 200) {
-            state.loading = false;
-            nextTick(() => {
-              AreaG2(res.data);
-            });
-          } else {
-            ElMessage.warning('当前网络延迟较高');
-          }
-        })
-        .catch(() => {
-          state.loading = false;
-        });
+      heatmapPlot.update(heatmapPlot);
     };
     onMounted(() => {
-      getdata();
+      nextTick(() => {
+        getdata();
+        AreaG2();
+      });
     });
     return {
       ...toRefs(state),
@@ -178,6 +189,6 @@ export default {
 </script>
 <style scoped>
 #AreaG2 {
-  height: 35vh;
+  /* height: 35vh; */
 }
 </style>

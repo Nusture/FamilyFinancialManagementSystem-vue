@@ -52,9 +52,9 @@ service.interceptors.response.use(response => {
         if (data.code === 401) {
             // ElMessageBox.use;
             ElMessage({
-                message: data.msg || 'Error',
+                message: '您已注销,需要重新登陆',
                 type: 'waring',
-                duration: 2 * 1000
+                duration: 3 * 1000
             })
             removeToken();
             // onRefresh()

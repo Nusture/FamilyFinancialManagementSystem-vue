@@ -4,7 +4,7 @@
       <el-col :span="12">
         <div class="topleft">
           <el-card class="box-card">
-            <div class="title">收支趋势</div>
+            <div class="title">{{$t('收支趋势')}}</div>
             <!-- 趋势折线图 -->
             <Funnel />
           </el-card>

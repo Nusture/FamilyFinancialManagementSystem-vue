@@ -18,11 +18,11 @@ export default {
       // 堆叠玫瑰图
       const rosePlot = new Rose('ColumnG2', {
         data,
-        xField: 'type',
+        xField: 'user',
         yField: 'money',
         isStack: true,
         // 当 isStack 为 true 时，该值为必填
-        seriesField: 'user',
+        seriesField: 'type',
         radius: 0.9,
         label: {
           offset: -15
