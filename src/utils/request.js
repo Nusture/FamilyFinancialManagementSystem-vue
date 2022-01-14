@@ -60,7 +60,9 @@ service.interceptors.response.use(response => {
             // onRefresh()
             location.reload()
             router.push('/login');
-        } else if (data.code === 500) {} else {
+        } else if (data.code === 500) {
+            // ElMessage.error(data.msg)
+        } else {
             ElMessage({
                 message: data.msg || 'Error',
                 type: 'waring',

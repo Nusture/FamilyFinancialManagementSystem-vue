@@ -18,11 +18,11 @@ export default {
         xField: 'year',
         yField: 'money',
         seriesField: 'name',
-        yAxis: {
-          label: {
-            formatter: v => `${(v / 10e8).toFixed(1)} B`
-          }
-        },
+        // yAxis: {
+        //   label: {
+        //     formatter: v => `${(v / 10e8).toFixed(1)} B`
+        //   }
+        // },
         legend: {
           position: 'top'
         },

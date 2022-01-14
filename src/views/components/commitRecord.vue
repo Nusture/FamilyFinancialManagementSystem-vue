@@ -1,54 +1,26 @@
 <template>
   <div class="commitRecord">
-    <div style="text-align:right;">
-      <el-select v-model="year" placeholder="请选择年度" style="width:200px;" filterable clearable @change="getdata">
-        <!-- <el-option label="2018" value="2018" /> -->
-        <el-option label="2019" value="2019" />
-        <el-option label="2020" value="2020" />
-        <el-option label="2021" value="2021" />
-      </el-select>
-    </div>
     <div id="commitRecord" v-loading="loading" style="height: 400px;"></div>
   </div>
 </template>
 <script>
 import { Heatmap, G2 } from '@antv/g2plot';
-import { nextTick, onMounted, reactive, ref, toRefs, watch } from '@vue/runtime-core';
+import { inject, nextTick, onMounted, reactive, ref, toRefs } from '@vue/runtime-core';
+import { watch } from 'vue';
 import { commitRecord } from '@/api/index';
 import { getToken } from '@/utils/auth';
 import { ElMessage } from 'element-plus';
-import dates from '@/utils/date'
+import dates from '@/utils/date';
 export default {
-  setup() {
+  props: ['chartdata'],
+  setup(props) {
     const state = reactive({
       year: '2021',
+      yearlist: [],
       loading: false,
       datas: []
     });
-    const getdata = async () => {
-      state.loading = true;
-      const { data } = await commitRecord({ token: getToken(), year: state.year });
-      if (data) {
-        state.loading = false;
-        state.datas = data;
-        console.log(state.datas, 'datas');
-      }
-      // .then(res => {
-      //   if (res.code === 200) {
-      //     state.datas = res.data;
-      //     datas = res.data
-      //     console.log(state.datas,'datas')
-      //     state.loading = false;
-      //   } else {
-      //     ElMessage.warning('当前网络延迟较高');
-      //   }
-      // })
-      // .catch(() => {
-      //   state.loading = false;
-      // });
-    };
-    const AreaG2 = () => {
-      console.log(state.datas, 'data');
+    const AreaG2 = async data => {
       G2.registerShape('polygon', 'boundary-polygon', {
         draw(cfg, commitRecord) {
           const group = commitRecord.addGroup();
@@ -82,7 +54,7 @@ export default {
               attrs: {
                 path: this.parsePath(linePath),
                 lineWidth: 4,
-                stroke: '#404040'
+                stroke: '#000'
               }
             });
             if (cfg.data.lastDay) {
@@ -101,9 +73,9 @@ export default {
           return group;
         }
       });
-      // const datas = []
+
       const heatmapPlot = new Heatmap(document.getElementById('commitRecord'), {
-        data: state.datas,
+        data,
         height: 300,
         autoFit: false,
         xField: 'week',
@@ -129,15 +101,6 @@ export default {
         yAxis: {
           grid: null
         },
-        color: ( val ) => {
-          console.log(val,'val')
-          // if (commits === 2) {
-          //   return 'red';
-          // } else {
-          // return 'yellow';
-
-          // }
-        },
         tooltip: {
           title: 'date',
           showMarkers: false
@@ -156,34 +119,58 @@ export default {
             },
             formatter: val => {
               if (val === '2') {
-                return 'MAY';
+                return '一月';
               } else if (val === '6') {
-                return 'JUN';
+                return '二月';
               } else if (val === '10') {
-                return 'JUL';
-              } else if (val === '15') {
-                return 'AUG';
-              } else if (val === '19') {
-                return 'SEP';
+                return '三月';
+              } else if (val === '14') {
+                return '四月';
+              } else if (val === '20') {
+                return '五月';
               } else if (val === '24') {
-                return 'OCT';
+                return '六月';
+              } else if (val === '28') {
+                return '七月';
+              } else if (val === '32') {
+                return '八月';
+              } else if (val === '36') {
+                return '九月';
+              } else if (val === '40') {
+                return '十月';
+              } else if (val === '44') {
+                return '十一月';
+              } else if (val === '48') {
+                return '十二月';
               }
               return '';
             }
           }
         }
       });
-      heatmapPlot.update(heatmapPlot);
+      heatmapPlot.update();
     };
+    const year = () => {
+      const data = new Date();
+      state.yearlist.push(
+        JSON.stringify(data.getFullYear()),
+        JSON.stringify(data.getFullYear() - 1),
+        JSON.stringify(data.getFullYear() - 2)
+      );
+    };
+    watch(
+      () => props.chartdata,
+      (newProps, oldProps) => {}
+    );
     onMounted(() => {
+      year();
       nextTick(() => {
-        getdata();
-        AreaG2();
+        AreaG2(props.chartdata);
       });
     });
     return {
       ...toRefs(state),
-      getdata
+      AreaG2
     };
   }
 };

@@ -87,7 +87,7 @@
               <el-col :span="12">
                 <el-form-item label="收入账户">
                   <!-- <el-input v-model="form.account" clearable style="width:100%"></el-input> -->
-                  <el-select v-model="form.account" placeholder="请选择支出账户" style="width:100%" filterable clearable>
+                  <el-select v-model="form.account" placeholder="请选择收入账户" style="width:100%" filterable clearable>
                     <el-option label="微信" value="微信" />
                     <el-option label="支付宝" value="支付宝" />
                     <el-option label="银行卡" value="银行卡" />

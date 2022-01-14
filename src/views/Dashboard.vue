@@ -16,7 +16,16 @@
                 <el-col :span="12">
                   <div class="content_div" style="margin-bottom:10px">
                     <span>{{$t('余额')}}</span>
-                    <span>{{money}}</span>
+                    <el-popover v-model:visible="visible" placement="right" width="300" trigger="click">
+                      <el-input v-model="fullMoney" type="number" />
+                      <div style="text-align: right; margin-top: 5px">
+                        <el-button size="mini" type="text" @click="visible = false">{{ $t('取消') }}</el-button>
+                        <el-button type="primary" size="mini" @click="tagNameUpdate">{{ $t('保存') }}</el-button>
+                      </div>
+                      <template #reference>
+                        <span @click="visible = true">{{money}}</span>
+                      </template>
+                    </el-popover>
                   </div>
                 </el-col>
                 <el-col :span="12">
@@ -52,7 +61,7 @@
           </el-card>
         </div>
       </el-col>
-      
+
       <el-col :span="6">
         <div class="topright">
           <el-card class="box-card">
@@ -88,8 +97,15 @@
       <el-col :span="24">
         <div class="bottomright">
           <el-card class="box-card">
-            <div class="title">{{$t('收支提交记录')}}</div>
-            <CommitRecord />
+            <div class="title" style="margin-bottom: 15px">
+              {{$t('收支提交记录')}}
+              <div style="text-align:right;float:right">
+                <el-select v-model="year" placeholder="请选择年度" style="width:200px;" filterable clearable @change="getdata">
+                  <el-option v-for="item in yearlist" :label="item" :value="item" />
+                </el-select>
+              </div>
+            </div>
+            <CommitRecord v-if="chartdata.length > 0" :chartdata="chartdata" />
           </el-card>
         </div>
       </el-col>
@@ -125,8 +141,10 @@ import MoneyChange from './components/moneyChange.vue';
 import CommitRecord from './components/commitRecord.vue';
 import { cardDragger } from 'carddragger';
 import { reactive, toRefs } from '@vue/reactivity';
-import { gettoday, familyInfo } from '@/api/index';
+import { gettoday, familyInfo, changeMoney, commitRecord } from '@/api/index';
 import { onMounted } from '@vue/runtime-core';
+import { ElMessage } from 'element-plus';
+import { getToken } from '@/utils/auth';
 // import { reactive } from 'vue';
 export default {
   name: 'dashboard',
@@ -134,23 +152,62 @@ export default {
   setup() {
     const state = reactive({
       drag: false,
+      year: '2021',
+      yearlist: [],
       familyCode: '',
       money: '',
+      fullMoney: '',
       income: '',
-      cost: ''
+      cost: '',
+      visible: false,
+      chartdata: {}
     });
-    onMounted(() => {
+    const tagNameUpdate = () => {
+      changeMoney({ money: state.fullMoney }).then(res => {
+        if (res.code === 200) {
+          ElMessage.success('修改成功');
+          state.visible = false;
+          family();
+        } else {
+          ElMessage.error(res.msg);
+        }
+      });
+    };
+    const family = () => {
       familyInfo().then(res => {
         state.money = res.data.money;
+        state.fullMoney = res.data.fullMoney
         state.familyCode = res.data.familyCode;
       });
+    };
+    const year = () => {
+      const data = new Date();
+      state.yearlist.push(
+        JSON.stringify(data.getFullYear()),
+        JSON.stringify(data.getFullYear() - 1),
+        JSON.stringify(data.getFullYear() - 2)
+      );
+    };
+    const getdata = async () => {
+      state.chartdata = [];
+      const { data } = await commitRecord({ token: getToken(), year: state.year });
+      if (data) {
+        state.chartdata = data;
+      }
+    };
+    onMounted(() => {
+      family();
+      year();
+      getdata();
       gettoday().then(res => {
         state.cost = res.data.todayCost;
         state.income = res.data.todayIncome;
       });
     });
     return {
-      ...toRefs(state)
+      ...toRefs(state),
+      tagNameUpdate,
+      getdata
     };
   }
 };
@@ -172,30 +229,30 @@ export default {
   }
   .title {
     margin-bottom: 10px;
-    color: #64B5F6;
+    color: #64b5f6;
     font-size: 24px;
   }
   .content {
     width: 100%;
     height: 200px;
-    .el-col{
+    .el-col {
       padding: 0;
       margin: 0;
     }
     .content_div {
       height: 80px;
-      background: #F8F8F8;
+      background: #f8f8f8;
       border-radius: 5px;
-      span{
+      span {
         display: block;
       }
-      span:first-child{
+      span:first-child {
         padding-top: 10px;
         height: 30px;
         line-height: 30px;
         text-indent: 20px;
       }
-      span:last-child{
+      span:last-child {
         font-size: 24px;
         height: 40px;
         line-height: 40px;

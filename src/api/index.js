@@ -225,3 +225,11 @@ export const gettoday = data => {
         data
     });
 };
+// 修改余额
+export const changeMoney = data => {
+    return request({
+        url: '/user/changeMoney',
+        method: 'post',
+        data
+    });
+};
