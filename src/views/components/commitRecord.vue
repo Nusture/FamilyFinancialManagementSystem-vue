@@ -2,7 +2,7 @@
   <div class="commitRecord">
     <div style="text-align:right;">
       <el-select v-model="year" placeholder="请选择年度" style="width:200px;" filterable clearable @change="getdata">
-        <el-option label="2018" value="2018" />
+        <!-- <el-option label="2018" value="2018" /> -->
         <el-option label="2019" value="2019" />
         <el-option label="2020" value="2020" />
         <el-option label="2021" value="2021" />
@@ -103,7 +103,7 @@ export default {
       });
       // const datas = []
       const heatmapPlot = new Heatmap(document.getElementById('commitRecord'), {
-        data: dates,
+        data: state.datas,
         height: 300,
         autoFit: false,
         xField: 'week',
@@ -129,14 +129,15 @@ export default {
         yAxis: {
           grid: null
         },
-        // color: ( {commits} ) => {
-        //   if (commits === 2) {
-        //     return 'red';
-        //   } else {
-        //   return 'yellow';
+        color: ( val ) => {
+          console.log(val,'val')
+          // if (commits === 2) {
+          //   return 'red';
+          // } else {
+          // return 'yellow';
 
-        //   }
-        // },
+          // }
+        },
         tooltip: {
           title: 'date',
           showMarkers: false

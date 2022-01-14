@@ -217,3 +217,11 @@ export const commitRecord = data => {
         data
     });
 };
+// 今日收入支出
+export const gettoday = data => {
+    return request({
+        url: '/user/today',
+        method: 'post',
+        data
+    });
+};
