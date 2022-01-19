@@ -1,9 +1,9 @@
 <template>
   <div class="Dashboard">
     <el-row :gutter="10">
-      <el-col :span="6">
+      <el-col :span="4">
         <div class="topleft">
-          <el-card class="box-card">
+          <el-card class="box-card topcard">
             <div class="title">{{$t('家庭信息')}}</div>
             <div class="content">
               <el-row :gutter="10">
@@ -45,24 +45,7 @@
           </el-card>
         </div>
       </el-col>
-      <el-col :span="9">
-        <div class="bottomright">
-          <el-card class="box-card">
-            <div class="title">各支出类别比例</div>
-            <Line />
-          </el-card>
-        </div>
-      </el-col>
-      <el-col :span="9">
-        <div class="bottomright">
-          <el-card class="box-card">
-            <div class="title">各收入类别比例</div>
-            <Liquid />
-          </el-card>
-        </div>
-      </el-col>
-
-      <el-col :span="6">
+      <el-col :span="5">
         <div class="topright">
           <el-card class="box-card">
             <div class="title">家庭成员收支情况</div>
@@ -70,7 +53,7 @@
           </el-card>
         </div>
       </el-col>
-      <el-col :span="6">
+      <el-col :span="5">
         <div class="bottomright">
           <el-card class="box-card">
             <div class="title">{{$t('家庭成员收入类别情况')}}</div>
@@ -78,7 +61,7 @@
           </el-card>
         </div>
       </el-col>
-      <el-col :span="6">
+      <el-col :span="5">
         <div class="bottomleft">
           <el-card class="box-card">
             <div class="title">{{$t('家庭成员支出类别情况')}}</div>
@@ -86,11 +69,27 @@
           </el-card>
         </div>
       </el-col>
-      <el-col :span="6">
+      <el-col :span="5">
         <div class="bottomright">
           <el-card class="box-card">
             <div class="title">{{$t('收支条目词云')}}</div>
             <WordCloud />
+          </el-card>
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div class="bottomright">
+          <el-card class="box-card">
+            <div class="title">各支出类别比例</div>
+            <Line />
+          </el-card>
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div class="bottomright">
+          <el-card class="box-card">
+            <div class="title">各收入类别比例</div>
+            <Liquid />
           </el-card>
         </div>
       </el-col>
@@ -145,10 +144,11 @@ import { gettoday, familyInfo, changeMoney, commitRecord } from '@/api/index';
 import { onMounted } from '@vue/runtime-core';
 import { ElMessage } from 'element-plus';
 import { getToken } from '@/utils/auth';
+import draggable from 'vuedraggable';
 // import { reactive } from 'vue';
 export default {
   name: 'dashboard',
-  components: { Line, Column, Pie, Area, CommitRecord, cardDragger, Funnel, Liquid, WordCloud, MoneyChange },
+  components: { Line, Column, Pie, Area, CommitRecord, cardDragger, Funnel, Liquid, WordCloud, MoneyChange, draggable },
   setup() {
     const state = reactive({
       drag: false,
@@ -176,7 +176,7 @@ export default {
     const family = () => {
       familyInfo().then(res => {
         state.money = res.data.money;
-        state.fullMoney = res.data.fullMoney
+        state.fullMoney = res.data.fullMoney;
         state.familyCode = res.data.familyCode;
       });
     };
@@ -222,10 +222,22 @@ export default {
     margin: 0;
     padding: 0;
   }
+  .el-col:first-child .el-card__body:first-child {
+    // border: 1px solid red;
+    padding: 20px 0;
+    .title {
+      text-indent: 10px;
+    }
+  }
   .el-col {
     margin: 0;
     padding: 0;
     margin-bottom: 15px;
+    // .topcard{
+    //   padding: 0 ;
+    //   margin: 0;
+    //   border: 1px solid red;
+    // }
   }
   .title {
     margin-bottom: 10px;
@@ -250,13 +262,17 @@ export default {
         padding-top: 10px;
         height: 30px;
         line-height: 30px;
-        text-indent: 20px;
+        text-indent: 5px;
       }
       span:last-child {
-        font-size: 24px;
+        font-size: 16px;
         height: 40px;
         line-height: 40px;
-        text-indent: 20px;
+        text-indent: 5px;
+        // 字体超出显示省略号
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }

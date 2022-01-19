@@ -127,15 +127,16 @@ const routes = [{
                 title2: 'UserMe'
             },
             component: () => import( /* webpackChunkName: "user" */ '../views/User.vue')
-        }, {
-            path: '/editor',
-            name: 'editor',
-            meta: {
-                title: '文本管理',
-                title2: 'TextEdit'
-            },
-            component: () => import( /* webpackChunkName: "editor" */ '../views/Editor.vue')
-        }
+        }, 
+        // {
+        //     path: '/editor',
+        //     name: 'editor',
+        //     meta: {
+        //         title: '文本管理',
+        //         title2: 'TextEdit'
+        //     },
+        //     component: () => import( /* webpackChunkName: "editor" */ '../views/Editor.vue')
+        // }
     ]
 }, {
     path: "/login",

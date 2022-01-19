@@ -12,7 +12,8 @@ export default {
   setup(props, { emit }) {
     const verify = ref(null);
     const state = reactive({
-      pool: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', // 字符串
+      // pool: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', // 包含字母数字
+      pool:'0123456789',
       width: 120,
       height: 40,
       imgCode: ''
@@ -92,22 +93,22 @@ export default {
         ctx.restore();
       }
       // 5.随机产生5条干扰线,干扰线的颜色要浅一点
-      for (let i = 0; i < 5; i++) {
-        ctx.beginPath();
-        ctx.moveTo(randomNum(0, state.width), randomNum(0, state.height));
-        ctx.lineTo(randomNum(0, state.width), randomNum(0, state.height));
-        ctx.strokeStyle = randomColor(180, 230);
-        ctx.closePath();
-        ctx.stroke();
-      }
+      // for (let i = 0; i < 5; i++) {
+      //   ctx.beginPath();
+      //   ctx.moveTo(randomNum(0, state.width), randomNum(0, state.height));
+      //   ctx.lineTo(randomNum(0, state.width), randomNum(0, state.height));
+      //   ctx.strokeStyle = randomColor(180, 230);
+      //   ctx.closePath();
+      //   ctx.stroke();
+      // }
       // 6.随机产生40个干扰的小点
-      for (let i = 0; i < 40; i++) {
-        ctx.beginPath();
-        ctx.arc(randomNum(0, state.width), randomNum(0, state.height), 1, 0, 2 * Math.PI);
-        ctx.closePath();
-        ctx.fillStyle = randomColor(150, 200);
-        ctx.fill();
-      }
+      // for (let i = 0; i < 40; i++) {
+      //   ctx.beginPath();
+      //   ctx.arc(randomNum(0, state.width), randomNum(0, state.height), 1, 0, 2 * Math.PI);
+      //   ctx.closePath();
+      //   ctx.fillStyle = randomColor(150, 200);
+      //   ctx.fill();
+      // }
       return imgCode;
     };
 

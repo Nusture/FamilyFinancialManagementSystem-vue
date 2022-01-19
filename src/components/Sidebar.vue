@@ -180,7 +180,6 @@ export default {
   top: 70px;
   bottom: 0;
   overflow-y: scroll;
-
   height: 100%;
   /* background: var(--bg) !important; */
 }
@@ -190,7 +189,7 @@ export default {
 }
 .sidebar-el-menu:not(.el-menu--collapse),
 .sidebar-el-menu {
-  width: 250px;
+  width: 200px;
   height: 100%;
   /* background: red !important; */
   background: var(--bg) !important;

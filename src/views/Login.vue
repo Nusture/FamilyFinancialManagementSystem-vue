@@ -197,7 +197,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  background-image: url('@/assets/img/bg3.png');
+  background-image: url('https://typora-1300833172.cos.ap-guangzhou.myqcloud.com/Typora%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%2Fkeyboard.png');
   background-size: 100% 100%;
 }
 .ms-login {

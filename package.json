@@ -14,17 +14,15 @@
     "element-plus": "1.0.2-beta.52",
     "font-awesome": "^4.7.0",
     "js-cookie": "^3.0.1",
-    "path": "^0.12.7",
     "qs": "^6.10.2",
     "screenfull": "^6.0.0",
     "vue": "^3.1.2",
-    "vue-contextmenu": "^1.5.10",
     "vue-cropperjs": "^5.0.0",
     "vue-i18n": "^9.0.0",
     "vue-router": "^4.0.10",
     "vue3-print-nb": "^0.1.4",
-    "vuex": "^4.0.2",
-    "wangeditor": "^4.7.4"
+    "vuedraggable": "^4.1.0",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.2.3",
