@@ -50,7 +50,7 @@
               <!-- <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
                                 <el-dropdown-item>项目仓库</el-dropdown-item>
               </a>-->
-              <el-dropdown-item command="userManage">{{$t('i18n.user')}}</el-dropdown-item>
+              <!-- <el-dropdown-item command="userManage">{{$t('i18n.user')}}</el-dropdown-item> -->
               <el-dropdown-item @click="open">
                 <span>{{$t('i18n.edituser')}}</span>
               </el-dropdown-item>

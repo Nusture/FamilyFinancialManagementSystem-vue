@@ -37,7 +37,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="收入描述">
+            <el-form-item :label="$t('收入描述')">
               <el-input v-model="form.note" placeholder="请输入收入描述" clearable style="width:100%"></el-input>
             </el-form-item>
           </el-col>
@@ -65,8 +65,8 @@
         </el-table-column>
         <el-table-column label="操作" align="center" width="150">
           <template v-slot="scope">
-            <el-button type="success" size="mini" @click="edit(scope.row)">编辑</el-button>
-            <el-button type="danger" size="mini" @click="del(scope.row)">删除</el-button>
+            <el-button type="success" size="mini" @click="edit(scope.row)">{{$t('编辑')}}</el-button>
+            <el-button type="danger" size="mini" @click="del(scope.row)">{{$t('删除')}}</el-button>
           </template>
         </el-table-column>
       </el-table>

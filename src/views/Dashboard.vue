@@ -48,7 +48,7 @@
       <el-col :span="5">
         <div class="topright">
           <el-card class="box-card">
-            <div class="title">家庭成员收支情况</div>
+            <div class="title">{{$t('家庭成员收支情况')}}</div>
             <Column />
           </el-card>
         </div>
@@ -80,7 +80,7 @@
       <el-col :span="12">
         <div class="bottomright">
           <el-card class="box-card">
-            <div class="title">各支出类别比例</div>
+            <div class="title">{{$t('各支出类别比例')}}</div>
             <Line />
           </el-card>
         </div>
@@ -88,7 +88,7 @@
       <el-col :span="12">
         <div class="bottomright">
           <el-card class="box-card">
-            <div class="title">各收入类别比例</div>
+            <div class="title">{{$t('各收入类别比例')}}</div>
             <Liquid />
           </el-card>
         </div>
@@ -242,7 +242,10 @@ export default {
   .title {
     margin-bottom: 10px;
     color: #64b5f6;
-    font-size: 24px;
+    font-size: 24px; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .content {
     width: 100%;

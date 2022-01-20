@@ -20,7 +20,11 @@ a {
     text-decoration: none
 }
 
-
+.el-form-item__label{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .content-box {
     position: absolute;
     left: 200px;
