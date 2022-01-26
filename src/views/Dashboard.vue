@@ -77,19 +77,27 @@
           </el-card>
         </div>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="left">
         <div class="bottomright">
           <el-card class="box-card">
-            <div class="title">{{$t('各支出类别比例')}}</div>
-            <Line />
+            <div class="title">
+              {{$t('各支出类别比例')}}
+              <span v-if="leftshow" style="float:right;margin-right:15px; cursor: pointer;" @click.stop="more('left')">更多</span>
+              <span v-if="!leftshow" style="float:right;margin-right:15px; cursor: pointer;" @click="cancel('left')">取消</span>
+            </div>
+            <Line :radius="radius" />
           </el-card>
         </div>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="right">
         <div class="bottomright">
           <el-card class="box-card">
-            <div class="title">{{$t('各收入类别比例')}}</div>
-            <Liquid />
+            <div class="title">
+              {{$t('各收入类别比例')}}
+              <span v-if="rightshow" style="float:right;margin-right:15px; cursor: pointer;" @click.stop="more('right')">更多</span>
+              <span v-if="!rightshow" style="float:right;margin-right:15px; cursor: pointer;" @click="cancel('right')">取消</span>
+            </div>
+            <Liquid :radius="radius2" />
           </el-card>
         </div>
       </el-col>
@@ -151,6 +159,10 @@ export default {
   components: { Line, Column, Pie, Area, CommitRecord, cardDragger, Funnel, Liquid, WordCloud, MoneyChange, draggable },
   setup() {
     const state = reactive({
+      left: 12,
+      leftshow: true,
+      right: 12,
+      rightshow: true,
       drag: false,
       year: '2021',
       yearlist: [],
@@ -160,6 +172,8 @@ export default {
       income: '',
       cost: '',
       visible: false,
+      radius: 160,
+      radius2: 160,
       chartdata: {}
     });
     const tagNameUpdate = () => {
@@ -195,6 +209,28 @@ export default {
         state.chartdata = data;
       }
     };
+    const more = val => {
+      if (val === 'left') {
+        state.left = 24;
+        state.leftshow = false;
+        state.radius = 80
+      } else if (val === 'right'){
+        state.right = 24
+        state.rightshow = false
+        state.radius2 = 80
+      }
+    };
+    const cancel = val =>{
+      if (val === 'left') {
+        state.left = 12;
+        state.leftshow = true;
+        state.radius = 160
+      } else if (val === 'right'){
+        state.right = 12
+        state.rightshow = true
+        state.radius2 = 160
+      }
+    }
     onMounted(() => {
       family();
       year();
@@ -207,7 +243,9 @@ export default {
     return {
       ...toRefs(state),
       tagNameUpdate,
-      getdata
+      getdata,
+      more,
+      cancel
     };
   }
 };
@@ -224,7 +262,7 @@ export default {
   }
   .el-col:first-child .el-card__body:first-child {
     // border: 1px solid red;
-    padding: 20px 0;
+    // padding: 20px 0;
     .title {
       text-indent: 10px;
     }
@@ -239,13 +277,19 @@ export default {
     //   border: 1px solid red;
     // }
   }
+  .el-card__body {
+    padding: 0;
+  }
   .title {
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
+    padding: 5px 0 ;
     color: #64b5f6;
-    font-size: 24px; 
+    text-indent: 15px;
+    font-size: 18px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    border-bottom: 1px solid #ccc;
   }
   .content {
     width: 100%;
@@ -255,7 +299,7 @@ export default {
       margin: 0;
     }
     .content_div {
-      height: 80px;
+      // height: 80px;
       background: #f8f8f8;
       border-radius: 5px;
       span {
@@ -269,7 +313,7 @@ export default {
       }
       span:last-child {
         font-size: 16px;
-        height: 40px;
+        // height: 40px;
         line-height: 40px;
         text-indent: 5px;
         // 字体超出显示省略号

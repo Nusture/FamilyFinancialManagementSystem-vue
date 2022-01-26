@@ -1,11 +1,18 @@
 <template>
   <div class="Line">
     <div id="LineG2" v-loading="loading" style="height:200px;">
-      <el-progress v-for="(item,index) in datalist" :key="index" type="circle" :width="70" :percentage="item.value" >
+      <el-progress
+        v-for="(item,index) in datalist"
+        :key="index"
+        type="circle"
+        :width="radius "
+        :percentage="item.value"
+        style="margin:20px 0px 0px 20px"
+      >
         <template #default="{ percentage }">
-        <span class="percentage-value">{{ (percentage*100).toFixed(2) }}%</span>
-        <span class="percentage-label">{{item.type}}</span>
-      </template>
+          <span class="percentage-value">{{ (percentage*100).toFixed(2) }}%</span>
+          <span class="percentage-label">{{item.type}}</span>
+        </template>
       </el-progress>
     </div>
   </div>
@@ -17,10 +24,12 @@ import { costByTypeWater } from '@/api/index';
 import { getToken } from '@/utils/auth';
 import { ElMessage } from 'element-plus';
 export default {
-  setup() {
+  props: ['radius'],
+  setup(props) {
     const state = reactive({
       loading: false,
-      datalist: []
+      datalist: [],
+      radius: null
     });
     // const lineG2 = data => {
     //   const liquidPlot = new Liquid('LineG2', {
@@ -37,11 +46,13 @@ export default {
     // };
     onMounted(() => {
       state.loading = true;
+      state.radius = props.radius;
+      console.log(props, 111);
       costByTypeWater({ token: getToken() })
         .then(res => {
           if (res.code === 200) {
             state.loading = false;
-            state.datalist = res.data
+            state.datalist = res.data;
           } else {
             ElMessage.warning('当前网络延迟较高');
           }

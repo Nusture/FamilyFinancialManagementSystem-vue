@@ -1,19 +1,18 @@
 <template>
   <div class="header" :style="{ '--bg': bgcolor,'--color':color }">
     <!-- 折叠按钮 -->
-    <div class="collapse-btn" @click="collapseChage">
-      <i v-if="!collapse" class="el-icon-s-fold"></i>
-      <i v-else class="el-icon-s-unfold"></i>
+    <div class="head_left">
+      <div class="logo">{{$t('i18n.moneySystem')}}</div>
     </div>
-    <div class="logo">{{$t('i18n.moneySystem')}}</div>
-    <div class="header-right">
-      <div class="header-user-con">
-        <div class="taggle" :title="newupdate">
-          <span style="font-size:14px;">
-            <span v-if="locale === 'zh-cn'" style="border-right:1px solid #fff;padding-right:5px">{{week[weekindex]}}</span>
-            <span v-else style="border-right:1px solid #fff;padding-right:5px">{{weeks[weekindex]}}</span>
-            {{ date }} &nbsp;{{time}}
-          </span>
+    <div class="head_btn">
+      <div class="collapse-btn" @click="collapseChage">
+        <i v-if="!collapse" class="el-icon-s-fold"></i>
+        <i v-else class="el-icon-s-unfold"></i>
+      </div>
+        <!-- 全屏 -->
+        <div class="screen">
+          <i v-if="showScreen" class="fa fa-expand" @click="screen"></i>
+          <i v-else class="fa fa-compress" @click="screen"></i>
         </div>
         <div class="taggle" :locale="$i18n.locale = locale">
           <el-switch v-model="value2" :active-text="$t('i18n.chinese')" :inactive-text="$t('i18n.english')" @change="language"></el-switch>
@@ -21,10 +20,16 @@
         <div class="taggle">
           <el-switch v-model="value" :active-text="$t('i18n.light')" :inactive-text="$t('i18n.dark')" @change="change"></el-switch>
         </div>
-        <!-- 全屏 -->
-        <div class="screen">
-          <i v-if="showScreen" class="fa fa-expand" @click="screen"></i>
-          <i v-else class="fa fa-compress" @click="screen"></i>
+    </div>
+    <div class="header-right">
+      <div class="header-user-con">
+        
+      <div class="taggle" :title="newupdate">
+          <span style="font-size:14px;">
+            <span v-if="locale === 'zh-cn'" style="border-right:1px solid #fff;padding-right:5px">{{week[weekindex]}}</span>
+            <span v-else style="border-right:1px solid #fff;padding-right:5px">{{weeks[weekindex]}}</span>
+            {{ date }} &nbsp;{{time}}
+          </span>
         </div>
         <!-- 消息中心 -->
         <!-- <div class="btn-bell">
@@ -209,7 +214,7 @@ export default {
               if (state.formInline.newPassword !== state.formInline.configPassword) {
                 ElMessage.warning('两次新密码不一致');
               } else {
-                changePassword({ token: getToken(),password: state.formInline.configPassword }).then(res => {
+                changePassword({ token: getToken(), password: state.formInline.configPassword }).then(res => {
                   if (res.code === 200) {
                     ElMessage.success('修改成功,请重新登录');
                     router.push('/login');
@@ -280,6 +285,16 @@ export default {
   font-size: 22px;
   color: #fff;
   background: var(--bg);
+  display: flex;
+  .head_left{
+    flex: 0 200px;
+  }
+  .head_btn {
+    // border: 1px solid red;
+    flex: 0 calc(100vw - 550px);
+    display: flex;
+    line-height: 70px;
+  }
 }
 .collapse-btn {
   float: left;
@@ -289,13 +304,17 @@ export default {
   background: var(--bg);
 }
 .header .logo {
-  float: left;
-  width: 250px;
+  // float: left;
+  // width: 250px;
+  text-align: center;
   line-height: 70px;
 }
 .header-right {
-  float: right;
+  text-align: right;
   padding-right: 50px;
+  flex: 0 350px;
+  padding-left: 20px;
+  // border: 1px solid red;
 }
 .header-user-con {
   display: flex;
@@ -350,9 +369,9 @@ export default {
   text-align: center;
 }
 .screen {
-  margin: 0 15px;
+  // margin: 0 15px;
 }
 .taggle {
-  margin: 0 10px;
+  // margin: 0 10px;
 }
 </style>
