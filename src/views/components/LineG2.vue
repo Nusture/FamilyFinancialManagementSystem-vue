@@ -6,11 +6,11 @@
         :key="index"
         type="circle"
         :width="radius "
-        :percentage="item.value"
+        :percentage="item.value*100"
         style="margin:20px 0px 0px 20px"
       >
         <template #default="{ percentage }">
-          <span class="percentage-value">{{ (percentage*100).toFixed(2) }}%</span>
+          <span class="percentage-value">{{ (percentage).toFixed(2) }}%</span>
           <span class="percentage-label">{{item.type}}</span>
         </template>
       </el-progress>
