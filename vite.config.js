@@ -33,7 +33,7 @@ export default defineConfig({
     open: true,
     proxy: {
       '/api': {
-        target: 'http://47.107.103.82:8081',
+        target: 'http://localhost:8081/',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, ''),
         ws: false
