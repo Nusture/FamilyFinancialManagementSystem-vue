@@ -304,7 +304,7 @@ export default {
     }
     .text{
       line-height: 80px;
-      font-family: 'STXingkai';
+      font-family: 'Microsoft YaHei';
     }
   }
   .content{

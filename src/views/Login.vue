@@ -2,6 +2,7 @@
   <div class="login-wrap">
     <div class="ms-login">
       <div class="ms-title">家庭理财管理系统</div>
+      <span color="#9ABCDA">用户名:admin 密码:123456</span>
       <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
         <el-form-item prop="username">
           <el-input v-model="param.username" placeholder="用户名" @blur="userchange">
