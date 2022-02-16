@@ -2,42 +2,27 @@
   <div class="login-wrap">
     <div class="ms-login">
       <div class="ms-title">家庭理财管理系统</div>
-      <span color="#9ABCDA">用户名:admin 密码:123456</span>
       <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
+        <div class="ms-info">用户名:admin 密码:123456</div>
         <el-form-item prop="username">
-          <el-input v-model="param.username" placeholder="用户名" @blur="userchange">
-            <template #prepend>
-              <el-button icon="el-icon-user"></el-button>
-            </template>
+          <el-input v-model="param.username" prefix-icon="el-icon-user" placeholder="用户名" @blur="userchange">
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input type="password" placeholder="密码" v-model="param.password" @keyup.enter="submitForm()">
-            <template #prepend>
-              <el-button icon="el-icon-lock"></el-button>
-            </template>
+          <el-input type="password" placeholder="密码" v-model="param.password" prefix-icon="el-icon-lock" @keyup.enter="submitForm()">
           </el-input>
         </el-form-item>
         <el-form-item v-if="param.show === true" prop="phone">
-          <el-input type="nummber" placeholder="电话" v-model="param.phone" @keyup.enter>
-            <template #prepend>
-              <el-button icon="el-icon-phone"></el-button>
-            </template>
+          <el-input type="nummber" placeholder="电话" v-model="param.phone" prefix-icon="el-icon-phone" @keyup.enter>
           </el-input>
         </el-form-item>
         <el-form-item v-if="param.show === true">
-          <el-input placeholder="家庭码(选填)" v-model="param.familyCode" @keyup.enter>
-            <template #prepend>
-              <el-button icon="el-icon-help"></el-button>
-            </template>
+          <el-input placeholder="家庭码(选填)" v-model="param.familyCode" prefix-icon="el-icon-help" @keyup.enter>
           </el-input>
         </el-form-item>
         <el-form-item prop="verify" class="imgcode">
           <div class="verifyCode">
-            <el-input type="text" placeholder="验证码" v-model="param.verify" @keyup.enter="submitForm()">
-              <template #prepend>
-                <el-button icon="el-icon-lock"></el-button>
-              </template>
+            <el-input type="text" placeholder="验证码" v-model="param.verify" prefix-icon="el-icon-chat-line-square" @keyup.enter="submitForm()">
               <template #append>
                 <span style="width:80px">
                   <Verifycode @code="imgCode" />
@@ -208,19 +193,24 @@ export default {
   width: 400px;
   // height: 400px;
   margin: -250px 0 0 -175px;
-  border-radius: 5px;
+  border-radius:12px;
   background: rgba(255, 255, 255, 0.3);
   overflow: hidden;
   .ms-title {
     width: 100%;
-    height: 80px;
-    line-height: 80px;
-    font-size: 18px;
-    font-weight: bold;
+    height: 117px;
+    line-height: 117px;
+    font-size: 30px;
+    font-weight: 400;
     text-align: center;
-    font-size: 20px;
     color: #fff;
     background: #148be4;
+  }
+  .ms-info {
+    padding-bottom: 20px;
+    text-align: center;
+    color: #9abcda;
+    font-size: 14px;
   }
   .ms-content {
     padding: 30px 30px;
@@ -255,6 +245,7 @@ export default {
     display: block;
     width: 100%;
     margin: 10px 0;
+    background: #148be4 !important;
   }
 }
 .login-tips {

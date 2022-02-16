@@ -115,7 +115,7 @@ export default {
     line-height: 40px;
     padding: 0 20px;
     margin-left: 30px;
-    background-color: #409eff;
+    background-color: #409eff!important;
     color: #fff;
     font-size: 14px;
     border-radius: 4px;

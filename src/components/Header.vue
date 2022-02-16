@@ -17,9 +17,9 @@
         <div class="taggle" :locale="$i18n.locale = locale">
           <el-switch v-model="value2" :active-text="$t('i18n.chinese')" :inactive-text="$t('i18n.english')" @change="language"></el-switch>
         </div>
-        <div class="taggle">
+<!--        <div class="taggle">
           <el-switch v-model="value" :active-text="$t('i18n.light')" :inactive-text="$t('i18n.dark')" @change="change"></el-switch>
-        </div>
+        </div>-->
     </div>
     <div class="header-right">
       <div class="header-user-con">
@@ -69,20 +69,20 @@
       <div>
         <el-form class="demo-form-inline" ref="loginForm" :model="formInline" :rules="rules" label-width="100px">
           <el-form-item label="原密码" prop="oldPassword">
-            <el-input type="password" v-model="formInline.oldPassword" placeholder="请输入" @blur="getpassword"></el-input>
+            <el-input type="password" v-model="formInline.oldPassword" placeholder="请输入原密码" @blur="getpassword"></el-input>
           </el-form-item>
           <el-form-item label="新密码" prop="newPassword">
-            <el-input type="password" v-model="formInline.newPassword" placeholder="请输入"></el-input>
+            <el-input type="password" v-model="formInline.newPassword" placeholder="请输入新密码"></el-input>
           </el-form-item>
           <el-form-item label="确认新密码" prop="configPassword">
-            <el-input type="password" v-model="formInline.configPassword" placeholder="请输入"></el-input>
+            <el-input type="password" v-model="formInline.configPassword" placeholder="请再次输入新密码"></el-input>
           </el-form-item>
         </el-form>
       </div>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="submitchange">确定</el-button>
+          <el-button style="background: #148be4 !important;" type="primary" @click="submitchange">确定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -148,7 +148,7 @@ export default {
     };
     const change = () => {
       if (state.value === true) {
-        state.bgcolor = '#56B185';
+        state.bgcolor = '#00BFFF';
         stores.commit('common/getSidebarbg', state.bgcolor);
       } else {
         state.bgcolor = '#242F42';

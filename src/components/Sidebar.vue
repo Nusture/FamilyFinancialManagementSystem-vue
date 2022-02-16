@@ -55,7 +55,7 @@ import { useRoute } from 'vue-router';
 export default {
   setup() {
     const state = reactive({
-      bgcolor: '#56B185',
+      bgcolor: '#1E9FE1',
       color: '#fff'
     });
     const items = [
@@ -192,7 +192,7 @@ export default {
   width: 200px;
   height: 100%;
   /* background: red !important; */
-  background: var(--bg) !important;
+  background: #28333E !important;
 }
 .sidebar > ul {
   height: 100%;
@@ -212,10 +212,10 @@ export default {
 .menubtn,
 .el-submenu__title,
 .el-menu-item {
-  background-color: var(--bg) !important;
+  background-color: #28333E !important;
   color: var(--color) !important;
 }
 .sidebar .is-active {
-  background: #6bd19f !important;
+  background: #1E9FE1 !important;
 }
 </style>

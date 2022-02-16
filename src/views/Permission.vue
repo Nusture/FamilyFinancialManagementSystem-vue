@@ -35,6 +35,6 @@ p {
     text-indent: 2em;
 }
 .logout {
-    color: #409eff;
+    color: #409eff!important;
 }
 </style>

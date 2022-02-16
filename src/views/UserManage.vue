@@ -5,7 +5,7 @@
         <img :src="fileurl" />
       </div>
       <div class="text">
-        欢饮您! {{formLabelAlign.name}}, 祝您开心每一天!
+        欢迎您，{{formLabelAlign.name}}！
       </div>
     </div>
     <div class="content">
@@ -46,10 +46,10 @@
                 <el-input :disabled="show" v-model="formLabelAlign.signature" style="width:90%" maxlength="20" show-word-limit></el-input>
               </el-form-item>
               <el-form-item>
-                <div class="btn">
-                  <el-button v-if="show === true " type="text" @click="show = false">{{$t('编辑资料')}}</el-button>
-                  <el-button v-else type="text" @click="show = true">{{$t('取消')}}</el-button>
-                  <el-button size="mini" type="primary" v-if="!show" @click="submit">{{$t('保存')}}</el-button>
+                <div class="login-btn">
+                  <el-button v-if="show === true " type="primary" @click="show = false">{{$t('编辑资料')}}</el-button>
+                  <el-button v-else type="primary" @click="show = true">{{$t('取消')}}</el-button>
+                  <el-button  type="primary"  v-if="!show" @click="submit">{{$t('保存')}}</el-button>
                 </div>
               </el-form-item>
             </el-form>
@@ -194,6 +194,7 @@ import { getUserInfos, changeUserInfos } from '@/api/index';
 import { getToken } from '@/utils/auth';
 import { ElMessage } from 'element-plus';
 import fileurls from '@/assets/img/admin.jpg';
+
 export default {
   name: 'basetable',
   components: {
@@ -283,6 +284,13 @@ export default {
 </script>
 
 <style lang="scss">
+.login-btn {
+  // text-align: center;
+  .el-button {
+    margin: 10px 10px;
+    background: #148be4 !important;
+  }
+}
 .BaseTable {
   width: 100%;
   height: calc(100vh - 140px);
@@ -304,7 +312,7 @@ export default {
     }
     .text{
       line-height: 80px;
-      font-family: 'Microsoft YaHei';
+      font-family: '宋体';
     }
   }
   .content{

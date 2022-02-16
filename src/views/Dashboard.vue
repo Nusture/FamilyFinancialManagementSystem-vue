@@ -20,7 +20,7 @@
                       <el-input v-model="fullMoney" type="number" />
                       <div style="text-align: right; margin-top: 5px">
                         <el-button size="mini" type="text" @click="visible = false">{{ $t('取消') }}</el-button>
-                        <el-button type="primary" size="mini" @click="tagNameUpdate">{{ $t('保存') }}</el-button>
+                        <el-button style="background: #148be4 !important;" type="primary" size="mini" @click="tagNameUpdate">{{ $t('保存') }}</el-button>
                       </div>
                       <template #reference>
                         <span @click="visible = true">{{money}}</span>
@@ -164,7 +164,7 @@ export default {
       right: 12,
       rightshow: true,
       drag: false,
-      year: '2021',
+      year: '2022',
       yearlist: [],
       familyCode: '',
       money: '',

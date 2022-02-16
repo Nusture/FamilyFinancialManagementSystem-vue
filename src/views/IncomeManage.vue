@@ -43,9 +43,9 @@
           </el-col>
           <el-col :span="24">
             <el-form-item style="text-align:right;width:99%;margin-top:10px">
-              <el-button type="primary" @click="getdatalist">{{$t('查询')}}</el-button>
-              <el-button type="primary" @click="resetForm">{{$t('重置')}}</el-button>
-              <el-button type="primary" @click="addOutlay">{{$t('新增')}}</el-button>
+              <el-button style="background: #148be4 !important;" type="primary" @click="getdatalist">{{$t('查询')}}</el-button>
+              <el-button style="background: #148be4 !important;" type="primary" @click="resetForm">{{$t('重置')}}</el-button>
+              <el-button style="background: #148be4 !important;" type="primary" @click="addOutlay">{{$t('新增')}}</el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -114,7 +114,7 @@
         <template #footer>
           <span class="dialog-footer">
             <el-button @click="close">{{$t('取消')}}</el-button>
-            <el-button type="primary" @click="submitOutlay">{{$t('确定')}}</el-button>
+            <el-button style="background: #148be4 !important;" type="primary" @click="submitOutlay">{{$t('确定')}}</el-button>
           </span>
         </template>
       </el-dialog>

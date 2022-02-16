@@ -40,8 +40,8 @@
           </el-col>
           <el-col :span="24">
             <el-form-item style="text-align:right;width:99%;margin-top:10px">
-              <el-button type="primary" @click="getdatalist">{{$t('查询')}}</el-button>
-              <el-button type="primary" @click="resetForm">{{$t('重置')}}</el-button>
+              <el-button style="background: #148be4 !important;" type="primary" @click="getdatalist">{{$t('查询')}}</el-button>
+              <el-button style="background: #148be4 !important;" type="primary" @click="resetForm">{{$t('重置')}}</el-button>
             </el-form-item>
           </el-col>
         </el-row>

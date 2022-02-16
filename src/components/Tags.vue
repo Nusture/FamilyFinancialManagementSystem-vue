@@ -153,8 +153,8 @@ export default {
   cursor: pointer;
   height: 23px;
   line-height: 23px;
-  background: #56b185 !important;
-  border: 1px solid #56b185 !important;
+  background: #00BFFF !important;
+  border: 1px solid #fff !important;
   padding: 0 5px 0 12px;
   vertical-align: middle;
   color: #666;
@@ -198,8 +198,8 @@ export default {
   z-index: 10;
 }
 .tags-close-box_btn {
-  background: #56b185 !important;
-  border: 1px solid #56b185 !important;
+  background: #00BFFF !important;
+  border: 1px solid #00BFFF !important;
 }
 /* .contextmenu {
   border: 1px solid red;
